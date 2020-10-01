@@ -1,0 +1,23 @@
+﻿
+<div style="padding: 10px; margin: 0 0 10px 0; border-radius: 10px; max-width: 150px; background-image: linear-gradient(rgb(100, 245, 231), rgb(73, 173, 239)">
+    <div class="row">
+        <div class="col-3">
+            <img src="images/@ImageUrl" style="max-height:50px" />
+        </div>
+        <div class="col-9">
+            <span>@Username Redeemed @Item</span>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Username { get; set; }
+
+    [Parameter]
+    public string Item { get; set; }
+
+    [Parameter]
+    public string ImageUrl { get; set; }
+}

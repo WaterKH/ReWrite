@@ -1,0 +1,56 @@
+﻿<div class="simple-form blazored-modal-content">
+
+    <div class="form-group">
+        <div class="row">
+            @foreach (var button in Options)
+            {
+                <KHButtonComponent HostName="@HostName"
+                                   Name="@button.Name"
+                                   ParentName="@ParentName"
+                                   Cost="@button.Cost"
+                                   ViewerName="@ViewerName"
+                                   Value="@button.Value"
+                                   ManipulationType="@button.ManipulationType"
+                                   ImageUrl="@button.ImageUrl"
+                                   Description="@button.Description"
+                                   Method="@button.Method"
+                                   IsDisabled="@button.IsDisabled"/>
+            }
+        </div>
+    </div>
+
+    <button @onclick="BlazoredModal.Cancel" class="btn btn-secondary">Cancel</button>
+</div>
+
+@code { 
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; }
+
+
+    [Parameter]
+    public string HostName { get; set; }
+
+    [Parameter]
+    public string ViewerName { get; set; }
+
+    [Parameter]
+    public string ParentName { get; set; }
+
+    [Parameter]
+    public List<KH2FMCrowdControl.Data.KHButtonTemplate> Options { get; set; }
+
+    protected override void OnInitialized()
+    {
+        KH2FMCrowdControl.Data.MemoryService.OnTimerChanged += CloseModal;
+    }
+
+    protected async Task CloseModal(object sender, ChangeEventArgs e)
+    {
+        await BlazoredModal.Cancel();
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+}

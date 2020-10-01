@@ -1,0 +1,135 @@
+﻿@page "/crowdcontrolhost"
+
+@using KH2FMCrowdControl.Data
+@using KH2FMCrowdControl.Twitch
+@inject TwitchService TwitchService
+@inject MemoryService MemoryService
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IToastService ToastService
+
+<h1>KH2FM Crowd Control (Host View)</h1>
+
+<div>@username Connection Status: @connectionStatus</div>
+
+<div class="row">
+    <div class="col-3">
+        <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
+    </div>
+    <div class="col-3">
+        <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
+    </div>
+</div>
+
+@if (twitchApi != null)
+{
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-3">
+
+        </div>
+
+        <div class="col-4" style="max-height: 400px; overflow: auto; display: flex; flex-direction: column-reverse;">
+            @foreach (var alert in alerts)
+            {
+                <KHAlert Username="@alert.Viewer"
+                         Item="@alert.Item"
+                         ImageUrl="@alert.ImageUrl" />
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private string username;
+    private string clientId;
+    private string connectionStatus = "Disconnected";
+    private string connectionId;
+
+    private TwitchApi twitchApi;
+
+    private List<KH2FMCrowdControl.Data.KHAlert> alerts = new List<KH2FMCrowdControl.Data.KHAlert>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        MemoryService.OnAlertReceived += CreateAlert;
+        MessageHub.OnConnectionStatusChanged += UpdateConnectionStatus;
+
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        username = await localStorage.GetItemAsync<string>("username");
+        clientId = await localStorage.GetItemAsync<string>("clientId");
+
+        if (DbContext.Hosts.ContainsKey(username))
+            connectionStatus = DbContext.Hosts[username].ConnectionId == string.Empty ? "Disconnected" : "Connected";
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    public async Task CreateAlert(object sender, AlertArgs alertArgs)
+    {
+        alerts.Add(new KH2FMCrowdControl.Data.KHAlert { Viewer = alertArgs.Viewer, Item = alertArgs.Item, ImageUrl = alertArgs.ImageUrl });
+
+        if (alerts.Count > 5)
+            alerts.RemoveAt(0);
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    public async Task UpdateConnectionStatus(object sender, MessageHubArgs messageHubArgs)
+    {
+        connectionStatus = messageHubArgs.ConnectionStatus;
+        connectionId = messageHubArgs.ConnectionId;
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    private async Task StartHosting()
+    {
+        if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
+        {
+            twitchApi = TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
+
+            await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
+
+            await InvokeAsync(() =>
+            {
+                base.StateHasChanged();
+            });
+        }
+        else
+        {
+            await Task.Run(() => ToastService.ShowError("Please Connect the Client First"));
+        }
+    }
+
+    private async Task StopHosting()
+    {
+        TwitchService.RemoveHost(username);
+
+        await Task.Run(() => ToastService.ShowSuccess("Stopped Hosting"));
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+}

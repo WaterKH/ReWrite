@@ -1,0 +1,123 @@
+﻿@page "/crowdcontrolviewer"
+
+@using KH2FMCrowdControl.Data
+@using KH2FMCrowdControl.Twitch
+@inject TwitchService TwitchService
+@inject MemoryService MemoryService
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IToastService ToastService
+
+<h1>KH2FM Crowd Control (Watcher View)</h1>
+
+@if (twitchApi == null)
+{
+    <div>Loading...</div>
+}
+else
+{
+    <h2>@viewerUsername Point Total: @(TwitchService.GetUsersCoins(hostUsername, viewerUsername))</h2>
+
+    <br />
+    <br />
+
+    <TabControl>
+
+        @foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
+        {
+            <TabPage Text="@group.ToString()">
+                <div class="row">
+                    @foreach (var misc in MemoryService.CurrentOptions[hostUsername][group].Where(x => x.IsActive))
+                    {
+                        @if (misc.Cost == 0)
+                        {
+                            <KHButtonComponent HostName="@hostUsername"
+                                               Name="@misc.Name"
+                                               Cost="0"
+                                               ImageUrl="@misc.ImageUrl"
+                                               Description="@misc.Description"
+                                               Method="@(() => DisplayModal(misc.SubMethodParams, misc.Name))"
+                                               IsDisabled="@misc.IsDisabled" />
+                        }
+                        else
+                        {
+                            <KHButtonComponent HostName="@hostUsername"
+                                               Name="@misc.Name"
+                                               Cost="@misc.Cost"
+                                               ViewerName="@viewerUsername"
+                                               Value="@misc.Value"
+                                               ManipulationType="@misc.ManipulationType"
+                                               ImageUrl="@misc.ImageUrl"
+                                               Description="@misc.Description"
+                                               Method="@misc.Method"/>
+                        }
+                    }
+                </div>
+            </TabPage>
+        }
+    </TabControl>
+}
+
+@code {
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    private int viewerCoins = 500;
+    private string viewerUsername;
+    private string hostUsername;
+
+    private TwitchApi twitchApi;
+    private TwitchUserInfo twitchUserInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        TwitchService.OnUserCoinsUpdated += UpdateUserCoins;
+
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        twitchUserInfo = await TwitchService.GetUserInfo(NavigationManager);
+
+        viewerUsername = twitchUserInfo.login;
+
+        // Update this to retrieve from the user list in the service
+        hostUsername = await localStorage.GetItemAsync<string>("username");
+
+        twitchApi = TwitchService.GetTwitchApi(hostUsername);
+
+        await MemoryService.InitializeOptions(hostUsername);
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    protected async Task UpdateUserCoins(object sender, ChangeEventArgs e)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+    
+    protected void DisplayModal(List<KHButtonTemplate> values, string parentName)
+    {
+        var parameterName = "Options";
+        var parameters = new ModalParameters();
+
+        parameters.Add(parameterName, values);
+        parameters.Add("ParentName", parentName);
+        parameters.Add("HostName", hostUsername);
+        parameters.Add("ViewerName", viewerUsername);
+
+        Modal.Show<KHModalItems>(parameterName, parameters);
+    }
+}

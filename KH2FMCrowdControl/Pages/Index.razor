@@ -1,0 +1,96 @@
+﻿@page "/"
+@using KH2FMCrowdControl.Data
+
+@inject TwitchService TwitchService
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<h1>Welcome to Re:Write</h1>
+<h4>A crowd control project by waterkh</h4>
+
+<br />
+
+<div class="row">
+    <div class="col-6">
+
+        <div>
+            If you are a viewer, please select a streamer who is hosting:
+        </div>
+
+        <br />
+        <div class="col-6">
+            <select class="form-control d-flex" @onchange="@((ChangeEventArgs e) => OnStreamerSelectedAsync(e.Value.ToString()))">
+                <option value="" hidden disabled selected>Select your streamer</option>
+                @foreach (var host in DbContext.Hosts.Where(x => x.Value.IsHosting))
+                {
+                    <option value="@host.Key">@host.Key</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="col-6">
+
+        <div>
+            If you are a host, please enter your Twitch username along with your client Id:
+        </div>
+
+        <div class="col-6">
+            <input type="text" class="form-control d-flex" aria-describedby="usernameHelp" placeholder="Enter Twitch Username" @onchange="@((ChangeEventArgs e) => username = e.Value.ToString())">
+        </div>
+        <div class="col-6">
+            <input type="text" class="form-control d-flex" aria-describedby="clientIdHelp" placeholder="Enter ClientId" @onchange="@((ChangeEventArgs e) => clientId = e.Value.ToString())">
+        </div>
+        
+        <br />
+
+        <div class="col-3">
+            <button class="form-control d-flex" @onclick="OnHostClickedAsync">Host</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private string clientId;
+    private string username;
+
+
+    protected async Task OnStreamerSelectedAsync(string username)
+    {
+        await this.CreateCookie("username", username);
+
+        var url = TwitchService.RedirectToViewer(username);
+
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected async Task OnHostClickedAsync()
+    {
+        await this.CreateCookie("username", username);
+        await this.CreateCookie("clientId", clientId);
+
+        var url = TwitchService.RedirectToCreateHost(clientId);
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected async Task CreateCookie(string name, string value)
+    {
+        await localStorage.SetItemAsync(name, value);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        TwitchService.OnHostsChanged += UpdateHostList;
+
+        await base.OnInitializedAsync();
+    }
+
+    protected async Task UpdateHostList(object sender, ChangeEventArgs e)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+}

@@ -1,0 +1,121 @@
+﻿@using KH2FMCrowdControl.Data
+
+@inject IToastService ToastService
+@inject TwitchService TwitchService 
+@inject MemoryService MemoryService
+
+<div class="col-3" style="padding-left: 0px; padding-right: 0px">
+    <h2 style="text-align: center;">@Name</h2>
+    <button class="kh-button btn btn-outline-info" @onclick="@(async () => await ButtonClick())" disabled="@(IsDisabled)">
+        <div class="child-kh-button" style="background: url(images/@ImageUrl)" />
+        <div class="overlay">
+            <div class="kh-text">@ToCostString(Cost)</div>
+        </div>
+    </button>
+    <br />
+    <div style="text-align: center; padding-left: 15px; padding-right: 15px">@Description</div>
+</div>
+
+
+@code {
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; }
+
+
+    [Parameter]
+    public string ViewerName { get; set; }
+
+    [Parameter]
+    public string HostName { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string ParentName { get; set; }
+
+    [Parameter]
+    public string ImageUrl { get; set; }
+
+    [Parameter]
+    public int Cost { get; set; }
+
+    [Parameter]
+    public object Value { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    [Parameter]
+    public Waterkh.Common.Memory.ManipulationType ManipulationType { get; set; }
+
+    [Parameter]
+    public string Description { get; set; }
+
+    [Parameter]
+    public EventCallback<MemoryParameters> Method { get; set; }
+
+    //[Parameter]
+    //public EventCallback<int> CurrentPointTotalChanged { get; set; }
+
+
+    protected string ToCostString(int cost)
+    {
+        return cost == 0 ? "Click For More Options" : $"Spend {cost} Points";
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        MemoryService.OnTimerChanged += UpdateTimer;
+
+        return base.OnInitializedAsync();
+    }
+
+    protected async Task ButtonClick()
+    {
+        if (Cost == 0)
+        {
+            await Method.InvokeAsync(new MemoryParameters { HostName = HostName, Value = Value, ManipulationType = ManipulationType });
+
+            return;
+        }
+
+        if(IsDisabled)
+        {
+            ToastService.ShowError("Option is not Enabled..");
+
+            return;
+        }
+
+        if (TwitchService.GetUsersCoins(HostName, ViewerName) >= Cost)
+        {
+            await Method.InvokeAsync(new MemoryParameters { HostName = HostName, Value = Value, ManipulationType = ManipulationType });
+
+            if (Cost > 0)
+            {
+                TwitchService.SetUsersCoins(HostName, ViewerName, Cost);
+
+                MemoryService.SendAlert(this, new AlertArgs { Viewer = ViewerName, Item = Name, ImageUrl = ImageUrl });
+
+                MemoryService.CreateTimer(HostName, ParentName, Constants.Cooldowns[Cost]);
+
+                ToastService.ShowSuccess("Option Redeemed Successfully!");
+            }
+        }
+        else
+        {
+            ToastService.ShowError("Not Enough Points!");
+        }
+
+        if (BlazoredModal != null)
+            await BlazoredModal.Close();
+    }
+
+    protected async Task UpdateTimer(object sender, ChangeEventArgs e)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+}
