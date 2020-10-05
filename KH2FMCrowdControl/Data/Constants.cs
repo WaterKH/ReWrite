@@ -8,28 +8,13 @@ namespace KH2FMCrowdControl.Data
 
         #region Costs & Cooldowns
 
-        public static int Cost10 = 10;
-        public static int Cost25 = 25;
-        public static int Cost50 = 50;
-        public static int Cost75 = 75;
         public static int Cost100 = 100;
-        public static int Cost150 = 150;
         public static int Cost200 = 200;
         public static int Cost250 = 250;
         public static int Cost300 = 300;
-        public static int Cost350 = 350;
         public static int Cost400 = 400;
-        public static int Cost450 = 450;
         public static int Cost500 = 500;
-        public static int Cost550 = 550;
-        public static int Cost600 = 600;
-        public static int Cost650 = 650;
-        public static int Cost700 = 700;
         public static int Cost750 = 750;
-        public static int Cost800 = 800;
-        public static int Cost850 = 850;
-        public static int Cost900 = 900;
-        public static int Cost950 = 950;
         public static int Cost1000 = 1000;
         public static int Cost2000 = 2000;
         public static int Cost3000 = 3000;
@@ -40,7 +25,7 @@ namespace KH2FMCrowdControl.Data
         // Key: Cost - Value: Cooldown value (in seconds)
         public static Dictionary<int, int> Cooldowns = new Dictionary<int, int>
         {
-            { Cost10, 5 }, { Cost25, 7 }, { Cost50, 10 }, { Cost75, 12 }, { Cost100, 15 }, { Cost250, 20 }, { Cost500, 25 }, 
+            { Cost100, 5 }, { Cost200, 8 }, { Cost250, 10 }, { Cost300, 12 }, { Cost400, 15 },{ Cost500, 25 }, 
             { Cost750, 45 }, { Cost1000, 60 }, { Cost2000, 75 }, { Cost3000, 100 }, { Cost4000, 115 }, { Cost5000, 120 }, 
             { Cost10000, 180 }
         };
@@ -93,6 +78,7 @@ namespace KH2FMCrowdControl.Data
         public static string UltimaWeapon = "Ultima Weapon";
         public static string TwoBecomeOne = "Two Become One";
         public static string WinnersProof = "Winner's Proof";
+        public static string FrontierOfUltima = "Frontier of Ultima";
 
         #endregion Keyblades
 
@@ -224,6 +210,28 @@ namespace KH2FMCrowdControl.Data
         public static string ExecutivesRing = "Executive's Ring";
 
         #endregion Accessories
+
+        #region Drives
+
+        public static string Normal = "Normal";
+        public static string ValorForm = "Valor Form";
+        public static string WisdomForm = "Wisdom Form";
+        public static string LimitForm = "Limit Form";
+        public static string MasterForm = "Master Form";
+        public static string FinalForm = "Final Form";
+        public static string Antiform = "Antiform";
+        public static string Mickey = "Mickey";
+
+        #endregion Drives
+
+        #region Summons
+
+        public static string UkuleleCharm = "Ukulele Charm";
+        public static string BaseballCharm = "Baseball Charm";
+        public static string LampCharm = "Lamp Charm";
+        public static string FeatherCharm = "Feather Charm";
+
+        #endregion Summons
 
         public static string Give(string value)
         {

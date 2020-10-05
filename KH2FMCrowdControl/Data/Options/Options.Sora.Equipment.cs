@@ -7,14 +7,14 @@ namespace KH2FMCrowdControl.Data
     {
         public async Task<List<KHButtonTemplate>> InitializeSoraEquipmentOptions()
         {
-            var items = new List<KHButtonTemplate>();
+            var options = new List<KHButtonTemplate>();
 
-            items.AddRange(await this.InitializeSoraWeaponsOptions());
-            items.AddRange(await this.InitializeSoraArmorOptions());
-            items.AddRange(await this.InitializeSoraAccessoriesOptions());
-            items.AddRange(await this.InitializeSoraItemsOptions());
+            options.AddRange(await this.InitializeSoraWeaponsOptions());
+            options.AddRange(await this.InitializeSoraArmorOptions());
+            options.AddRange(await this.InitializeSoraAccessoriesOptions());
+            options.AddRange(await this.InitializeSoraItemsOptions());
 
-            return items;
+            return options;
         }
     }
 }

@@ -11,7 +11,19 @@ namespace KH2FMCrowdControl.Data
     {
         public async Task<List<KHButtonTemplate>> InitializeDonaldItemsOptions()
         {
-            var items = new List<KHButtonTemplate> {
+            var items = new List<KHButtonTemplate>
+            {
+                new KHButtonTemplate { Name = Constants.None, Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set to Nothing", ImageUrl = "" },
+                new KHButtonTemplate { Name = Constants.Potion, Cost = Constants.Cost100, Value = 1, ManipulationType = ManipulationType.Set, Description = "Give Potion", ImageUrl = "Items/Potion.png" },
+                new KHButtonTemplate { Name = Constants.HiPotion, Cost = Constants.Cost100, Value = 2, ManipulationType = ManipulationType.Set, Description = "Give Hi-Potion", ImageUrl = "Items/Hi-Potion" },
+                new KHButtonTemplate { Name = Constants.Ether, Cost = Constants.Cost200, Value = 3, ManipulationType = ManipulationType.Set, Description = "Give Ether", ImageUrl = "Items/Ether.png" },
+                new KHButtonTemplate { Name = Constants.Elixir, Cost = Constants.Cost250, Value = 4, ManipulationType = ManipulationType.Set, Description = "Give Elixir", ImageUrl = "Items/Elixir.png" },
+                new KHButtonTemplate { Name = Constants.MegaPotion, Cost = Constants.Cost200, Value = 5, ManipulationType = ManipulationType.Set, Description = "Give Mega-Potion", ImageUrl = "Items/Mega-Potion.png" },
+                new KHButtonTemplate { Name = Constants.MegaEther, Cost = Constants.Cost250, Value = 6, ManipulationType = ManipulationType.Set, Description = "Give Mega-Ether", ImageUrl = "Items/Mega-Ether.png" },
+                new KHButtonTemplate { Name = Constants.Megalixir, Cost = Constants.Cost300, Value = 7, ManipulationType = ManipulationType.Set, Description = "Give Megalixir", ImageUrl = "Items/Megalixir.png" },
+            };
+
+            var options = new List<KHButtonTemplate> {
 
                 new KHButtonTemplate
                 {
@@ -22,15 +34,9 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Items/Megalixir.png",
                     SubMethodParams = new List<KHButtonTemplate>
                     {
-                        new KHButtonTemplate { Name = "No Slots", Cost = 450, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 0", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "1 Slot", Cost = 450, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 1", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "2 Slot", Cost = 450, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 2", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "3 Slot", Cost = 650, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 3", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "4 Slot", Cost = 650, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 4", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "5 Slot", Cost = 450, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 5", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "6 Slot", Cost = 450, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 6", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "7 Slot", Cost = 650, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 7", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
-                        new KHButtonTemplate { Name = "8 Slot", Cost = 650, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 8", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
+                        new KHButtonTemplate { Name = "No Slots", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 0", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
+                        new KHButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 1", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
+                        new KHButtonTemplate { Name = "2 Slot", Cost = Constants.Cost200, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 2", ImageUrl = "Armor/Abas_Chain.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlotsMessage) },
                     }
                 },
                 new KHButtonTemplate
@@ -40,17 +46,7 @@ namespace KH2FMCrowdControl.Data
                     Cost = 0,
                     Description = "Update Donald's Item Slot 1",
                     ImageUrl = "Items/Megalixir.png",
-                    SubMethodParams = new List<KHButtonTemplate>
-                    {
-                        new KHButtonTemplate { Name = Constants.None, Cost = 10, Value = 0, ManipulationType = ManipulationType.Set, Description = "Give Elven Bandana", ImageUrl = "Armor/Elven_Bandana.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.Potion, Cost = 10, Value = 1, ManipulationType = ManipulationType.Set, Description = "Give Elven Bandana", ImageUrl = "Armor/Elven_Bandana.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.HiPotion, Cost = 10, Value = 2, ManipulationType = ManipulationType.Set, Description = "Give Divine Bandana", ImageUrl = "Armor/Divine_Bandana.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.Ether, Cost = 10, Value = 3, ManipulationType = ManipulationType.Set, Description = "Give Power Band", ImageUrl = "Armor/Power_Band.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.Elixir, Cost = 10, Value = 4, ManipulationType = ManipulationType.Set, Description = "Give Buster Band", ImageUrl = "Armor/Buster_Band.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.MegaPotion, Cost = 10, Value = 5, ManipulationType = ManipulationType.Set, Description = "Give Champion Belt", ImageUrl = "Armor/Champion_Belt.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.MegaEther, Cost = 10, Value = 6, ManipulationType = ManipulationType.Set, Description = "Give Protect Belt", ImageUrl = "Armor/Protect_Belt.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                        new KHButtonTemplate { Name = Constants.Megalixir, Cost = 10, Value = 7, ManipulationType = ManipulationType.Set, Description = "Give Gaia Belt", ImageUrl = "Armor/Gaia_Belt.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message) },
-                    }
+                    SubMethodParams = items.CreateListFromList()
                 },
                 new KHButtonTemplate
                 {
@@ -59,21 +55,14 @@ namespace KH2FMCrowdControl.Data
                     Cost = 0,
                     Description = "Update Donald's Item Slot 2",
                     ImageUrl = "Items/Megalixir.png",
-                    SubMethodParams = new List<KHButtonTemplate>
-                    {
-                        new KHButtonTemplate { Name = Constants.None, Cost = 10, Value = 0, ManipulationType = ManipulationType.Set, Description = "Give Elven Bandana", ImageUrl = "Armor/Elven_Bandana.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.Potion, Cost = 10, Value = 1, ManipulationType = ManipulationType.Set, Description = "Give Elven Bandana", ImageUrl = "Armor/Elven_Bandana.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.HiPotion, Cost = 10, Value = 2, ManipulationType = ManipulationType.Set, Description = "Give Divine Bandana", ImageUrl = "Armor/Divine_Bandana.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.Ether, Cost = 10, Value = 3, ManipulationType = ManipulationType.Set, Description = "Give Power Band", ImageUrl = "Armor/Power_Band.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.Elixir, Cost = 10, Value = 4, ManipulationType = ManipulationType.Set, Description = "Give Buster Band", ImageUrl = "Armor/Buster_Band.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.MegaPotion, Cost = 10, Value = 5, ManipulationType = ManipulationType.Set, Description = "Give Champion Belt", ImageUrl = "Armor/Champion_Belt.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.MegaEther, Cost = 10, Value = 6, ManipulationType = ManipulationType.Set, Description = "Give Protect Belt", ImageUrl = "Armor/Protect_Belt.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                        new KHButtonTemplate { Name = Constants.Megalixir, Cost = 10, Value = 7, ManipulationType = ManipulationType.Set, Description = "Give Gaia Belt", ImageUrl = "Armor/Gaia_Belt.png", Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message) },
-                    }
-                },
+                    SubMethodParams = items.CreateListFromList()
+                }
             };
 
-            return items;
+            options.FirstOrDefault(x => x.Name.Equals("Change Item Slot 1")).SubMethodParams.ForEach(x => x.Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot1Message));
+            options.FirstOrDefault(x => x.Name.Equals("Change Item Slot 2")).SubMethodParams.ForEach(x => x.Method = EventCallback.Factory.Create<MemoryParameters>(this, this.messageHubMessages.SendDonaldItemSlot2Message));
+
+            return options;
         }
     }
 }

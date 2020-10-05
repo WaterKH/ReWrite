@@ -9,11 +9,11 @@ namespace KH2FMCrowdControl.Data
     {
         public async Task<List<KHButtonTemplate>> InitializeGoofyOptions()
         {
-            var items = new List<KHButtonTemplate>();
+            var options = new List<KHButtonTemplate>();
 
-            items.AddRange(await this.InitializeGoofyEquipmentOptions());
+            options.AddRange(await this.InitializeGoofyEquipmentOptions());
 
-            return items;
+            return options;
         }
     }
 }

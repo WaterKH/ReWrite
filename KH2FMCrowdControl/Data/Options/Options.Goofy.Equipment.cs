@@ -7,14 +7,14 @@ namespace KH2FMCrowdControl.Data
     {
         public async Task<List<KHButtonTemplate>> InitializeGoofyEquipmentOptions()
         {
-            var items = new List<KHButtonTemplate>();
+            var options = new List<KHButtonTemplate>();
 
-            items.AddRange(await this.InitializeGoofyWeaponsOptions());
-            items.AddRange(await this.InitializeGoofyArmorOptions());
-            items.AddRange(await this.InitializeGoofyAccessoriesOptions());
-            items.AddRange(await this.InitializeGoofyItemsOptions());
+            options.AddRange(await this.InitializeGoofyWeaponsOptions());
+            options.AddRange(await this.InitializeGoofyArmorOptions());
+            options.AddRange(await this.InitializeGoofyAccessoriesOptions());
+            options.AddRange(await this.InitializeGoofyItemsOptions());
 
-            return items;
+            return options;
         }
     }
 }

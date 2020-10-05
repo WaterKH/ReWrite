@@ -7,14 +7,14 @@ namespace KH2FMCrowdControl.Data
     {
         public async Task<List<KHButtonTemplate>> InitializeDonaldEquipmentOptions()
         {
-            var items = new List<KHButtonTemplate>();
+            var options = new List<KHButtonTemplate>();
 
-            items.AddRange(await this.InitializeDonaldWeaponsOptions());
-            items.AddRange(await this.InitializeDonaldArmorOptions());
-            items.AddRange(await this.InitializeDonaldAccessoriesOptions());
-            items.AddRange(await this.InitializeDonaldItemsOptions());
+            options.AddRange(await this.InitializeDonaldWeaponsOptions());
+            options.AddRange(await this.InitializeDonaldArmorOptions());
+            options.AddRange(await this.InitializeDonaldAccessoriesOptions());
+            options.AddRange(await this.InitializeDonaldItemsOptions());
 
-            return items;
+            return options;
         }
     }
 }

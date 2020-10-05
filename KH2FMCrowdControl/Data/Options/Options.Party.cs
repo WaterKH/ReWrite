@@ -9,12 +9,12 @@ namespace KH2FMCrowdControl.Data
     {
         public async Task<List<KHButtonTemplate>> InitializePartyOptions()
         {
-            var items = new List<KHButtonTemplate>() {
+            var options = new List<KHButtonTemplate>() {
 
                 
             };
 
-            return items;
+            return options;
         }
     }
 }
