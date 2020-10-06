@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace KH2FMCrowdControl.Data
         public static event TimerDelegate OnTimerChanged;
 
         // Key: Host Name - Key: Category Name - Value: Buttons
-        public Dictionary<string, Dictionary<GroupType, List<KHButtonTemplate>>> CurrentOptions;
+        public Dictionary<string, Dictionary<GroupType, List<KHButtonTemplate>>> Options;
+        public Dictionary<string, Dictionary<int, int>> OptionCooldowns;
 
-        public Dictionary<string, Dictionary<string, Timer>> Cooldowns = new Dictionary<string, Dictionary<string, Timer>>();
-
+        public Dictionary<string, Dictionary<string, Timer>> CooldownTimers = new Dictionary<string, Dictionary<string, Timer>>();
+        
         public static event AlertDelegate OnAlertReceived;
 
         private readonly Options options;
@@ -29,29 +31,83 @@ namespace KH2FMCrowdControl.Data
         public MemoryService(IHubContext<MessageHub> context)
         {
             options = new Options(context);
+
+            this.Options = new Dictionary<string, Dictionary<GroupType, List<KHButtonTemplate>>>();
+            this.OptionCooldowns = new Dictionary<string, Dictionary<int, int>>();
         }
 
         #region Option Instantiation and Update
 
         public async Task InitializeOptions(string hostName)
         {
-            this.CurrentOptions = new Dictionary<string, Dictionary<GroupType, List<KHButtonTemplate>>> { 
-                { hostName, await this.options.InitializeOptions() }
-            };
+            if(!this.Options.ContainsKey(hostName))
+                this.Options.Add(hostName, await this.options.InitializeOptions());
+
+            if (!this.OptionCooldowns.ContainsKey(hostName))
+                this.OptionCooldowns.Add(hostName, Constants.Cooldowns.ToDictionary(x => x.Key, x => x.Value));
         }
 
-        public async Task UpdateOptions(string hostName)
+        public async Task UpdateOption(string hostName, GroupType category, string optionName, string subOptionName, int cost, bool isActive)
         {
-            DbContext.ActiveOptions.TryGetValue(hostName, out var options);
-
-            if (options == null)
-                return;
-
-            foreach (var option in options)
+            if (this.Options.ContainsKey(hostName) && this.Options[hostName].ContainsKey(category))
             {
-                //this.CurrentOptions[hostName][option.Category].Cost = option.Cost;
-                //this.CurrentOptions[hostName][option.Category].IsActive = option.IsActive;
+                if (!string.IsNullOrEmpty(subOptionName))
+                {
+                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).Cost = cost;
+                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).IsActive = isActive;
+                }
+                else
+                {
+                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).Cost = cost;
+                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).IsActive = isActive;
+                }
             }
+        }
+
+        public async Task<bool> UpdateCostCooldown(string hostName, int previousCost, int cost, int cooldown)
+        {
+            if(this.OptionCooldowns[hostName].ContainsKey(previousCost))
+            {
+                if (previousCost == cost)
+                {
+                    this.OptionCooldowns[hostName][previousCost] = cooldown;
+                }
+                else
+                {
+                    this.OptionCooldowns[hostName].Remove(previousCost);
+                    this.OptionCooldowns[hostName].Add(cost, cooldown);
+
+                    foreach (var category in this.Options[hostName])
+                    {
+                        this.Options[hostName][category.Key].ForEach(x =>
+                        {
+                            x.SubMethodParams.Where(x => x.Cost == previousCost).ToList().ForEach(x => x.Cost = cost);
+                        });
+                    }
+                }
+
+                return true;
+            }
+            else if(!this.OptionCooldowns[hostName].ContainsKey(cost))
+            {
+                this.OptionCooldowns[hostName].Add(cost, cooldown);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> AddCostCooldown(string hostName, int cost, int cooldown)
+        {
+            if (!this.OptionCooldowns[hostName].ContainsKey(cost))
+            {
+                this.OptionCooldowns[hostName].Add(cost, cooldown);
+
+                return true;
+            }
+
+            return false;
         }
 
         #endregion Option Instantiation and Update
@@ -60,31 +116,33 @@ namespace KH2FMCrowdControl.Data
 
         public void CreateTimer(string hostName, string optionName, int time)
         {
-            if (!Cooldowns.ContainsKey(hostName))
-                Cooldowns.Add(hostName, new Dictionary<string, Timer>());
+            if (!CooldownTimers.ContainsKey(hostName))
+                CooldownTimers.Add(hostName, new Dictionary<string, Timer>());
 
-            if (!Cooldowns[hostName].ContainsKey(optionName))
-                Cooldowns[hostName].Add(optionName, null);
+            if (!CooldownTimers[hostName].ContainsKey(optionName))
+                CooldownTimers[hostName].Add(optionName, null);
 
             this.SetButtonAble(hostName, optionName, true);
 
             var callbackEvent = new TimerCallback((e) =>
             {
                 this.SetButtonAble(hostName, optionName, false);
+
+                CooldownTimers[hostName].Remove(optionName);
             });
 
-            Cooldowns[hostName][optionName] = new Timer(callbackEvent, null, time * 1000, Timeout.Infinite);
+            CooldownTimers[hostName][optionName] = new Timer(callbackEvent, null, time * 1000, Timeout.Infinite);
         }
 
         private void SetButtonAble(string hostName, string optionName, bool isDisabled)
         {
             try
             {
-                this.CurrentOptions[hostName].Values
+                this.Options[hostName].Values
                     .FirstOrDefault(x => x.Any(y => y.Name == optionName))
                     .FirstOrDefault(x => x.Name == optionName).IsDisabled = isDisabled;
 
-                this.CurrentOptions[hostName].Values
+                this.Options[hostName].Values
                     .FirstOrDefault(x => x.Any(y => y.Name == optionName))
                     .FirstOrDefault(x => x.Name == optionName)
                     .SubMethodParams.ForEach(x => x.IsDisabled = isDisabled);

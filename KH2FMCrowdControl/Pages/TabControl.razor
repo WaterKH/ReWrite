@@ -1,4 +1,4 @@
-﻿<div class="btn-group" role="group">
+﻿<div class="btn-group" role="group" style="display: inline-table !important;">
     @foreach (TabPage tabPage in Pages)
     {
         <button type="button" class="btn @GetButtonClass(tabPage)" @onclick=@(() => ActivatePage(tabPage))>

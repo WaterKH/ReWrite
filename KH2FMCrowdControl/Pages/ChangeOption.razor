@@ -1,0 +1,62 @@
+﻿@using KH2FMCrowdControl.Data
+
+@inject MemoryService MemoryService
+
+
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Update @(string.IsNullOrEmpty(SubOptionName) ? OptionName : SubOptionName) Cost & IsActive</span>
+    </div>
+    @if (Cost == 0)
+    { 
+        <select class="form-select" @bind="@Cost">
+            <option value="0">0</option>
+        </select>
+    }
+    else
+    {
+        <select class="form-select" @bind="@Cost">
+            @foreach (var costCooldown in MemoryService.OptionCooldowns[HostName])
+            {
+                if (costCooldown.Key == Cost)
+                {
+                    <option value="@costCooldown.Key" selected>@costCooldown.Key</option>
+                }
+                else
+                {
+                    <option value="@costCooldown.Key">@costCooldown.Key</option>
+                }
+            }
+        </select>
+    }
+    <input type="checkbox" class="form-control" checked="@IsActive" @bind-value="@IsActive">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" @onclick="UpdateOption">Update</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string HostName { get; set; }
+
+    [Parameter]
+    public GroupType Category { get; set; }
+
+    [Parameter]
+    public string OptionName { get; set; }
+
+    [Parameter]
+    public string SubOptionName { get; set; }
+
+    [Parameter]
+    public int Cost { get; set; }
+
+    [Parameter]
+    public bool IsActive { get; set; }
+
+
+    public async Task UpdateOption()
+    {
+        await MemoryService.UpdateOption(HostName, Category, OptionName, SubOptionName, Cost, IsActive);
+    }
+}

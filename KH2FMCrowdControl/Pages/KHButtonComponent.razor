@@ -97,7 +97,7 @@
 
                 MemoryService.SendAlert(this, new AlertArgs { Viewer = ViewerName, Item = Name, ImageUrl = ImageUrl });
 
-                MemoryService.CreateTimer(HostName, ParentName, Constants.Cooldowns[Cost]);
+                MemoryService.CreateTimer(HostName, ParentName, MemoryService.OptionCooldowns[HostName][Cost]);
 
                 ToastService.ShowSuccess("Option Redeemed Successfully!");
             }

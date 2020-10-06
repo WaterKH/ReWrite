@@ -27,29 +27,29 @@ else
         {
             <TabPage Text="@group.ToString()">
                 <div class="row">
-                    @foreach (var misc in MemoryService.CurrentOptions[hostUsername][group].Where(x => x.IsActive))
+                    @foreach (var option in MemoryService.Options[hostUsername][group].Where(x => x.IsActive))
                     {
-                        @if (misc.Cost == 0)
+                        @if (option.Cost == 0)
                         {
                             <KHButtonComponent HostName="@hostUsername"
-                                               Name="@misc.Name"
+                                               Name="@option.Name"
                                                Cost="0"
-                                               ImageUrl="@misc.ImageUrl"
-                                               Description="@misc.Description"
-                                               Method="@(() => DisplayModal(misc.SubMethodParams, misc.Name))"
-                                               IsDisabled="@misc.IsDisabled" />
+                                               ImageUrl="@option.ImageUrl"
+                                               Description="@option.Description"
+                                               Method="@(() => DisplayModal(option.SubMethodParams.Where(x => x.IsActive).ToList(), option.Name))"
+                                               IsDisabled="@option.IsDisabled" />
                         }
                         else
                         {
                             <KHButtonComponent HostName="@hostUsername"
-                                               Name="@misc.Name"
-                                               Cost="@misc.Cost"
+                                               Name="@option.Name"
+                                               Cost="@option.Cost"
                                                ViewerName="@viewerUsername"
-                                               Value="@misc.Value"
-                                               ManipulationType="@misc.ManipulationType"
-                                               ImageUrl="@misc.ImageUrl"
-                                               Description="@misc.Description"
-                                               Method="@misc.Method"/>
+                                               Value="@option.Value"
+                                               ManipulationType="@option.ManipulationType"
+                                               ImageUrl="@option.ImageUrl"
+                                               Description="@option.Description"
+                                               Method="@option.Method"/>
                         }
                     }
                 </div>
@@ -90,7 +90,7 @@ else
 
         twitchApi = TwitchService.GetTwitchApi(hostUsername);
 
-        await MemoryService.InitializeOptions(hostUsername);
+        //await MemoryService.InitializeOptions(hostUsername);
 
         await InvokeAsync(() =>
         {

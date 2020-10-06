@@ -28,18 +28,106 @@
     <br />
 
     <div class="row">
-        <div class="col-3">
+        <TabControl>
+            <TabPage Text="Alerts">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-3">
 
-        </div>
+                        </div>
 
-        <div class="col-4" style="max-height: 400px; overflow: auto; display: flex; flex-direction: column-reverse;">
-            @foreach (var alert in alerts)
-            {
-                <KHAlert Username="@alert.Viewer"
-                         Item="@alert.Item"
-                         ImageUrl="@alert.ImageUrl" />
-            }
-        </div>
+                        <div class="col-4" style="max-height: 400px; overflow: auto; display: flex; flex-direction: column-reverse;">
+                            @foreach (var alert in alerts)
+                            {
+                                <KHAlert Username="@alert.Viewer"
+                                         Item="@alert.Item"
+                                         ImageUrl="@alert.ImageUrl" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </TabPage>
+            <TabPage Text="Option Control">
+                <div class="col-12">
+                    <TabControl>
+                        @foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
+                        {
+                            <TabPage Text="@group.ToString()">
+                                <div class="col-12">
+                                    <TabControl>
+                                        @foreach (var option in MemoryService.Options[username][group])
+                                        {
+                                            <TabPage Text="@option.Name">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <ChangeOption HostName="@username"
+                                                                      Category="group"
+                                                                      OptionName="@option.Name"
+                                                                      Cost="@option.Cost"
+                                                                      IsActive="@option.IsActive" />
+
+                                                        @if (option.Cost == 0)
+                                                        {
+                                                            @foreach (var subOption in option.SubMethodParams)
+                                                            {
+                                                                <ChangeOption HostName="@username"
+                                                                              Category="@group"
+                                                                              OptionName="@option.Name"
+                                                                              SubOptionName="@subOption.Name"
+                                                                              Cost="@subOption.Cost"
+                                                                              IsActive="@subOption.IsActive" />
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <ChangeOption HostName="@username"
+                                                                          Category="@group"
+                                                                          OptionName="@option.Name"
+                                                                          Cost="@option.Cost"
+                                                                          IsActive="@option.IsActive" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </TabPage>
+                                        }
+                                    </TabControl>
+                                </div>
+                            </TabPage>
+                        }
+                    </TabControl>
+                </div>
+            </TabPage>
+            <TabPage Text="Cooldown Control">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="form-control">Cost & Cooldown</label>
+                        </div>
+                    </div>
+                    @foreach (var costCooldown in MemoryService.OptionCooldowns[username])
+                    {
+                        <div class="row">
+                            <div class="col-4">
+                                <ChangeCost HostName="@username"
+                                            Cost="@costCooldown.Key"
+                                            Cooldown="@costCooldown.Value" />
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" @bind-value="cost">
+                                <input type="text" class="form-control" @bind-value="cooldown">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" @onclick="AddCostCooldown">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </TabPage>
+        </TabControl>
     </div>
 }
 
@@ -52,6 +140,9 @@
     private TwitchApi twitchApi;
 
     private List<KH2FMCrowdControl.Data.KHAlert> alerts = new List<KH2FMCrowdControl.Data.KHAlert>();
+
+    private int cost;
+    private int cooldown;
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,6 +162,8 @@
 
         if (DbContext.Hosts.ContainsKey(username))
             connectionStatus = DbContext.Hosts[username].ConnectionId == string.Empty ? "Disconnected" : "Connected";
+
+        twitchApi = TwitchService.GetHost(username);
 
         await InvokeAsync(() =>
         {
@@ -104,9 +197,15 @@
 
     private async Task StartHosting()
     {
-        if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
+        if(twitchApi != null)
+        {
+            await Task.Run(() => ToastService.ShowInfo("Already Hosting!"));
+        }
+        else if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
         {
             twitchApi = TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
+
+            await MemoryService.InitializeOptions(username);
 
             await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
 
@@ -125,11 +224,37 @@
     {
         TwitchService.RemoveHost(username);
 
+        twitchApi = null;
+
         await Task.Run(() => ToastService.ShowSuccess("Stopped Hosting"));
 
         await InvokeAsync(() =>
         {
             base.StateHasChanged();
         });
+    }
+
+    private async Task AddCostCooldown()
+    {
+        if (cost == 0)
+        {
+            ToastService.ShowError("Cost cannot be 0");
+
+            return;
+        }
+
+        var didUpdate = await MemoryService.AddCostCooldown(username, cost, cooldown);
+
+        if (didUpdate)
+        {
+            // TODO Do I need to update the view here?
+        }
+        else
+        {
+            ToastService.ShowError("Probable cause: New cost is already set in the current list");
+        }
+
+        cost = 0;
+        cooldown = 0;
     }
 }

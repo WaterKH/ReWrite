@@ -45,6 +45,14 @@ namespace KH2FMCrowdControl.Data
             return this.GetTwitchAuthenticationLink(clientId, redirectUriHost, "token");
         }
 
+        public TwitchApi GetHost(string username)
+        {
+            if (!string.IsNullOrEmpty(username) && DbContext.Hosts.ContainsKey(username))
+                return DbContext.Hosts[username].TwitchApi;
+
+            return null;
+        }
+
         // TODO Redo how hosting works
         public TwitchApi CreateHost(string username, string clientId, string connectionId, NavigationManager navigationManager)
         {

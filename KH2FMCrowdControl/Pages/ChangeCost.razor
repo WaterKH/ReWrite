@@ -1,0 +1,57 @@
+﻿@using KH2FMCrowdControl.Data
+
+@inject MemoryService MemoryService
+@inject IToastService ToastService
+
+
+<div class="input-group">
+    <input type="text" class="form-control" @bind-value="Cost">
+    <input type="text" class="form-control" @bind-value="Cooldown">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" @onclick="UpdateCostCooldown">Update</button>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string HostName { get; set; }
+
+    [Parameter]
+    public int Cost { get; set; }
+
+    [Parameter]
+    public int Cooldown { get; set; }
+
+
+    private int previousCost;
+    private int previousCooldown;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        previousCost = Cost;
+        previousCooldown = Cooldown;
+
+        await base.OnInitializedAsync();
+    }
+
+    public async Task UpdateCostCooldown()
+    {
+        var didUpdate = await MemoryService.UpdateCostCooldown(HostName, previousCost, Cost, Cooldown);
+
+        if(didUpdate)
+        {
+            previousCost = Cost;
+            previousCooldown = Cooldown;
+        }
+        else
+        {
+            Cost = previousCost;
+            Cooldown = previousCooldown;
+
+            ToastService.ShowError("Probable cause: New cost is already set in the current list");
+        }
+    }
+}
