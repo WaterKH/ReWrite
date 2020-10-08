@@ -30,13 +30,13 @@
     <div class="row">
         <TabControl>
             <TabPage Text="Alerts">
-                <div class="col-12">
+                <div class="col-12" style="padding: 10px;">
                     <div class="row">
                         <div class="col-3">
 
                         </div>
 
-                        <div class="col-4" style="max-height: 400px; overflow: auto; display: flex; flex-direction: column-reverse;">
+                        <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse; border: 1px solid #ccc!important;">
                             @foreach (var alert in alerts)
                             {
                                 <KHAlert Username="@alert.Viewer"
@@ -48,18 +48,18 @@
                 </div>
             </TabPage>
             <TabPage Text="Option Control">
-                <div class="col-12">
+                <div class="col-12" style="padding: 10px;">
                     <TabControl>
                         @foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
                         {
                             <TabPage Text="@group.ToString()">
-                                <div class="col-12">
+                                <div class="col-12" style="padding: 10px;">
                                     <TabControl>
                                         @foreach (var option in MemoryService.Options[username][group])
                                         {
                                             <TabPage Text="@option.Name">
                                                 <div class="row">
-                                                    <div class="col-6">
+                                                    <div class="col-6" style="padding: 10px;">
                                                         <ChangeOption HostName="@username"
                                                                       Category="group"
                                                                       OptionName="@option.Name"
@@ -98,23 +98,11 @@
                 </div>
             </TabPage>
             <TabPage Text="Cooldown Control">
-                <div class="col-12">
+                <div class="col-12" style="padding: 10px;">
                     <div class="row">
                         <div class="col-4">
                             <label class="form-control">Cost & Cooldown</label>
                         </div>
-                    </div>
-                    @foreach (var costCooldown in MemoryService.OptionCooldowns[username])
-                    {
-                        <div class="row">
-                            <div class="col-4">
-                                <ChangeCost HostName="@username"
-                                            Cost="@costCooldown.Key"
-                                            Cooldown="@costCooldown.Value" />
-                            </div>
-                        </div>
-                    }
-                    <div class="row">
                         <div class="col-4">
                             <div class="input-group">
                                 <input type="text" class="form-control" @bind-value="cost">
@@ -125,6 +113,16 @@
                             </div>
                         </div>
                     </div>
+                    @foreach (var costCooldown in MemoryService.OptionCooldowns[username])
+                    {
+                        <div class="row">
+                            <div class="col-4" style="padding: 5px;">
+                                <ChangeCost HostName="@username"
+                                            Cost="@costCooldown.Key"
+                                            Cooldown="@costCooldown.Value" />
+                            </div>
+                        </div>
+                    }
                 </div>
             </TabPage>
         </TabControl>

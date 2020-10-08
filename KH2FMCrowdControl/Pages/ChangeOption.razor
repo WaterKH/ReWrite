@@ -3,9 +3,9 @@
 @inject MemoryService MemoryService
 
 
-<div class="input-group">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Update @(string.IsNullOrEmpty(SubOptionName) ? OptionName : SubOptionName) Cost & IsActive</span>
+<div class="input-group" style="padding: 5px">
+    <div class="input-group-prepend" style="width: 60%">
+        <span class="input-group-text" style="width: 100%">Update @(string.IsNullOrEmpty(SubOptionName) ? OptionName : SubOptionName) Cost & IsActive</span>
     </div>
     @if (Cost == 0)
     { 
@@ -29,7 +29,7 @@
             }
         </select>
     }
-    <input type="checkbox" class="form-control" checked="@IsActive" @bind-value="@IsActive">
+    <input type="checkbox" class="form-control" style="width: 20%;" checked="@IsActive" @bind-value="@IsActive">
     <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" @onclick="UpdateOption">Update</button>
     </div>
