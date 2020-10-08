@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using System.Linq;
 using Blazored.Modal;
 using Blazored.Toast;
+using BlazorDownloadFile;
 
 namespace KH2FMCrowdControl
 {
@@ -51,6 +52,7 @@ namespace KH2FMCrowdControl
 
             services.AddSingleton<TwitchService>();
             services.AddSingleton<MemoryService>();
+            services.AddBlazorDownloadFile();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

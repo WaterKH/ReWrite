@@ -15,7 +15,7 @@
     }
     else
     {
-        <select class="form-select" @bind="@Cost">
+        <select class="form-select" @bind="@Cost" @oninput="UpdateOptionCost">
             @foreach (var costCooldown in MemoryService.OptionCooldowns[HostName])
             {
                 if (costCooldown.Key == Cost)
@@ -29,10 +29,7 @@
             }
         </select>
     }
-    <input type="checkbox" class="form-control" style="width: 20%;" checked="@IsActive" @bind-value="@IsActive">
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" @onclick="UpdateOption">Update</button>
-    </div>
+    <input type="checkbox" class="form-control" style="width: 20%;" checked="@IsActive" @bind-value="@IsActive" @oninput="UpdateOptionIsActive">
 </div>
 
 @code {
@@ -55,8 +52,14 @@
     public bool IsActive { get; set; }
 
 
-    public async Task UpdateOption()
+
+    public async Task UpdateOptionCost(ChangeEventArgs args)
     {
-        await MemoryService.UpdateOption(HostName, Category, OptionName, SubOptionName, Cost, IsActive);
+        await MemoryService.UpdateOption(HostName, Category, OptionName, SubOptionName, int.Parse(args.Value.ToString()));
+    }
+
+    public async Task UpdateOptionIsActive(ChangeEventArgs args)
+    {
+        await MemoryService.UpdateOption(HostName, Category, OptionName, SubOptionName, (bool)args.Value);
     }
 }

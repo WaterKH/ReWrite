@@ -1,9 +1,11 @@
-﻿using Blazored.Toast.Services;
+﻿using BlazorInputFile;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,7 +38,7 @@ namespace KH2FMCrowdControl.Data
             this.OptionCooldowns = new Dictionary<string, Dictionary<int, int>>();
         }
 
-        #region Option Instantiation and Update
+        #region Option Instantiation and Update Option/ Cost/Cooldown
 
         public async Task InitializeOptions(string hostName)
         {
@@ -47,20 +49,25 @@ namespace KH2FMCrowdControl.Data
                 this.OptionCooldowns.Add(hostName, Constants.Cooldowns.ToDictionary(x => x.Key, x => x.Value));
         }
 
-        public async Task UpdateOption(string hostName, GroupType category, string optionName, string subOptionName, int cost, bool isActive)
+        public async Task UpdateOption(string hostName, GroupType category, string optionName, string subOptionName, int cost)
         {
             if (this.Options.ContainsKey(hostName) && this.Options[hostName].ContainsKey(category))
             {
                 if (!string.IsNullOrEmpty(subOptionName))
-                {
                     this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).Cost = cost;
-                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).IsActive = isActive;
-                }
                 else
-                {
                     this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).Cost = cost;
+            }
+        }
+
+        public async Task UpdateOption(string hostName, GroupType category, string optionName, string subOptionName, bool isActive)
+        {
+            if (this.Options.ContainsKey(hostName) && this.Options[hostName].ContainsKey(category))
+            {
+                if (!string.IsNullOrEmpty(subOptionName))
+                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).IsActive = isActive;
+                else
                     this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).IsActive = isActive;
-                }
             }
         }
 
@@ -108,6 +115,102 @@ namespace KH2FMCrowdControl.Data
             }
 
             return false;
+        }
+
+        public async Task<bool> ImportOptionCostCooldown(string hostName, IFileListEntry file)
+        {
+            try
+            {
+                using var streamReader = new StreamReader(file.Data);
+                var content = await streamReader.ReadToEndAsync();
+
+                var optionSettings = JsonSerializer.Deserialize<ImportExportOptionSettings>(content);
+
+                foreach (var (optionSettingCategory, settings) in optionSettings.Settings)
+                {
+                    var category = Enum.Parse<GroupType>(optionSettingCategory);
+
+                    foreach (var (settingName, subSettings) in settings)
+                    {
+                        this.Options[hostName][category]
+                            .FirstOrDefault(x => x.Name == settingName).IsActive = subSettings.FirstOrDefault(y => y.OptionName == settingName).IsActive; 
+
+                        this.Options[hostName][category]
+                            .FirstOrDefault(x => x.Name == settingName)
+                                .SubMethodParams
+                                .ForEach(x => 
+                                {
+                                    x.Cost = subSettings.FirstOrDefault(y => y.OptionName == x.Name).Cost;
+                                    x.IsActive = subSettings.FirstOrDefault(y => y.OptionName == x.Name).IsActive;
+                                });
+                    }
+                }
+
+                this.OptionCooldowns[hostName] = optionSettings.CostCooldowns.ToDictionary(x => int.Parse(x.Key), x => int.Parse(x.Value));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<string> ExportOptionCostCooldown(string hostName)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                var optionSettings = new ImportExportOptionSettings()
+                {
+                    Settings = new Dictionary<string, Dictionary<string, List<Setting>>>(),
+                    CostCooldowns = this.OptionCooldowns[hostName].ToDictionary(x => x.Key.ToString(), x => x.Value.ToString())
+                };
+                
+                foreach(var (category, options) in this.Options[hostName])
+                {
+                    var categoryString = category.ToString();
+
+                    foreach(var option in options)
+                    {
+                        var settings = option.SubMethodParams.Select(x => new Setting
+                        {
+                            OptionName = x.Name,
+                            Cost = x.Cost,
+                            IsActive = x.IsActive
+                        }).ToList();
+
+
+                        settings.Add(new Setting
+                        {
+                            OptionName = option.Name,
+                            Cost = option.Cost,
+                            IsActive = option.IsActive
+                        });
+
+                        if(!optionSettings.Settings.ContainsKey(categoryString))
+                            optionSettings.Settings.Add(categoryString, new Dictionary<string, List<Setting>>());
+
+                        if (!optionSettings.Settings[categoryString].ContainsKey(option.Name))
+                            optionSettings.Settings[categoryString].Add(option.Name, new List<Setting>());
+
+                        optionSettings.Settings[categoryString][option.Name].AddRange(settings);
+                    }
+                }
+
+                result = JsonSerializer.Serialize(optionSettings, new JsonSerializerOptions { IgnoreNullValues = false });
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return string.Empty;
+            }
+
+            return result;
         }
 
         #endregion Option Instantiation and Update

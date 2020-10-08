@@ -2,11 +2,14 @@
 
 @using KH2FMCrowdControl.Data
 @using KH2FMCrowdControl.Twitch
+
 @inject TwitchService TwitchService
 @inject MemoryService MemoryService
 @inject NavigationManager NavigationManager
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IToastService ToastService
+@inject IJSRuntime JSRuntime
+@inject BlazorDownloadFile.IBlazorDownloadFileService BlazorDownloadFileService
 
 <h1>KH2FM Crowd Control (Host View)</h1>
 
@@ -19,6 +22,17 @@
     <div class="col-3">
         <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
     </div>
+    @if (twitchApi != null)
+    {
+    <div class="col-1"></div>
+    <div class="col-3">
+        <InputFile OnChange="UploadOptionSettings" />
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-info" @onclick="DownloadOptionSettings">Download Settings File</button>
+        <input type="text" class="form-control" @bind-value="@fileName" placeholder="Optional File Name" style="margin: 5px 0px 0px 0px">
+    </div>
+    }
 </div>
 
 @if (twitchApi != null)
@@ -108,7 +122,7 @@
                                 <input type="text" class="form-control" @bind-value="cost">
                                 <input type="text" class="form-control" @bind-value="cooldown">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" @onclick="AddCostCooldown">Add</button>
+                                    <button class="btn btn-outline-primary" type="button" @onclick="AddCostCooldown">Add</button>
                                 </div>
                             </div>
                         </div>
@@ -130,6 +144,7 @@
 }
 
 @code {
+
     private string username;
     private string clientId;
     private string connectionStatus = "Disconnected";
@@ -141,6 +156,8 @@
 
     private int cost;
     private int cooldown;
+
+    private string fileName = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -195,7 +212,7 @@
 
     private async Task StartHosting()
     {
-        if(twitchApi != null)
+        if (twitchApi != null)
         {
             await Task.Run(() => ToastService.ShowInfo("Already Hosting!"));
         }
@@ -254,5 +271,52 @@
 
         cost = 0;
         cooldown = 0;
+    }
+
+    private async Task DownloadOptionSettings()
+    {
+        try
+        {
+            var file = await MemoryService.ExportOptionCostCooldown(username);
+            var convertedFile = System.Text.Encoding.UTF8.GetBytes(file);
+
+            if (file.Length > 0)
+            {
+                var fullFileName = fileName.Length > 0 ? $"{fileName}.txt" : $"{username}_optionCosts.txt";
+
+                await BlazorDownloadFileService.DownloadFile(fullFileName, convertedFile, new System.Threading.CancellationToken(), "application/json");
+
+                ToastService.ShowSuccess("Successfully Exported File!");
+            }
+            else
+            {
+                ToastService.ShowError("Error Exporting File..");
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    private async Task UploadOptionSettings(IFileListEntry[] files)
+    {
+        try
+        {
+            var isSuccessful = await MemoryService.ImportOptionCostCooldown(username, files.FirstOrDefault());
+
+            if (isSuccessful)
+            {
+                ToastService.ShowSuccess("Successfully Imported File!");
+            }
+            else
+            {
+                ToastService.ShowError("Error Importing File..");
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 }
