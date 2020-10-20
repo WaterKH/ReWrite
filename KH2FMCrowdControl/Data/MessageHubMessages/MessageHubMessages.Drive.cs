@@ -56,10 +56,20 @@ namespace KH2FMCrowdControl.Data
 
         public async void SendActivateFormMessage(MemoryParameters memoryParams)
         {
-            var memoryObject = new MemoryObject { Name = "Activate Form", Address = 0x2032F054, Type = DataType.Byte, ManipulationType = memoryParams.ManipulationType };
-            memoryObject.Value = memoryParams.Value.ToString();
+            this.SendDriveTimeMessage(new MemoryParameters { HostName = memoryParams.HostName, ManipulationType = ManipulationType.Set, Value = 0 });
 
-            await this.SendUpdateMemoryMessage(memoryParams.HostName, memoryObject);
+            System.Threading.Thread.Sleep(1000);
+
+            var memoryObjects = new MemoryObject[] 
+            { 
+                new MemoryObject { Name = "Display Popup", Address = 0x21C5FF48, Type = DataType.TwoBytes, ManipulationType = ManipulationType.Set, Value = "0" },
+                new MemoryObject { Name = "Set Reaction Command Option", Address = 0x21C5FF4E, Type = DataType.TwoBytes, ManipulationType = memoryParams.ManipulationType , Value = memoryParams.Value.ToString() },
+                new MemoryObject { Name = "Enable Popup", Address = 0x21C5FF51, Type = DataType.Byte, ManipulationType = ManipulationType.Set, Value = "0" },
+                //new MemoryObject { Name = "Enable Popup", Address = 0x21C5FF53, Type = DataType.Byte, ManipulationType = ManipulationType.Set, Value = "1" },
+                new MemoryObject { Name = "Press Triangle Reaction Command", Address = 0x2034D45D, Type = DataType.Byte, ManipulationType = ManipulationType.Set, Value = ButtonMappings.Button["Triangle"] },
+            };
+            
+            await this.SendUpdateMultipleMemoryMessage(memoryParams.HostName, memoryObjects);
         }
 
         #endregion Drive

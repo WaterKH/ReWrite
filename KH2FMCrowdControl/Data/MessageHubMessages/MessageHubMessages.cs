@@ -20,5 +20,13 @@ namespace KH2FMCrowdControl.Data
             if (host != null)
                 await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateMemoryMessage", message);
         }
+
+        private async Task SendUpdateMultipleMemoryMessage(string hostName, MemoryObject[] message)
+        {
+            DbContext.Hosts.TryGetValue(hostName, out var host);
+
+            if (host != null)
+                await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateMultipleMemoryMessage", message);
+        }
     }
 }
