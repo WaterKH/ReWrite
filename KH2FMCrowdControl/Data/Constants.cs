@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Builder;
+using System.Collections.Generic;
 
 namespace KH2FMCrowdControl.Data
 {
@@ -220,7 +221,6 @@ namespace KH2FMCrowdControl.Data
         public static string MasterForm = "Master Form";
         public static string FinalForm = "Final Form";
         public static string Antiform = "Antiform";
-        public static string Mickey = "Mickey";
 
         #endregion Drives
 
@@ -232,6 +232,64 @@ namespace KH2FMCrowdControl.Data
         public static string FeatherCharm = "Feather Charm";
 
         #endregion Summons
+
+        #region Characters
+
+        public static string Sora = "Sora";
+        public static string Donald = "Donald";
+        public static string Goofy = "Goofy";
+        public static string Riku = "Riku";
+        public static string Mickey = "Mickey";
+        
+        public static string KH1Sora = "KH1 Sora";
+        public static string CardSora = "Card Sora";
+        public static string DieSora = "Die Sora";
+        public static string LionSora = "Lion Sora";
+        public static string ChristmasSora = "Christmas Sora";
+        public static string Roxas = "Roxas";
+        public static string DualwieldRoxas = "Dualwield Roxas";
+        public static string MickeyRobed = "Mickey Robed";
+
+        public static string BirdDonald = "Bird Donald";
+        public static string TortoiseGoofy = "Tortoise Goofy";
+        public static string ChristmasDonald = "Christmas Donald";
+        public static string ChristmasGoofy = "Christmas Goofy";
+
+        public static string Beast = "Beast";
+        public static string Mulan = "Mulan";
+        public static string Ping = "Ping";
+        public static string Hercules = "Hercules";
+        public static string Auron = "Auron";
+        public static string Aladdin = "Aladdin";
+        public static string JackSparrow = "Captain Jack Sparrow";
+        public static string HalloweenJack = "Halloween Jack";
+        public static string ChristmasJack = "Christmas Jack";
+        public static string Simba = "Simba";
+        public static string Tron = "Tron";
+
+        public static string Leon = "Leon";
+        public static string Yuffie = "Yuffie";
+        public static string Tifa = "Tifa";
+        public static string Cloud = "Cloud";
+        public static string Minnie = "Minnie";
+
+        public static string Xemnas = "Xemnas";
+        public static string Xigbar = "Xigbar";
+        public static string Xaldin = "Xaldin";
+        public static string Vexen = "Vexen";
+        public static string Lexaeus = "Lexaeus";
+        public static string Zexion = "Zexion";
+        public static string Saix = "Saix";
+        public static string Axel = "Axel";
+        public static string Demyx = "Demyx";
+        public static string Luxord = "Luxord";
+        public static string Marluxia = "Marluxia";
+        public static string Larxene = "Larxene";
+
+        public static string Sephiroth = "Sephiroth";
+        public static string LingeringWill = "Lingering Will";
+
+        #endregion Characters
 
         public static string Give(string value)
         {

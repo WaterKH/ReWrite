@@ -4,7 +4,6 @@ namespace KH2FMCrowdControl.Data
 {
     public partial class MessageHubMessages
     {
-
         #region Misc
 
         public async void SendMunnyMessage(MemoryParameters memoryParams)

@@ -23,8 +23,9 @@ namespace KH2FMCrowdControl.Data
                 { GroupType.Sora, await this.InitializeSoraOptions() },
                 { GroupType.Donald, await this.InitializeDonaldOptions() },
                 { GroupType.Goofy, await this.InitializeGoofyOptions() },
-                { GroupType.Party, await this.InitializePartyOptions() },
+                { GroupType.ModelSwap, await this.InitializeModelSwapOptions() },
                 { GroupType.Misc, await this.InitializeMiscOptions() },
+                //{ GroupType.Party, await this.InitializePartyOptions() },
             };
 
             return options;

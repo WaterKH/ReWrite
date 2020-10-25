@@ -4,7 +4,6 @@ namespace KH2FMCrowdControl.Data
 {
     public partial class MessageHubMessages
     {
-
         #region Equipment
 
         public async void SendEquipStaffMessage(MemoryParameters memoryParams)
@@ -16,7 +15,6 @@ namespace KH2FMCrowdControl.Data
         }
 
         #endregion Equipment
-
 
         #region Armor
 
