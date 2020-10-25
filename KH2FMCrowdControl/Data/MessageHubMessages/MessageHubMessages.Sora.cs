@@ -1,12 +1,10 @@
-﻿using Waterkh.Common.Memory;
+﻿using System.Threading.Tasks;
+using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
 {
     public partial class MessageHubMessages
     {
-        // TODO Move these into sub partial classes
-        #region Sora
-
         #region Stats
 
         public async void SendSoraLevelMessage(MemoryParameters memoryParams)
@@ -343,6 +341,29 @@ namespace KH2FMCrowdControl.Data
 
         #endregion Items
 
-        #endregion Sora
+        #region Abilities
+
+        public async void SendSoraActivateAbilityMessage(MemoryParameters memoryParams)
+        {
+            var ability = (Ability) memoryParams.Value;
+
+            var memoryObject = new MemoryObject { Name = ability.Name, Address = 0x2032E074, Type = DataType.Byte, ManipulationType = memoryParams.ManipulationType };
+            memoryObject.Value = ability.Value.ToString();
+
+            await this.SendUpdateMemoryRangeMessage(memoryParams.HostName, memoryObject, ability.MaxNumber, ability.ToggleValue);
+        }
+
+        public async void SendSoraDeactivateAbilityMessage(MemoryParameters memoryParams)
+        {
+            var ability = (Ability) memoryParams.Value;
+
+            var memoryObject = new MemoryObject { Name = ability.Name, Address = 0x2032E074, Type = DataType.Byte, ManipulationType = memoryParams.ManipulationType };
+            memoryObject.Value = ability.Value.ToString();
+
+
+            await this.SendUpdateMemoryRangeMessage(memoryParams.HostName, memoryObject, ability.MaxNumber, 0);
+        }
+
+        #endregion Abilities
     }
 }
