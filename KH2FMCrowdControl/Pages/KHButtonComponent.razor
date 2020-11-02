@@ -1,4 +1,5 @@
 ﻿@using KH2FMCrowdControl.Data
+@using Waterkh.Common.Memory 
 
 @inject IToastService ToastService
 @inject TwitchService TwitchService 
@@ -47,16 +48,16 @@
     public bool IsDisabled { get; set; }
 
     [Parameter]
-    public Waterkh.Common.Memory.ManipulationType ManipulationType { get; set; }
+    public ManipulationType ManipulationType { get; set; }
 
     [Parameter]
     public string Description { get; set; }
 
     [Parameter]
-    public EventCallback<MemoryParameters> Method { get; set; }
+    public string MethodName { get; set; }
 
-    //[Parameter]
-    //public EventCallback<int> CurrentPointTotalChanged { get; set; }
+    [Parameter]
+    public EventCallback Method { get; set; }
 
 
     protected string ToCostString(int cost)
@@ -75,7 +76,7 @@
     {
         if (Cost == 0)
         {
-            await Method.InvokeAsync(new MemoryParameters { HostName = HostName, Value = Value, ManipulationType = ManipulationType });
+            await Method.InvokeAsync(null);
 
             return;
         }
@@ -89,18 +90,15 @@
 
         if (TwitchService.GetUsersCoins(HostName, ViewerName) >= Cost)
         {
-            await Method.InvokeAsync(new MemoryParameters { HostName = HostName, Value = Value, ManipulationType = ManipulationType });
+            MessageHubMessages.SendUpdateMemoryMessage(MethodName, new Request { HostConnectionId = DbContext.Hosts[HostName].ConnectionId, HostName = HostName, ViewerName = ViewerName, Value = Value.ToString(), ManipulationType = ManipulationType, Cost = Cost });
 
-            if (Cost > 0)
-            {
-                TwitchService.SetUsersCoins(HostName, ViewerName, Cost);
+            TwitchService.SetUsersCoins(HostName, ViewerName, Cost);
 
-                MemoryService.SendAlert(this, new AlertArgs { Viewer = ViewerName, Item = Name, ImageUrl = ImageUrl });
+            MemoryService.SendAlert(this, new AlertArgs { Host = HostName, Viewer = ViewerName, Item = Name, ImageUrl = ImageUrl });
 
-                MemoryService.CreateTimer(HostName, ParentName, MemoryService.OptionCooldowns[HostName][Cost]);
+            MemoryService.CreateTimer(HostName, ParentName, MemoryService.OptionCooldowns[HostName][Cost]);
 
-                ToastService.ShowSuccess("Option Redeemed Successfully!");
-            }
+            ToastService.ShowSuccess("Option Redeemed Successfully!");
         }
         else
         {

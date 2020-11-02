@@ -2,6 +2,7 @@
 
 @using KH2FMCrowdControl.Data
 @using KH2FMCrowdControl.Twitch
+@using Waterkh.Common.Memory; 
 
 @inject TwitchService TwitchService
 @inject MemoryService MemoryService
@@ -24,20 +25,29 @@
     </div>
     @if (twitchApi != null)
     {
-    <div class="col-1"></div>
-    <div class="col-3">
-        <InputFile OnChange="UploadOptionSettings" />
-    </div>
-    <div class="col-2">
-        <button type="button" class="btn btn-info" @onclick="DownloadOptionSettings">Download Settings File</button>
-        <input type="text" class="form-control" @bind-value="@fileName" placeholder="Optional File Name" style="margin: 5px 0px 0px 0px">
-    </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <InputFile OnChange="UploadOptionSettings" />
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-info" @onclick="DownloadOptionSettings">Download Settings File</button>
+            <input type="text" class="form-control" @bind-value="@fileName" placeholder="Optional File Name" style="margin: 5px 0px 0px 0px">
+        </div>
     }
 </div>
 
 @if (twitchApi != null)
 {
     <br />
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Enter Point Amount" @bind-value="pointAmount">
+        <input type="text" class="form-control" placeholder="Enter Time in Seconds" @bind-value="time">
+        <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="button" @onclick="UpdatePointsPerTime">Update</button>
+        </div>
+    </div>
+
     <br />
     <br />
 
@@ -50,7 +60,7 @@
 
                         </div>
 
-                        <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse; border: 1px solid #ccc!important;">
+                        <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse;">
                             @foreach (var alert in alerts)
                             {
                                 <KHAlert Username="@alert.Viewer"
@@ -159,6 +169,9 @@
 
     private string fileName = string.Empty;
 
+    private int pointAmount;
+    private int time;
+
     protected override async Task OnInitializedAsync()
     {
         MemoryService.OnAlertReceived += CreateAlert;
@@ -175,6 +188,9 @@
         username = await localStorage.GetItemAsync<string>("username");
         clientId = await localStorage.GetItemAsync<string>("clientId");
 
+        if (!DbContext.Points.ContainsKey(username))
+            DbContext.Points.Add(username, new PointCounter { PointAmount = 100, Time = 10 });
+
         if (DbContext.Hosts.ContainsKey(username))
             connectionStatus = DbContext.Hosts[username].ConnectionId == string.Empty ? "Disconnected" : "Connected";
 
@@ -188,6 +204,9 @@
 
     public async Task CreateAlert(object sender, AlertArgs alertArgs)
     {
+        if (alertArgs.Host != username)
+            return;
+
         alerts.Add(new KH2FMCrowdControl.Data.KHAlert { Viewer = alertArgs.Viewer, Item = alertArgs.Item, ImageUrl = alertArgs.ImageUrl });
 
         if (alerts.Count > 5)
@@ -201,8 +220,21 @@
 
     public async Task UpdateConnectionStatus(object sender, MessageHubArgs messageHubArgs)
     {
+        if (messageHubArgs.HostName != username)
+            return;
+
         connectionStatus = messageHubArgs.ConnectionStatus;
         connectionId = messageHubArgs.ConnectionId;
+
+
+        if (string.IsNullOrEmpty(messageHubArgs.ConnectionId))
+        {
+            await this.StopHosting();
+        }
+        else
+        {
+            MessageHubMessages.SendUpdateOptionsMessage(username);
+        }
 
         await InvokeAsync(() =>
         {
@@ -221,6 +253,8 @@
             twitchApi = TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
 
             await MemoryService.InitializeOptions(username);
+
+            MessageHubMessages.SendUpdateOptionsMessage(username);
 
             await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
 
@@ -241,7 +275,7 @@
 
         twitchApi = null;
 
-        await Task.Run(() => ToastService.ShowSuccess("Stopped Hosting"));
+        await Task.Run(() => ToastService.ShowInfo("Stopped Hosting"));
 
         await InvokeAsync(() =>
         {
@@ -293,7 +327,7 @@
                 ToastService.ShowError("Error Exporting File..");
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine(e.Message);
         }
@@ -314,9 +348,23 @@
                 ToastService.ShowError("Error Importing File..");
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine(e.Message);
         }
+    }
+
+    private async Task UpdatePointsPerTime()
+    {
+        DbContext.Points[username].PointAmount = pointAmount;
+        DbContext.Points[username].Time = time;
+
+
+        // TODO Maybe pass in vars?
+        if(twitchApi != null)
+            twitchApi.GenerateTimer(username);
+
+
+        ToastService.ShowSuccess("Successfully Updated Points per Second!");
     }
 }

@@ -1,0 +1,31 @@
+﻿@using Waterkh.Common.Memory 
+
+@if (!SubGroupTypes.Any(x => x == SubGroupType.None))
+{
+<MatAccordion>
+    <MatExpansionPanel @bind-Expanded="@panelOpenState">
+        <MatExpansionPanelSummary>
+            <MatExpansionPanelHeader>@ContentHeader Content</MatExpansionPanelHeader>
+        </MatExpansionPanelSummary>
+        <MatExpansionPanelDetails>
+            @foreach (var subGroup in SubGroupTypes)
+            {
+                if (subGroup != SubGroupType.None)
+                {
+                    <p><a href="#@(subGroup)">@subGroup.ToString()</a></p>
+                }
+            }
+        </MatExpansionPanelDetails>
+    </MatExpansionPanel>
+</MatAccordion>
+}
+
+@code {
+    bool panelOpenState;
+
+    [Parameter]
+    public string ContentHeader { get; set; }
+
+    [Parameter]
+    public System.Collections.Generic.IEnumerable<SubGroupType> SubGroupTypes { get; set; }
+}

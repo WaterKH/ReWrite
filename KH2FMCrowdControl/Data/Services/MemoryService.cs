@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
 {
@@ -16,14 +17,16 @@ namespace KH2FMCrowdControl.Data
         public static event TimerDelegate OnTimerChanged;
 
         // Key: Host Name - Key: Category Name - Value: Buttons
-        public Dictionary<string, Dictionary<GroupType, List<KHButtonTemplate>>> Options;
+        public static Dictionary<string, Dictionary<GroupType, List<ButtonTemplate>>> Options;
         public Dictionary<string, Dictionary<int, int>> OptionCooldowns;
 
+        // Key: Host Name - Value: Point updates
+        public Dictionary<string, int> Points = new Dictionary<string, int>();
         public Dictionary<string, Dictionary<string, Timer>> CooldownTimers = new Dictionary<string, Dictionary<string, Timer>>();
-        
+
         public static event AlertDelegate OnAlertReceived;
 
-        private readonly Options options;
+        public readonly Options OptionsClass;
 
         public static void SendAlert(object sender, AlertArgs e)
         {
@@ -32,9 +35,9 @@ namespace KH2FMCrowdControl.Data
 
         public MemoryService(IHubContext<MessageHub> context)
         {
-            options = new Options(context);
+            OptionsClass = new Options(context);
 
-            this.Options = new Dictionary<string, Dictionary<GroupType, List<KHButtonTemplate>>>();
+            Options = new Dictionary<string, Dictionary<GroupType, List<ButtonTemplate>>>();
             this.OptionCooldowns = new Dictionary<string, Dictionary<int, int>>();
         }
 
@@ -42,8 +45,8 @@ namespace KH2FMCrowdControl.Data
 
         public async Task InitializeOptions(string hostName)
         {
-            if(!this.Options.ContainsKey(hostName))
-                this.Options.Add(hostName, await this.options.InitializeOptions());
+            if (!Options.ContainsKey(hostName))
+                Options.Add(hostName, await OptionsClass.InitializeOptions());
 
             if (!this.OptionCooldowns.ContainsKey(hostName))
                 this.OptionCooldowns.Add(hostName, Constants.Cooldowns.ToDictionary(x => x.Key, x => x.Value));
@@ -51,29 +54,29 @@ namespace KH2FMCrowdControl.Data
 
         public async Task UpdateOption(string hostName, GroupType category, string optionName, string subOptionName, int cost)
         {
-            if (this.Options.ContainsKey(hostName) && this.Options[hostName].ContainsKey(category))
+            if (Options.ContainsKey(hostName) && Options[hostName].ContainsKey(category))
             {
                 if (!string.IsNullOrEmpty(subOptionName))
-                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).Cost = cost;
+                    Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).Cost = cost;
                 else
-                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).Cost = cost;
+                    Options[hostName][category].FirstOrDefault(x => x.Name == optionName).Cost = cost;
             }
         }
 
         public async Task UpdateOption(string hostName, GroupType category, string optionName, string subOptionName, bool isActive)
         {
-            if (this.Options.ContainsKey(hostName) && this.Options[hostName].ContainsKey(category))
+            if (Options.ContainsKey(hostName) && Options[hostName].ContainsKey(category))
             {
                 if (!string.IsNullOrEmpty(subOptionName))
-                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).IsActive = isActive;
+                    Options[hostName][category].FirstOrDefault(x => x.Name == optionName).SubMethodParams.FirstOrDefault(x => x.Name == subOptionName).IsActive = isActive;
                 else
-                    this.Options[hostName][category].FirstOrDefault(x => x.Name == optionName).IsActive = isActive;
+                    Options[hostName][category].FirstOrDefault(x => x.Name == optionName).IsActive = isActive;
             }
         }
 
         public async Task<bool> UpdateCostCooldown(string hostName, int previousCost, int cost, int cooldown)
         {
-            if(this.OptionCooldowns[hostName].ContainsKey(previousCost))
+            if (this.OptionCooldowns[hostName].ContainsKey(previousCost))
             {
                 if (previousCost == cost)
                 {
@@ -84,9 +87,9 @@ namespace KH2FMCrowdControl.Data
                     this.OptionCooldowns[hostName].Remove(previousCost);
                     this.OptionCooldowns[hostName].Add(cost, cooldown);
 
-                    foreach (var category in this.Options[hostName])
+                    foreach (var category in Options[hostName])
                     {
-                        this.Options[hostName][category.Key].ForEach(x =>
+                        Options[hostName][category.Key].ForEach(x =>
                         {
                             x.SubMethodParams.Where(x => x.Cost == previousCost).ToList().ForEach(x => x.Cost = cost);
                         });
@@ -95,7 +98,7 @@ namespace KH2FMCrowdControl.Data
 
                 return true;
             }
-            else if(!this.OptionCooldowns[hostName].ContainsKey(cost))
+            else if (!this.OptionCooldowns[hostName].ContainsKey(cost))
             {
                 this.OptionCooldowns[hostName].Add(cost, cooldown);
 
@@ -132,13 +135,13 @@ namespace KH2FMCrowdControl.Data
 
                     foreach (var (settingName, subSettings) in settings)
                     {
-                        this.Options[hostName][category]
-                            .FirstOrDefault(x => x.Name == settingName).IsActive = subSettings.FirstOrDefault(y => y.OptionName == settingName).IsActive; 
+                        Options[hostName][category]
+                            .FirstOrDefault(x => x.Name == settingName).IsActive = subSettings.FirstOrDefault(y => y.OptionName == settingName).IsActive;
 
-                        this.Options[hostName][category]
+                        Options[hostName][category]
                             .FirstOrDefault(x => x.Name == settingName)
                                 .SubMethodParams
-                                .ForEach(x => 
+                                .ForEach(x =>
                                 {
                                     x.Cost = subSettings.FirstOrDefault(y => y.OptionName == x.Name).Cost;
                                     x.IsActive = subSettings.FirstOrDefault(y => y.OptionName == x.Name).IsActive;
@@ -148,7 +151,7 @@ namespace KH2FMCrowdControl.Data
 
                 this.OptionCooldowns[hostName] = optionSettings.CostCooldowns.ToDictionary(x => int.Parse(x.Key), x => int.Parse(x.Value));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
@@ -169,12 +172,12 @@ namespace KH2FMCrowdControl.Data
                     Settings = new Dictionary<string, Dictionary<string, List<Setting>>>(),
                     CostCooldowns = this.OptionCooldowns[hostName].ToDictionary(x => x.Key.ToString(), x => x.Value.ToString())
                 };
-                
-                foreach(var (category, options) in this.Options[hostName])
+
+                foreach (var (category, options) in Options[hostName])
                 {
                     var categoryString = category.ToString();
 
-                    foreach(var option in options)
+                    foreach (var option in options)
                     {
                         var settings = option.SubMethodParams.Select(x => new Setting
                         {
@@ -191,7 +194,7 @@ namespace KH2FMCrowdControl.Data
                             IsActive = option.IsActive
                         });
 
-                        if(!optionSettings.Settings.ContainsKey(categoryString))
+                        if (!optionSettings.Settings.ContainsKey(categoryString))
                             optionSettings.Settings.Add(categoryString, new Dictionary<string, List<Setting>>());
 
                         if (!optionSettings.Settings[categoryString].ContainsKey(option.Name))
@@ -203,7 +206,7 @@ namespace KH2FMCrowdControl.Data
 
                 result = JsonSerializer.Serialize(optionSettings, new JsonSerializerOptions { IgnoreNullValues = false });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
@@ -241,11 +244,11 @@ namespace KH2FMCrowdControl.Data
         {
             try
             {
-                this.Options[hostName].Values
+                Options[hostName].Values
                     .FirstOrDefault(x => x.Any(y => y.Name == optionName))
                     .FirstOrDefault(x => x.Name == optionName).IsDisabled = isDisabled;
 
-                this.Options[hostName].Values
+                Options[hostName].Values
                     .FirstOrDefault(x => x.Any(y => y.Name == optionName))
                     .FirstOrDefault(x => x.Name == optionName)
                     .SubMethodParams.ForEach(x => x.IsDisabled = isDisabled);

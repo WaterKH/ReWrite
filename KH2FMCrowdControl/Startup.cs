@@ -1,15 +1,15 @@
+using BlazorDownloadFile;
+using Blazored.LocalStorage;
+using Blazored.Modal;
+using Blazored.Toast;
+using KH2FMCrowdControl.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using KH2FMCrowdControl.Data;
-using Blazored.LocalStorage;
-using Microsoft.AspNetCore.ResponseCompression;
 using System.Linq;
-using Blazored.Modal;
-using Blazored.Toast;
-using BlazorDownloadFile;
 
 namespace KH2FMCrowdControl
 {

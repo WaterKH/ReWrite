@@ -193,6 +193,19 @@ app {
     overflow-x: hidden;
 }
 
+.headline {
+    font-family: Calibri, "Helvetica", san-serif;
+    line-height: 1.5em;
+    color: black;
+    font-size: 20px;
+}
+
+h1:after {
+    content: ' ';
+    display: block;
+    border: 2px solid black;
+}
+
 ::-webkit-scrollbar{
     width: 12px;
 }

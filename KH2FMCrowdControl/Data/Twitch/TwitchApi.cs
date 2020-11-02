@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
@@ -18,7 +16,7 @@ namespace KH2FMCrowdControl.Twitch
         public Dictionary<string, TwitchUser> UserCoins;
         public readonly TwitchAPI api;
 
-        private readonly Timer timer;
+        private Timer timer;
 
         private readonly HttpClient httpClient;
         private readonly string chatUrl;
@@ -43,7 +41,18 @@ namespace KH2FMCrowdControl.Twitch
 
             this.chatUrl = $"https://tmi.twitch.tv/group/user/{username}/chatters";
 
-            this.timer = new Timer(10000) { AutoReset = true };
+            this.GenerateTimer(this.username);
+        }
+
+        public void GenerateTimer(string username)
+        {
+            if (username != this.username)
+                return;
+
+            if (this.timer != null)
+                this.timer.Stop();
+
+            this.timer = new Timer(DbContext.Points[username].Time * 1000) { AutoReset = true };
 
             this.timer.Elapsed += this.SetupUserTracker;
 
@@ -63,7 +72,7 @@ namespace KH2FMCrowdControl.Twitch
                 if (!UserCoins.ContainsKey(user))
                     UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
 
-                UserCoins[user].Coins += 100;
+                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
             }
 
             foreach (var user in users.admins)
@@ -71,7 +80,7 @@ namespace KH2FMCrowdControl.Twitch
                 if (!UserCoins.ContainsKey(user))
                     UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
 
-                UserCoins[user].Coins += 100;
+                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
             }
 
             foreach (var user in users.moderators)
@@ -79,7 +88,7 @@ namespace KH2FMCrowdControl.Twitch
                 if (!UserCoins.ContainsKey(user))
                     UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
 
-                UserCoins[user].Coins += 100;
+                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
             }
 
             foreach (var user in users.vips)
@@ -87,7 +96,7 @@ namespace KH2FMCrowdControl.Twitch
                 if (!UserCoins.ContainsKey(user))
                     UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
 
-                UserCoins[user].Coins += 100;
+                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
             }
 
             foreach (var user in users.viewers)
@@ -95,7 +104,7 @@ namespace KH2FMCrowdControl.Twitch
                 if (!UserCoins.ContainsKey(user))
                     UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
 
-                UserCoins[user].Coins += 100;
+                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
             }
 
 

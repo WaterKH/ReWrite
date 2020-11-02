@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
 {
@@ -13,9 +14,9 @@ namespace KH2FMCrowdControl.Data
             messageHubMessages = new MessageHubMessages(context);
         }
 
-        public async Task<Dictionary<GroupType, List<KHButtonTemplate>>> InitializeOptions()
+        public async Task<Dictionary<GroupType, List<ButtonTemplate>>> InitializeOptions()
         {
-            var options = new Dictionary<GroupType, List<KHButtonTemplate>>
+            var options = new Dictionary<GroupType, List<ButtonTemplate>>
             {
                 { GroupType.Items, await this.InitializeItemOptions() },
                 { GroupType.Drive, await this.InitializeDriveOptions() },

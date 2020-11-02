@@ -1,4 +1,6 @@
-﻿<div class="simple-form blazored-modal-content">
+﻿@using Waterkh.Common.Memory 
+
+<div class="simple-form blazored-modal-content">
 
     <div class="form-group">
         <div class="row">
@@ -13,7 +15,7 @@
                                    ManipulationType="@button.ManipulationType"
                                    ImageUrl="@button.ImageUrl"
                                    Description="@button.Description"
-                                   Method="@button.Method"
+                                   MethodName="@button.MethodName"
                                    IsDisabled="@button.IsDisabled"/>
             }
         </div>
@@ -37,13 +39,15 @@
     public string ParentName { get; set; }
 
     [Parameter]
-    public List<KH2FMCrowdControl.Data.KHButtonTemplate> Options { get; set; }
+    public List<ButtonTemplate> Options { get; set; }
 
     protected override void OnInitialized()
     {
         KH2FMCrowdControl.Data.MemoryService.OnTimerChanged += CloseModal;
     }
 
+
+    // TODO Update this to check if this is user that selected the option
     protected async Task CloseModal(object sender, ChangeEventArgs e)
     {
         await BlazoredModal.Cancel();

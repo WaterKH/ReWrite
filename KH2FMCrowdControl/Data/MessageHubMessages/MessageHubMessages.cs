@@ -1,40 +1,49 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
+using System.Linq;
 using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
 {
     public partial class MessageHubMessages
     {
-        private readonly IHubContext<MessageHub> messageHubContext;
+        private static IHubContext<MessageHub> messageHubContext;
 
         public MessageHubMessages(IHubContext<MessageHub> hubContext)
         {
-            this.messageHubContext = hubContext;
+            messageHubContext = hubContext;
         }
 
-        private async Task SendUpdateMemoryMessage(string hostName, MemoryObject message)
+        public static async void SendUpdateMemoryMessage(string methodName, Request request)
+        {
+            DbContext.Hosts.TryGetValue(request.HostName, out var host);
+
+            if (host != null)
+                await messageHubContext.Clients.Client(host.ConnectionId).SendAsync(methodName, request);
+        }
+
+        public static async void SendUpdateOptionsMessage(string hostName)
         {
             DbContext.Hosts.TryGetValue(hostName, out var host);
 
-            if (host != null)
-                await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateMemoryMessage", message);
+            if (host != null && MemoryService.Options != null)
+            {
+                MemoryService.Options.TryGetValue(hostName, out var options);
+
+                if (options != null)
+                {
+                    var altOptions = options.ToDictionary(x => x.Key.ToString(), y => y.Value);
+
+                    await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateOptionsMessage", new Option { Options = altOptions });
+                }
+            }
         }
 
-        private async Task SendUpdateMultipleMemoryMessage(string hostName, MemoryObject[] message)
-        {
-            DbContext.Hosts.TryGetValue(hostName, out var host);
+        //private async Task SendUpdateMemoryRangeMessage(string methodName, MemoryObject message, int maxNumber, int toggleValue)
+        //{
+        //    DbContext.Hosts.TryGetValue(hostName, out var host);
 
-            if (host != null)
-                await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateMultipleMemoryMessage", message);
-        }
-
-        private async Task SendUpdateMemoryRangeMessage(string hostName, MemoryObject message, int maxNumber, int toggleValue)
-        {
-            DbContext.Hosts.TryGetValue(hostName, out var host);
-
-            if (host != null)
-                await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateMemoryRangeMessage", message, maxNumber, toggleValue);
-        }
+        //    if (host != null)
+        //        await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("UpdateMemoryRangeMessage", message, maxNumber, toggleValue);
+        //}
     }
 }

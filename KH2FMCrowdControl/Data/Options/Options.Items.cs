@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
 {
     public partial class Options
     {
-        public async Task<List<KHButtonTemplate>> InitializeItemOptions()
+        public async Task<List<ButtonTemplate>> InitializeItemOptions()
         {
-            var options = new List<KHButtonTemplate>();
+            var options = new List<ButtonTemplate>();
 
             options.AddRange(await this.InitializeBaseItemsOptions());
             options.AddRange(await this.InitializeWeaponsOptions());

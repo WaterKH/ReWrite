@@ -60,7 +60,7 @@ namespace KH2FMCrowdControl.Data
 
             var twitchApi = new TwitchApi(clientId, accessToken);
 
-            if(!DbContext.Hosts.ContainsKey(username.ToLower()))
+            if (!DbContext.Hosts.ContainsKey(username.ToLower()))
                 DbContext.Hosts.Add(username.ToLower(), null);
 
             if (DbContext.Hosts[username.ToLower()] != null)
@@ -80,7 +80,7 @@ namespace KH2FMCrowdControl.Data
         {
             if (DbContext.Hosts.ContainsKey(username))
                 DbContext.Hosts.Remove(username);
-            
+
             TwitchService.HostsUpdated(this, new ChangeEventArgs());
         }
 
