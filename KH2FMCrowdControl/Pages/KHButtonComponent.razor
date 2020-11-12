@@ -60,16 +60,17 @@
     public EventCallback Method { get; set; }
 
 
-    protected string ToCostString(int cost)
-    {
-        return cost == 0 ? "Click For More Options" : $"Spend {cost} Points";
-    }
-
     protected override Task OnInitializedAsync()
     {
         MemoryService.OnTimerChanged += UpdateTimer;
 
         return base.OnInitializedAsync();
+    }
+
+
+    protected string ToCostString(int cost)
+    {
+        return cost == 0 ? "Click For More Options" : $"Spend {cost} Points";
     }
 
     protected async Task ButtonClick()
@@ -94,7 +95,7 @@
 
             TwitchService.SetUsersCoins(HostName, ViewerName, Cost);
 
-            MemoryService.SendAlert(this, new AlertArgs { Host = HostName, Viewer = ViewerName, Item = Name, ImageUrl = ImageUrl });
+            MemoryService.SendAlert(this, new AlertArgs { Host = HostName, Viewer = ViewerName, Item = $"[{ParentName}] {Name}", ImageUrl = ImageUrl });
 
             MemoryService.CreateTimer(HostName, ParentName, MemoryService.OptionCooldowns[HostName][Cost]);
 

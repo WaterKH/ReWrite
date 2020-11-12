@@ -13,12 +13,6 @@ namespace KH2FMCrowdControl.Data
         public static event UserCoinDelegate OnUserCoinsUpdated;
         public static event HostsDelegate OnHostsChanged;
 
-        private readonly string redirectUriHost = "https://localhost:44362/crowdcontrolhost";
-        private readonly string redirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
-
-        //private readonly string redirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
-        //private readonly string redirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
-
         private readonly string twitchAuthLink = "https://id.twitch.tv/oauth2/authorize";
 
         public TwitchApi GetTwitchApi(string username)
@@ -26,23 +20,11 @@ namespace KH2FMCrowdControl.Data
             return DbContext.Hosts[username].TwitchApi;
         }
 
-        public int GetUsersCoins(string hostName, string viewerName)
-        {
-            if (DbContext.Hosts.ContainsKey(hostName) && DbContext.Hosts[hostName].TwitchApi.UserCoins.ContainsKey(viewerName))
-                return DbContext.Hosts[hostName].TwitchApi.UserCoins[viewerName].Coins;
-            else
-                return 0;
-        }
-
-        public void SetUsersCoins(string hostName, string viewerName, int coins)
-        {
-            if (DbContext.Hosts.ContainsKey(hostName) && DbContext.Hosts[hostName].TwitchApi.UserCoins.ContainsKey(viewerName))
-                DbContext.Hosts[hostName].TwitchApi.UserCoins[viewerName].Coins -= coins;
-        }
+        #region Host
 
         public string RedirectToCreateHost(string clientId)
         {
-            return this.GetTwitchAuthenticationLink(clientId, redirectUriHost, "token");
+            return this.GetTwitchAuthenticationLink(clientId, Constants.RedirectUriHost, "token");
         }
 
         public TwitchApi GetHost(string username)
@@ -69,9 +51,11 @@ namespace KH2FMCrowdControl.Data
                 DbContext.Hosts[username.ToLower()].IsHosting = true;
             }
             else
+            {
                 DbContext.Hosts[username.ToLower()] = new Host { ConnectionId = connectionId, IsHosting = true, TwitchApi = twitchApi };
+            }
 
-            TwitchService.HostsUpdated(this, new ChangeEventArgs());
+            HostsUpdated(this, new ChangeEventArgs());
 
             return twitchApi;
         }
@@ -81,8 +65,12 @@ namespace KH2FMCrowdControl.Data
             if (DbContext.Hosts.ContainsKey(username))
                 DbContext.Hosts.Remove(username);
 
-            TwitchService.HostsUpdated(this, new ChangeEventArgs());
+            HostsUpdated(this, new ChangeEventArgs());
         }
+
+        #endregion Host
+
+        #region Viewer
 
         public string RedirectToViewer(string username)
         {
@@ -90,7 +78,7 @@ namespace KH2FMCrowdControl.Data
 
             var clientId = host.TwitchApi.api.Settings.ClientId;
 
-            return this.GetTwitchAuthenticationLink(clientId, redirectUriViewer, "token");
+            return this.GetTwitchAuthenticationLink(clientId, Constants.RedirectUriViewer, "token");
         }
 
         public string GetTwitchAuthenticationLink(string clientId, string redirectUri, string tokenType)
@@ -126,6 +114,26 @@ namespace KH2FMCrowdControl.Data
 
             return JsonSerializer.Deserialize<TwitchUserInfo>(json);
         }
+
+        #region Viewer Coins
+
+        public int GetUsersCoins(string hostName, string viewerName)
+        {
+            if (DbContext.Hosts.ContainsKey(hostName) && DbContext.Hosts[hostName].TwitchApi.UserCoins.ContainsKey(viewerName))
+                return DbContext.Hosts[hostName].TwitchApi.UserCoins[viewerName].Coins;
+            else
+                return 0;
+        }
+
+        public void SetUsersCoins(string hostName, string viewerName, int coins)
+        {
+            if (DbContext.Hosts.ContainsKey(hostName) && DbContext.Hosts[hostName].TwitchApi.UserCoins.ContainsKey(viewerName))
+                DbContext.Hosts[hostName].TwitchApi.UserCoins[viewerName].Coins -= coins;
+        }
+
+        #endregion Viewer Coins
+
+        #endregion Viewer
 
         #region Events
 

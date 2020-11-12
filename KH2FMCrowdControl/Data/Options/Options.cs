@@ -31,5 +31,13 @@ namespace KH2FMCrowdControl.Data
 
             return options;
         }
+
+        public async Task<Dictionary<GroupType, List<ButtonTemplate>>> GetOptions(string hostName)
+        {
+            if (MemoryService.Options.ContainsKey(hostName))
+                return MemoryService.Options[hostName];
+
+            return await this.InitializeOptions();
+        }
     }
 }

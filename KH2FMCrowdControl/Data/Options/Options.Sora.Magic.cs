@@ -67,10 +67,10 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Magic/Spell_Orb.png",
                     SubMethodParams = new List<ButtonTemplate>
                         {
-                            new ButtonTemplate { Name = Constants.Take("Fire"), Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Fire Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Fire"), Cost = Constants.Cost200, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Fire to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Fira"), Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Fira to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Firaga"), Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Firaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Take(Constants.Fire), Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Fire Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Fire), Cost = Constants.Cost200, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Fire to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Fira), Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Fira to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Firaga), Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Firaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendFireMagicMessage" },
                         }
                 },
                 new ButtonTemplate
@@ -83,10 +83,10 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Magic/Spell_Orb.png",
                     SubMethodParams = new List<ButtonTemplate>
                         {
-                            new ButtonTemplate { Name = Constants.Take("Blizzard"), Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Blizzard Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Blizzard"), Cost = Constants.Cost200, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Blizzard to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Blizzara"), Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Blizzara to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Blizzaga"), Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Blizzaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Take(Constants.Blizzard), Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Blizzard Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Blizzard), Cost = Constants.Cost200, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Blizzard to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Blizzara), Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Blizzara to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Blizzaga), Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Blizzaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendBlizzardMagicMessage" },
                         }
                 },
                 new ButtonTemplate
@@ -99,10 +99,10 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Magic/Spell_Orb.png",
                     SubMethodParams = new List<ButtonTemplate>
                         {
-                            new ButtonTemplate { Name = Constants.Take("Thunder"), Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Thunder Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Thunder"), Cost = Constants.Cost200, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Thunder to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Thundara"), Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Thundara to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Thundaga"), Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Thundaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Take(Constants.Thunder), Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Thunder Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Thunder), Cost = Constants.Cost200, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Thunder to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Thundara), Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Thundara to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Thundaga), Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Thundaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendThunderMagicMessage" },
                         }
                 },
                 new ButtonTemplate
@@ -115,10 +115,10 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Magic/Spell_Orb.png",
                     SubMethodParams = new List<ButtonTemplate>
                         {
-                            new ButtonTemplate { Name = Constants.Take("Cure"), Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Cure Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Cure"), Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Cure to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Cura"), Cost = Constants.Cost500, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Cura to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Curaga"), Cost = Constants.Cost750, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Curaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Take(Constants.Cure), Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Cure Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Cure), Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Cure to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Cura), Cost = Constants.Cost500, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Cura to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Curaga), Cost = Constants.Cost750, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Curaga to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendCureMagicMessage" },
                         }
                 },
                 new ButtonTemplate
@@ -131,10 +131,10 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Magic/Spell_Orb.png",
                     SubMethodParams = new List<ButtonTemplate>
                         {
-                            new ButtonTemplate { Name = Constants.Take("Magnet"), Cost = Constants.Cost750, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Magnet Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Magnet"), Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Magnet to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Magnera"), Cost = Constants.Cost400, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Magnera to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Magnega"), Cost = Constants.Cost500, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Magnega to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Take(Constants.Magnet), Cost = Constants.Cost750, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Magnet Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Magnet), Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Magnet to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Magnera), Cost = Constants.Cost400, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Magnera to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Magnega), Cost = Constants.Cost500, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Magnega to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendMagnetMagicMessage" },
                         }
                 },
                 new ButtonTemplate
@@ -147,10 +147,10 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Magic/Spell_Orb.png",
                     SubMethodParams = new List<ButtonTemplate>
                         {
-                            new ButtonTemplate { Name = Constants.Take("Reflect"), Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Reflect Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Reflect"), Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Reflect to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Reflera"), Cost = Constants.Cost500, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Reflera to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
-                            new ButtonTemplate { Name = Constants.Give("Reflega"), Cost = Constants.Cost750, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Reflega to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Take(Constants.Reflect), Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Remove the Reflect Element from Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Reflect), Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Add Reflect to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Reflera), Cost = Constants.Cost500, Value = 2, ManipulationType = ManipulationType.Set, Description = "Add Reflera to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
+                            new ButtonTemplate { Name = Constants.Give(Constants.Reflega), Cost = Constants.Cost750, Value = 3, ManipulationType = ManipulationType.Set, Description = "Add Reflega to Sora's Magic", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendReflectMagicMessage" },
                         }
                 }
             };

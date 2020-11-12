@@ -25,16 +25,11 @@ namespace KH2FMCrowdControl.Data
         {
             DbContext.Hosts.TryGetValue(hostName, out var host);
 
-            if (host != null && MemoryService.Options != null)
+            if (host != null)
             {
-                MemoryService.Options.TryGetValue(hostName, out var options);
+                var options = await MemoryService.OptionsClass.GetOptions(hostName);
 
-                if (options != null)
-                {
-                    var altOptions = options.ToDictionary(x => x.Key.ToString(), y => y.Value);
-
-                    await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateOptionsMessage", new Option { Options = altOptions });
-                }
+                await messageHubContext.Clients.Client(host.ConnectionId).SendAsync("SendUpdateOptionsMessage", new Option { Options = options.ToDictionary(x => x.Key.ToString(), y => y.Value) });
             }
         }
 

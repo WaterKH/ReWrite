@@ -48,26 +48,6 @@ namespace KH2FMCrowdControl.Data
                         new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
                         new ButtonTemplate { Name = Constants.Hercules, Cost = Constants.Cost750, Value = 0x16A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Hercules.png" },
                         new ButtonTemplate { Name = Constants.Minnie, Cost = Constants.Cost750, Value = 0x4BB, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Minnie.png" },
-
-                        new ButtonTemplate { Name = Constants.Xemnas, Cost = Constants.Cost1000, Value = 0x646, ManipulationType = ManipulationType.Set, Description = "Switch Model to Xemnas", ImageUrl = "Characters/Xemnas.png" },
-                        new ButtonTemplate { Name = Constants.Xigbar, Cost = Constants.Cost1000, Value = 0x622, ManipulationType = ManipulationType.Set, Description = "Switch Model to Xigbar", ImageUrl = "Characters/Xigbar.png" },
-                        new ButtonTemplate { Name = Constants.Xaldin, Cost = Constants.Cost1000, Value = 0x3E5, ManipulationType = ManipulationType.Set, Description = "Switch Model to Xaldin", ImageUrl = "Characters/Xaldin.png" },
-                        new ButtonTemplate { Name = Constants.Vexen, Cost = Constants.Cost1000, Value = 0x933, ManipulationType = ManipulationType.Set, Description = "Switch Model to Vexen", ImageUrl = "Characters/Vexen.png" },
-                        new ButtonTemplate { Name = $"{Constants.Vexen}'s Anti-Sora", Cost = Constants.Cost1000, Value = 0x934, ManipulationType = ManipulationType.Set, Description = "Switch Model to Vexen's Anti-Sora", ImageUrl = "Characters/Vexen_AntiSora.png" },
-                        new ButtonTemplate { Name = Constants.Lexaeus, Cost = Constants.Cost1000, Value = 0x935, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lexaeus", ImageUrl = "Characters/Lexaeus.png" },
-                        new ButtonTemplate { Name = Constants.Zexion, Cost = Constants.Cost1000, Value = 0x97B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Zexion", ImageUrl = "Characters/Zexion.png" },
-                        new ButtonTemplate { Name = Constants.Saix, Cost = Constants.Cost1000, Value = 0x6C9, ManipulationType = ManipulationType.Set, Description = "Switch Model to Saix", ImageUrl = "Characters/Saix.png" },
-                        new ButtonTemplate { Name = Constants.Axel, Cost = Constants.Cost1000, Value = 0x51, ManipulationType = ManipulationType.Set, Description = "Switch Model to Axel", ImageUrl = "Characters/Axel.png" },
-                        new ButtonTemplate { Name = Constants.Demyx, Cost = Constants.Cost1000, Value = 0x31B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Demyx", ImageUrl = "Characters/Demyx.png" },
-                        new ButtonTemplate { Name = $"{Constants.Demyx}'s Water Clone", Cost = Constants.Cost1000, Value = 0x8F6, ManipulationType = ManipulationType.Set, Description = "Switch Model to Demyx's Water Clone", ImageUrl = "Characters/Demyx_Clone.png" },
-                        new ButtonTemplate { Name = Constants.Luxord, Cost = Constants.Cost1000, Value = 0x5F8, ManipulationType = ManipulationType.Set, Description = "Switch Model to Luxord", ImageUrl = "Characters/Luxord.png" },
-                        new ButtonTemplate { Name = Constants.Marluxia, Cost = Constants.Cost1000, Value = 0x923, ManipulationType = ManipulationType.Set, Description = "Switch Model to Marluxia", ImageUrl = "Characters/Marluxia.png" },
-                        new ButtonTemplate { Name = Constants.Larxene, Cost = Constants.Cost1000, Value = 0x962, ManipulationType = ManipulationType.Set, Description = "Switch Model to Larxene", ImageUrl = "Characters/Larxene.png" },
-                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost1000, Value = 0x951, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
-                        new ButtonTemplate { Name = $"{Constants.Roxas}'s Shadow", Cost = Constants.Cost1000, Value = 0x754, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas's Shadow", ImageUrl = "Characters/Roxas_Shadow.png" },
-
-                        new ButtonTemplate { Name = Constants.Sephiroth, Cost = Constants.Cost3000, Value = 0x8B6, ManipulationType = ManipulationType.Set, Description = "Switch Model to Sephiroth", ImageUrl = "Characters/Sephiroth.png" },
-                        new ButtonTemplate { Name = Constants.LingeringWill, Cost = Constants.Cost3000, Value = 0x96F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lingering Will", ImageUrl = "Characters/Lingering_Will.png" },
                     }
                 },
                 new ButtonTemplate
@@ -79,8 +59,6 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Characters/Goofy.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost500, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Revert Goofy to KH2 Model", ImageUrl = "Characters/Goofy.png" },
-
                         new ButtonTemplate { Name = Constants.Leon, Cost = Constants.Cost500, Value = 0x8F8, ManipulationType = ManipulationType.Set, Description = "Switch Model to Leon", ImageUrl = "Characters/Leon.png" },
                         new ButtonTemplate { Name = Constants.Yuffie, Cost = Constants.Cost500, Value = 0x8FB, ManipulationType = ManipulationType.Set, Description = "Switch Model to Yuffie", ImageUrl = "Characters/Yuffie.png" },
                         new ButtonTemplate { Name = Constants.Tifa, Cost = Constants.Cost500, Value = 0x8FA, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tifa", ImageUrl = "Characters/Tifa.png" },

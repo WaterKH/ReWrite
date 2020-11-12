@@ -15,6 +15,7 @@ namespace KH2FMCrowdControl.Data
     public class MemoryService
     {
         public static event TimerDelegate OnTimerChanged;
+        public static event AlertDelegate OnAlertReceived;
 
         // Key: Host Name - Key: Category Name - Value: Buttons
         public static Dictionary<string, Dictionary<GroupType, List<ButtonTemplate>>> Options;
@@ -24,9 +25,7 @@ namespace KH2FMCrowdControl.Data
         public Dictionary<string, int> Points = new Dictionary<string, int>();
         public Dictionary<string, Dictionary<string, Timer>> CooldownTimers = new Dictionary<string, Dictionary<string, Timer>>();
 
-        public static event AlertDelegate OnAlertReceived;
-
-        public readonly Options OptionsClass;
+        public static Options OptionsClass;
 
         public static void SendAlert(object sender, AlertArgs e)
         {

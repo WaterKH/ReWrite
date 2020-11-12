@@ -14,6 +14,7 @@ namespace KH2FMCrowdControl.Data
             options.AddRange(await this.InitializeSoraArmorOptions());
             options.AddRange(await this.InitializeSoraAccessoriesOptions());
             options.AddRange(await this.InitializeSoraItemsOptions());
+            options.AddRange(await this.InitializeSoraQuickMenuOptions());
 
             return options;
         }

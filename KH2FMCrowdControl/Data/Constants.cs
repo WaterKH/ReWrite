@@ -5,6 +5,12 @@ namespace KH2FMCrowdControl.Data
 {
     public static class Constants
     {
+        //public static string RedirectUriHost = "https://localhost:44362/crowdcontrolhost";
+        //public static string RedirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
+
+        public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
+        public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
+
         public static string None = "None";
 
         #region Costs & Cooldowns
@@ -290,6 +296,29 @@ namespace KH2FMCrowdControl.Data
         public static string LingeringWill = "Lingering Will";
 
         #endregion Characters
+
+        #region Magic
+
+        public static string Fire = "Fire";
+        public static string Fira = "Fira";
+        public static string Firaga = "Firaga";
+        public static string Blizzard = "Blizzard";
+        public static string Blizzara = "Blizzara";
+        public static string Blizzaga = "Blizzaga";
+        public static string Thunder = "Thunder";
+        public static string Thundara = "Thundara";
+        public static string Thundaga = "Thundaga";
+        public static string Cure = "Cure";
+        public static string Cura = "Cura";
+        public static string Curaga = "Curaga";
+        public static string Magnet = "Magnet";
+        public static string Magnera = "Magnera";
+        public static string Magnega = "Magnega";
+        public static string Reflect = "Reflect";
+        public static string Reflera = "Reflera";
+        public static string Reflega = "Reflega";
+
+        #endregion Magic
 
         public static string Give(string value)
         {
