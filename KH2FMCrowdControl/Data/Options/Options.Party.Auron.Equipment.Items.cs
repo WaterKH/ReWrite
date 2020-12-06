@@ -7,7 +7,7 @@ namespace KH2FMCrowdControl.Data
 {
     public partial class Options
     {
-        public async Task<List<ButtonTemplate>> InitializeDonaldItemsOptions()
+        public async Task<List<ButtonTemplate>> InitializeAuronItemsOptions()
         {
             var items = new List<ButtonTemplate>
             {
@@ -26,42 +26,42 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate
                 {
                     Name = "Change Item Slots",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Items,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Auron,
                     Cost = 0,
-                    Description = "Update Donald's Item Slots",
+                    Description = "Update Auron's Item Slots",
                     ImageUrl = "Items/Megalixir.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldItemSlotsMessage" },
-                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldItemSlotsMessage"  },
-                        new ButtonTemplate { Name = "2 Slot", Cost = Constants.Cost200, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Donald's Item Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldItemSlotsMessage"  },
+                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Auron's Item Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendAuronItemSlotsMessage" },
+                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Auron's Item Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendAuronItemSlotsMessage"  },
+                        new ButtonTemplate { Name = "2 Slots", Cost = Constants.Cost200, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Auron's Item Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendAuronItemSlotsMessage"  },
                     }
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Item Slot 1",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Items,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Auron,
                     Cost = 0,
-                    Description = "Update Donald's Item Slot 1",
+                    Description = "Update Auron's Item Slot 1",
                     ImageUrl = "Items/Megalixir.png",
                     SubMethodParams = items.CreateListFromList()
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Item Slot 2",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Items,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Auron,
                     Cost = 0,
-                    Description = "Update Donald's Item Slot 2",
+                    Description = "Update Auron's Item Slot 2",
                     ImageUrl = "Items/Megalixir.png",
                     SubMethodParams = items.CreateListFromList()
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Item Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldItemSlot1Message");
-            options.FirstOrDefault(x => x.Name.Equals("Change Item Slot 2")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldItemSlot2Message");
+            options.FirstOrDefault(x => x.Name.Equals("Change Item Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendAuronItemSlot1Message");
+            options.FirstOrDefault(x => x.Name.Equals("Change Item Slot 2")).SubMethodParams.ForEach(x => x.MethodName = "SendAuronItemSlot2Message");
 
             return options;
         }

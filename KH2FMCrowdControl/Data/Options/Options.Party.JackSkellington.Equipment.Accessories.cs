@@ -7,7 +7,7 @@ namespace KH2FMCrowdControl.Data
 {
     public partial class Options
     {
-        public async Task<List<ButtonTemplate>> InitializeDonaldAccessoriesOptions()
+        public async Task<List<ButtonTemplate>> InitializeJackSkellingtonAccessoriesOptions()
         {
             var accessories = new List<ButtonTemplate>
             {
@@ -52,55 +52,43 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate
                 {
                     Name = "Change Accessory Slots",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Accessories,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.JackSkellington,
                     Cost = 0,
-                    Description = "Update Number of Donald's Accessory Slots",
+                    Description = "Update Number of Jack Skellington's Accessory Slots",
                     ImageUrl = "Accessories/Cosmic_Ring.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldAccessorySlotsMessage" },
-                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldAccessorySlotsMessage" },
-                        new ButtonTemplate { Name = "2 Slot", Cost = Constants.Cost250, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldAccessorySlotsMessage" },
-                        new ButtonTemplate { Name = "3 Slot", Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 3", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldAccessorySlotsMessage" },
+                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set JackSkellington's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendJackSkellingtonAccessorySlotsMessage" },
+                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set JackSkellington's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendJackSkellingtonAccessorySlotsMessage" },
+                        new ButtonTemplate { Name = "2 Slots", Cost = Constants.Cost250, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set JackSkellington's Armor Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendJackSkellingtonAccessorySlotsMessage" },
                     }
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Accessory Slot 1",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Accessories,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.JackSkellington,
                     Cost = 0,
-                    Description = "Update Donald's Accessory Slot 1",
+                    Description = "Update Jack Skellington's Accessory Slot 1",
                     ImageUrl = "Accessories/Cosmic_Ring.png",
                     SubMethodParams = accessories.CreateListFromList()
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Accessory Slot 2",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Accessories,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.JackSkellington,
                     Cost = 0,
-                    Description = "Update Donald's Accessory Slot 2",
-                    ImageUrl = "Accessories/Cosmic_Ring.png",
-                    SubMethodParams = accessories.CreateListFromList()
-                },
-                new ButtonTemplate
-                {
-                    Name = "Change Accessory Slot 3",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Accessories,
-                    Cost = 0,
-                    Description = "Update Donald's Accessory Slot 3",
+                    Description = "Update Jack Skellington's Accessory Slot 2",
                     ImageUrl = "Accessories/Cosmic_Ring.png",
                     SubMethodParams = accessories.CreateListFromList()
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Accessory Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldAccessorySlot1Message");
-            options.FirstOrDefault(x => x.Name.Equals("Change Accessory Slot 2")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldAccessorySlot2Message");
-            options.FirstOrDefault(x => x.Name.Equals("Change Accessory Slot 3")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldAccessorySlot3Message");
-
+            options.FirstOrDefault(x => x.Name.Equals("Change Accessory Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendJackSkellingtonAccessorySlot1Message");
+            options.FirstOrDefault(x => x.Name.Equals("Change Accessory Slot 2")).SubMethodParams.ForEach(x => x.MethodName = "SendJackSkellingtonAccessorySlot2Message");
+            
             return options;
         }
     }

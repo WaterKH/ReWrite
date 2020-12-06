@@ -5,11 +5,11 @@ namespace KH2FMCrowdControl.Data
 {
     public static class Constants
     {
-        //public static string RedirectUriHost = "https://localhost:44362/crowdcontrolhost";
-        //public static string RedirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
+        public static string RedirectUriHost = "https://localhost:44362/crowdcontrolhost";
+        public static string RedirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
 
-        public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
-        public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
+        //public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
+        //public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
 
         public static string None = "None";
 
@@ -257,9 +257,15 @@ namespace KH2FMCrowdControl.Data
         public static string MickeyRobed = "Mickey Robed";
 
         public static string BirdDonald = "Bird Donald";
-        public static string TortoiseGoofy = "Tortoise Goofy";
+        public static string TortoiseGoofy = "Tortoise Goofy"; 
+        public static string HalloweenDonald = "Halloween Donald";
+        public static string HalloweenGoofy = "Halloween Goofy";
         public static string ChristmasDonald = "Christmas Donald";
         public static string ChristmasGoofy = "Christmas Goofy";
+        public static string SpaceParanoidsDonald = "Space Paranoids Donald";
+        public static string SpaceParanoidsGoofy = "Space Paranoids Goofy";
+        public static string TimelessRiverDonald = "Timeless River Donald";
+        public static string TimelessRiverGoofy = "Timeless River Goofy";
 
         public static string Beast = "Beast";
         public static string Mulan = "Mulan";

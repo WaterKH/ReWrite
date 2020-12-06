@@ -22,11 +22,10 @@ namespace KH2FMCrowdControl.Data
                 { GroupType.Drive, await this.InitializeDriveOptions() },
                 { GroupType.Summon, await this.InitializeSummonOptions() },
                 { GroupType.Sora, await this.InitializeSoraOptions() },
-                { GroupType.Donald, await this.InitializeDonaldOptions() },
-                { GroupType.Goofy, await this.InitializeGoofyOptions() },
                 { GroupType.ModelSwap, await this.InitializeModelSwapOptions() },
                 { GroupType.Misc, await this.InitializeMiscOptions() },
-                //{ GroupType.Party, await this.InitializePartyOptions() },
+                { GroupType.Party, await this.InitializePartyOptions() },
+                { GroupType.Enemy, await this.InitializeEnemyOptions() },
             };
 
             return options;

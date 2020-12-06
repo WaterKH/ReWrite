@@ -106,8 +106,9 @@
             ToastService.ShowError("Not Enough Points!");
         }
 
+
         if (BlazoredModal != null)
-            await BlazoredModal.Close();
+            await BlazoredModal.Cancel();
     }
 
     protected async Task UpdateTimer(object sender, ChangeEventArgs e)

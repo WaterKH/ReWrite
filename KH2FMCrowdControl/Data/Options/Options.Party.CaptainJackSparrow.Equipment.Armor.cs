@@ -7,7 +7,7 @@ namespace KH2FMCrowdControl.Data
 {
     public partial class Options
     {
-        public async Task<List<ButtonTemplate>> InitializeGoofyArmorOptions()
+        public async Task<List<ButtonTemplate>> InitializeCaptainJackSparrowArmorOptions()
         {
             var armor = new List<ButtonTemplate>
             {
@@ -53,55 +53,31 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate
                 {
                     Name = "Change Armor Slots",
-                    Category = GroupType.Goofy,
-                    SubCategory = SubGroupType.Armor,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.CaptainJackSparrow,
                     Cost = 0,
-                    Description = "Update Goofy's Armor Slots",
+                    Description = "Update Captain Jack Sparrow's Armor Slots",
                     ImageUrl = "Armor/Abas_Chain.png",
                     SubMethodParams = new List<ButtonTemplate>
-                        {
-                            new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Goofy's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendGoofyArmorSlotsMessage" },
-                            new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Goofy's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendGoofyArmorSlotsMessage" },
-                            new ButtonTemplate { Name = "2 Slot", Cost = Constants.Cost200, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Goofy's Armor Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendGoofyArmorSlotsMessage" },
-                            new ButtonTemplate { Name = "3 Slot", Cost = Constants.Cost300, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Goofy's Armor Slots to 3", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendGoofyArmorSlotsMessage" },
-                        }
+                    {
+                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set CaptainJackSparrow's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendCaptainJackSparrowArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set CaptainJackSparrow's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendCaptainJackSparrowArmorSlotsMessage" },
+                    }
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Armor Slot 1",
-                    Category = GroupType.Goofy,
-                    SubCategory = SubGroupType.Armor,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.CaptainJackSparrow,
                     Cost = 0,
-                    Description = "Update Goofy's Armor Slots",
+                    Description = "Update Captain Jack Sparrow's Armor Slots",
                     ImageUrl = "Armor/Abas_Chain.png",
                     SubMethodParams = armor.CreateListFromList()
                 },
-                new ButtonTemplate
-                {
-                    Name = "Change Armor Slot 2",
-                    Category = GroupType.Goofy,
-                    SubCategory = SubGroupType.Armor,
-                    Cost = 0,
-                    Description = "Update Goofy's Armor Slot 2",
-                    ImageUrl = "Armor/Abas_Chain.png",
-                    SubMethodParams = armor.CreateListFromList()
-                },
-                new ButtonTemplate
-                {
-                    Name = "Change Armor Slot 3",
-                    Category = GroupType.Goofy,
-                    SubCategory = SubGroupType.Armor,
-                    Cost = 0,
-                    Description = "Update Goofy's Armor Slot 3",
-                    ImageUrl = "Armor/Abas_Chain.png",
-                    SubMethodParams = armor.CreateListFromList()
-                }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyArmorSlot1Message");
-            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 2")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyArmorSlot2Message");
-            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 3")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyArmorSlot3Message");
-
+            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendCaptainJackSparrowArmorSlot1Message");
+            
             return options;
         }
     }

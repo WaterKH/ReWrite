@@ -62,9 +62,9 @@ namespace KH2FMCrowdControl.Data
                     {
                         new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost2000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
                         new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
-                        new ButtonTemplate { Name = "2 Slot", Cost = Constants.Cost250, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
-                        new ButtonTemplate { Name = "3 Slot", Cost = Constants.Cost300, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 3", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
-                        new ButtonTemplate { Name = "4 Slot", Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 3", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "2 Slots", Cost = Constants.Cost250, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "3 Slots", Cost = Constants.Cost300, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 3", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "4 Slots", Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 3", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendSoraArmorSlotsMessage" },
                     }
                 },
                 new ButtonTemplate

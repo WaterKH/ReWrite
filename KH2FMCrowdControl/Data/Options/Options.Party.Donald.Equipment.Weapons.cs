@@ -40,8 +40,8 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate
                 {
                     Name = "Equip Staff",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Weapons,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Staff to have Donald Wield",
                     ImageUrl = "Staffs/Mages_Staff.png",

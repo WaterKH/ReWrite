@@ -11,7 +11,7 @@ namespace KH2FMCrowdControl.Data
         {
             List<ButtonTemplate> abilities = new List<ButtonTemplate>();
 
-            AbilityMappings.Abilities.Values.ToList().ForEach(x => abilities.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost750, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = "Misc/Ability.png" }));
+            AbilityMappings.SoraAbilities.Values.ToList().ForEach(x => abilities.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost750, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = "Misc/Ability.png" }));
 
             var options = new List<ButtonTemplate> {
 

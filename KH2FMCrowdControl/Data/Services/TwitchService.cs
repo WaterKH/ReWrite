@@ -1,5 +1,6 @@
 using KH2FMCrowdControl.Twitch;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -119,10 +120,19 @@ namespace KH2FMCrowdControl.Data
 
         public int GetUsersCoins(string hostName, string viewerName)
         {
-            if (DbContext.Hosts.ContainsKey(hostName) && DbContext.Hosts[hostName].TwitchApi.UserCoins.ContainsKey(viewerName))
-                return DbContext.Hosts[hostName].TwitchApi.UserCoins[viewerName].Coins;
-            else
+            try
+            {
+                if (DbContext.Hosts.ContainsKey(hostName) && DbContext.Hosts[hostName].TwitchApi.UserCoins.ContainsKey(viewerName))
+                    return DbContext.Hosts[hostName].TwitchApi.UserCoins[viewerName].Coins;
+                else
+                    return 0;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+
                 return 0;
+            }
         }
 
         public void SetUsersCoins(string hostName, string viewerName, int coins)

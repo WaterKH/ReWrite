@@ -39,8 +39,8 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate
                 {
                     Name = "Equip Shield",
-                    Category = GroupType.Goofy,
-                    SubCategory = SubGroupType.Weapons,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Shield to have Goofy Wield",
                     ImageUrl = "Shields/Knights_Shield.png",

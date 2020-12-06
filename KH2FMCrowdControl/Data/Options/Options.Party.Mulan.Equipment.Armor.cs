@@ -7,7 +7,7 @@ namespace KH2FMCrowdControl.Data
 {
     public partial class Options
     {
-        public async Task<List<ButtonTemplate>> InitializeDonaldArmorOptions()
+        public async Task<List<ButtonTemplate>> InitializeMulanArmorOptions()
         {
             var armor = new List<ButtonTemplate>
             {
@@ -53,43 +53,31 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate
                 {
                     Name = "Change Armor Slots",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Armor,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Mulan,
                     Cost = 0,
-                    Description = "Update Donald's Armor Slots",
+                    Description = "Update Mulan's Armor Slots",
                     ImageUrl = "Armor/Abas_Chain.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldArmorSlotsMessage" },
-                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldArmorSlotsMessage" },
-                        new ButtonTemplate { Name = "2 Slot", Cost = Constants.Cost200, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Donald's Armor Slots to 2", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendDonaldArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "No Slots", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Mulan's Armor Slots to 0", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendMulanArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost250, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Mulan's Armor Slots to 1", ImageUrl = "Armor/Abas_Chain.png", MethodName = "SendMulanArmorSlotsMessage" },
                     }
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Armor Slot 1",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Armor,
+                    Category = GroupType.Party,
+                    SubCategory = SubGroupType.Mulan,
                     Cost = 0,
-                    Description = "Update Donald's Armor Slots",
-                    ImageUrl = "Armor/Abas_Chain.png",
-                    SubMethodParams = armor.CreateListFromList()
-                },
-                new ButtonTemplate
-                {
-                    Name = "Change Armor Slot 2",
-                    Category = GroupType.Donald,
-                    SubCategory = SubGroupType.Armor,
-                    Cost = 0,
-                    Description = "Update Donald's Armor Slot 2",
+                    Description = "Update Mulan's Armor Slots",
                     ImageUrl = "Armor/Abas_Chain.png",
                     SubMethodParams = armor.CreateListFromList()
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldArmorSlot1Message");
-            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 2")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldArmorSlot2Message");
-
+            options.FirstOrDefault(x => x.Name.Equals("Change Armor Slot 1")).SubMethodParams.ForEach(x => x.MethodName = "SendMulanArmorSlot1Message");
+            
             return options;
         }
     }
