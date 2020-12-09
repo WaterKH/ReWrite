@@ -20,6 +20,8 @@ namespace KH2FMCrowdControl.Data
 
                 DbContext.Hosts[username].ConnectionId = Context.ConnectionId;
 
+                System.Diagnostics.Trace.WriteLine($"{username} MessageHub Connected...");
+
                 SendConnectionStatusChange(this, new MessageHubArgs { HostName = username, ConnectionStatus = "Connected", ConnectionId = Context.ConnectionId });
             }
 
@@ -35,6 +37,8 @@ namespace KH2FMCrowdControl.Data
                 if (DbContext.Hosts.ContainsKey(username))
                     DbContext.Hosts.Remove(username);
             }
+
+            System.Diagnostics.Trace.WriteLine($"{username} MessageHub Disconnected...");
 
             //DbContext.Hosts[username].ConnectionId = string.Empty;
 

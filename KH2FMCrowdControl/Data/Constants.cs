@@ -5,11 +5,11 @@ namespace KH2FMCrowdControl.Data
 {
     public static class Constants
     {
-        public static string RedirectUriHost = "https://localhost:44362/crowdcontrolhost";
-        public static string RedirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
+        //public static string RedirectUriHost = "https://localhost:44362/crowdcontrolhost";
+        //public static string RedirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
 
-        //public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
-        //public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
+        public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
+        public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
 
         public static string None = "None";
 
@@ -250,20 +250,23 @@ namespace KH2FMCrowdControl.Data
         public static string KH1Sora = "KH1 Sora";
         public static string CardSora = "Card Sora";
         public static string DieSora = "Die Sora";
-        public static string LionSora = "Lion Sora";
-        public static string ChristmasSora = "Christmas Sora";
         public static string Roxas = "Roxas";
         public static string DualwieldRoxas = "Dualwield Roxas";
         public static string MickeyRobed = "Mickey Robed";
 
+        public static string LionSora = "Lion Sora";
         public static string BirdDonald = "Bird Donald";
-        public static string TortoiseGoofy = "Tortoise Goofy"; 
+        public static string TortoiseGoofy = "Tortoise Goofy";
+        public static string HalloweenSora = "Halloween Sora";
         public static string HalloweenDonald = "Halloween Donald";
         public static string HalloweenGoofy = "Halloween Goofy";
+        public static string ChristmasSora = "Christmas Sora"; 
         public static string ChristmasDonald = "Christmas Donald";
         public static string ChristmasGoofy = "Christmas Goofy";
+        public static string SpaceParanoidsSora = "Space Paranoids Sora";
         public static string SpaceParanoidsDonald = "Space Paranoids Donald";
         public static string SpaceParanoidsGoofy = "Space Paranoids Goofy";
+        public static string TimelessRiverSora = "Timeless River Sora";
         public static string TimelessRiverDonald = "Timeless River Donald";
         public static string TimelessRiverGoofy = "Timeless River Goofy";
 

@@ -12,38 +12,6 @@ namespace KH2FMCrowdControl.Data
 
                 new ButtonTemplate
                 {
-                    Name = "Change Magic",
-                    Category = GroupType.Sora,
-                    SubCategory = SubGroupType.Magic,
-                    Cost = 0,
-                    Description = "Update Sora's Current Magic",
-                    ImageUrl = "Magic/Spell_Orb.png",
-                    SubMethodParams = new List<ButtonTemplate>
-                        {
-                            new ButtonTemplate { Name = "No Magic", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current Magic to Zero", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraCurrentMagicMessage" },
-                            new ButtonTemplate { Name = "One Magic", Cost = Constants.Cost500, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current Magic to One", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraCurrentMagicMessage" },
-                            new ButtonTemplate { Name = "Half Magic", Cost = Constants.Cost250, Value = 128, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current Magic to Half", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraCurrentMagicMessage" },
-                            new ButtonTemplate { Name = "Max Magic", Cost = Constants.Cost300, Value = 255, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current Magic to Max", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraCurrentMagicMessage" },
-                        }
-                },
-                new ButtonTemplate
-                {
-                    Name = "Change Max Magic",
-                    Category = GroupType.Sora,
-                    SubCategory = SubGroupType.Magic,
-                    Cost = 0,
-                    Description = "Update Sora's Max Magic",
-                    ImageUrl = "Magic/Spell_Orb.png",
-                    SubMethodParams = new List<ButtonTemplate>
-                        {
-                            new ButtonTemplate { Name = "No Max Magic", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Sora's Max Magic to Zero", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraMaxMagicMessage" },
-                            new ButtonTemplate { Name = "One Max Magic", Cost = Constants.Cost1000, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Sora's Max Magic to One", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraMaxMagicMessage" },
-                            new ButtonTemplate { Name = "Half Max Magic", Cost = Constants.Cost500, Value = 128, ManipulationType = ManipulationType.Set, Description = "Set Sora's Max Magic to Half", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraMaxMagicMessage" },
-                            new ButtonTemplate { Name = "Max Max Magic", Cost = Constants.Cost500, Value = 255, ManipulationType = ManipulationType.Set, Description = "Set Sora's Max Magic to Max", ImageUrl = "Magic/Spell_Orb.png", MethodName = "SendSoraMaxMagicMessage" },
-                        }
-                },
-                new ButtonTemplate
-                {
                     Name = "Change Recharge Magic",
                     Category = GroupType.Sora,
                     SubCategory = SubGroupType.Magic,

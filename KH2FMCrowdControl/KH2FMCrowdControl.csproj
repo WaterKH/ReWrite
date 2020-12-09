@@ -3,10 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>a18e18cc-1be0-40e8-a6c9-54a3ca1b1beb</UserSecretsId>
+    <Version>0.5.0</Version>
+    <PackageReleaseNotes>0.5.0 - Fixes applied from Project 0.5.0</PackageReleaseNotes>
+    <Authors>waterkh</Authors>
+    <Company>waterkh</Company>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="appsettings.json~RF81bc806.TMP" />
+    <None Remove="Data\Constants.cs~RFfc9ba4f.TMP" />
     <None Remove="Data\MessageHubMessages\MessageHubMessages.cs~RF1e2f2ae8.TMP" />
   </ItemGroup>
 

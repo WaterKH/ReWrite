@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -152,7 +153,7 @@ namespace KH2FMCrowdControl.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Trace.WriteLine(e.Message);
 
                 return false;
             }
@@ -207,7 +208,7 @@ namespace KH2FMCrowdControl.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Trace.WriteLine(e.Message);
 
                 return string.Empty;
             }
@@ -254,7 +255,7 @@ namespace KH2FMCrowdControl.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Trace.WriteLine(e.Message);
             }
             finally
             {

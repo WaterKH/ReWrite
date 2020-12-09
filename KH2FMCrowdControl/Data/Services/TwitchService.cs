@@ -1,6 +1,7 @@
 using KH2FMCrowdControl.Twitch;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -129,7 +130,7 @@ namespace KH2FMCrowdControl.Data
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Trace.WriteLine(e.Message);
 
                 return 0;
             }

@@ -15,7 +15,7 @@
                                        ViewerName="@ViewerName"
                                        ImageUrl="@button.ImageUrl"
                                        Description="@button.Description"
-                                       Method="@(() => DisplaySubModal(button.SubMethodParams.Where(x => x.IsActive).ToList(), button.Name))"
+                                       Method="@(() => DisplaySubModal(button.SubMethodParams.Where(x => x.IsActive).ToList(), ParentName))"
                                        IsDisabled="@button.IsDisabled" />
                 }
                 else

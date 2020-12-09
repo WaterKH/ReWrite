@@ -258,6 +258,8 @@
 
             await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
 
+            System.Diagnostics.Trace.WriteLine($"{username} Started Hosting...");
+
             await InvokeAsync(() =>
             {
                 base.StateHasChanged();
@@ -276,6 +278,8 @@
         twitchApi = null;
 
         await Task.Run(() => ToastService.ShowInfo("Stopped Hosting"));
+
+        System.Diagnostics.Trace.WriteLine($"{username} Stopped Hosting...");
 
         await InvokeAsync(() =>
         {
@@ -329,7 +333,7 @@
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            System.Diagnostics.Trace.WriteLine(e.Message);
         }
     }
 
@@ -350,7 +354,7 @@
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            System.Diagnostics.Trace.WriteLine(e.Message);
         }
     }
 
