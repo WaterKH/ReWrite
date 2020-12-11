@@ -194,7 +194,7 @@
         if (DbContext.Hosts.ContainsKey(username))
             connectionStatus = DbContext.Hosts[username].ConnectionId == string.Empty ? "Disconnected" : "Connected";
 
-        twitchApi = TwitchService.GetHost(username);
+        twitchApi = TwitchService.GetTwitchApi(username);
 
         await InvokeAsync(() =>
         {

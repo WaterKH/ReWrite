@@ -19,7 +19,10 @@ namespace KH2FMCrowdControl.Data
 
         public TwitchApi GetTwitchApi(string username)
         {
-            return DbContext.Hosts[username].TwitchApi;
+            if (!string.IsNullOrEmpty(username) && DbContext.Hosts.ContainsKey(username))
+                return DbContext.Hosts[username].TwitchApi;
+
+            return null;
         }
 
         #region Host
@@ -27,14 +30,6 @@ namespace KH2FMCrowdControl.Data
         public string RedirectToCreateHost(string clientId)
         {
             return this.GetTwitchAuthenticationLink(clientId, Constants.RedirectUriHost, "token");
-        }
-
-        public TwitchApi GetHost(string username)
-        {
-            if (!string.IsNullOrEmpty(username) && DbContext.Hosts.ContainsKey(username))
-                return DbContext.Hosts[username].TwitchApi;
-
-            return null;
         }
 
         // TODO Redo how hosting works
