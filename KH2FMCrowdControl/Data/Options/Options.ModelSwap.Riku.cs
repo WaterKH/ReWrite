@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Riku (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Riku",
                     ImageUrl = "Characters/Riku.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Riku (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Riku",
                     ImageUrl = "Characters/Riku.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Riku (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendRikuAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Riku (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendRikuEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Riku (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendRikuModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Riku (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendRikuModelMessage");
 
             return options;
         }

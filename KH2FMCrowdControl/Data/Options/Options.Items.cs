@@ -14,6 +14,7 @@ namespace KH2FMCrowdControl.Data
             options.AddRange(await this.InitializeWeaponsOptions());
             options.AddRange(await this.InitializeArmorOptions());
             options.AddRange(await this.InitializeAccessoriesOptions());
+            options.AddRange(await this.InitializeMunnyOptions());
 
             return options;
         }

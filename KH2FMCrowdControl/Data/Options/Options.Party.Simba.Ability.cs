@@ -11,7 +11,7 @@ namespace KH2FMCrowdControl.Data
         {
             List<ButtonTemplate> abilities = new List<ButtonTemplate>();
 
-            AbilityMappings.SimbaAbilities.Values.ToList().ForEach(x => abilities.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost750, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = "Misc/Ability.png" }));
+            AbilityMappings.SimbaAbilities.Values.ToList().ForEach(x => abilities.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost750, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = x.AbilityType.ToString() }));
 
             var options = new List<ButtonTemplate> {
 
@@ -22,7 +22,7 @@ namespace KH2FMCrowdControl.Data
                     SubCategory = SubGroupType.Simba,
                     Cost = 0,
                     Description = "Activate Simba's Ability",
-                    ImageUrl = "Misc/Ability.png",
+                    ImageUrl = "Shared/Ability/AbilityGIVE.png",
                     SubMethodParams = abilities.CreateListFromList()
                 },
                 new ButtonTemplate
@@ -32,13 +32,13 @@ namespace KH2FMCrowdControl.Data
                     SubCategory = SubGroupType.Simba,
                     Cost = 0,
                     Description = "Deactivate Simba's Ability",
-                    ImageUrl = "Misc/Ability.png",
+                    ImageUrl = "Shared/Ability/AbilityTAKE.png",
                     SubMethodParams = abilities.CreateListFromList()
                 },
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Activate Ability")).SubMethodParams.ForEach(x => x.MethodName = "SendSimbaActivateAbilityMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Deactivate Ability")).SubMethodParams.ForEach(x => x.MethodName = "SendSimbaDeactivateAbilityMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Activate Ability")).SubMethodParams.ForEach(x => { x.MethodName = "SendSimbaActivateAbilityMessage"; x.ImageUrl = $"Shared/Ability/GIVE{x.ImageUrl}.png"; });
+            options.FirstOrDefault(x => x.Name.Equals("Deactivate Ability")).SubMethodParams.ForEach(x => { x.MethodName = "SendSimbaDeactivateAbilityMessage"; x.ImageUrl = $"Shared/Ability/TAKE{x.ImageUrl}.png"; });
 
             return options;
         }

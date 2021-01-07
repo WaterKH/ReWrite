@@ -1,0 +1,75 @@
+﻿@using KH2FMCrowdControl.Data
+
+@inject TwitchService TwitchService
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+
+<div class="simple-form">
+
+    <div class="form-group">
+        <div class="row">
+            @if (this.Hosts.Count() > 0)
+            {
+                @foreach (var host in this.Hosts)
+                {
+                    <div class="col-3">
+                        <h2 style="text-align: center;">@host.Value.DisplayName</h2>
+                        <button class="kh-button btn btn-outline-info" style="overflow: hidden;" @onclick="@(async () => await OnStreamerSelectedAsync(host.Key))">
+                            <div class="child-kh-button" style="background: url(@host.Value.ImageUrl)" />
+                            <div class="overlay">
+                                <div class="kh-text"></div>
+                            </div>
+                        </button>
+                        <br />
+                        <div style="text-align: center; padding-left: 15px; padding-right: 15px">Stream Link: <a href="@host.Value.StreamUrl">@host.Value.StreamUrl</a></div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <h2 style="text-align: center;">No Streamers Hosting</h2>
+                </div>
+            }
+        </div>
+    </div>
+
+    <button @onclick="BlazoredModal.Cancel" class="btn btn-secondary">Cancel</button>
+</div>
+
+@code {
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; }
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    [Parameter]
+    public IEnumerable<KeyValuePair<string, Data.Host>> Hosts { get; set; }
+
+
+    protected async Task OnStreamerSelectedAsync(string username)
+    {
+        await localStorage.SetItemAsync("username", username);
+
+        var url = TwitchService.RedirectToViewer(username);
+
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        TwitchService.OnHostsChanged += UpdateHostList;
+
+        await base.OnInitializedAsync();
+    }
+
+    protected async Task UpdateHostList(object sender, ChangeEventArgs e)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+}

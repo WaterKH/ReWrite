@@ -7,7 +7,7 @@
 
 <div class="col-3" style="padding-left: 0px; padding-right: 0px">
     <h2 style="text-align: center;">@Name</h2>
-    <button class="kh-button btn btn-outline-info" @onclick="@(async () => await ButtonClick())" disabled="@(IsDisabled)">
+    <button class="kh-button btn btn-outline-info" style="overflow: hidden;" @onclick="@(async () => await ButtonClick())" disabled="@(IsDisabled)">
         <div class="child-kh-button" style="background: url(images/@ImageUrl)" />
         <div class="overlay">
             <div class="kh-text">@ToCostString(Cost)</div>
@@ -98,6 +98,11 @@
             MemoryService.SendAlert(this, new AlertArgs { Host = HostName, Viewer = ViewerName, Item = $"[{ParentName}] {Name}", ImageUrl = ImageUrl });
 
             MemoryService.CreateTimer(HostName, ParentName, MemoryService.OptionCooldowns[HostName][Cost]);
+
+            if(ParentName.Contains("(Ally)"))
+                MemoryService.CreateTimer(HostName, ParentName.Replace("Ally", "Enemy"), MemoryService.OptionCooldowns[HostName][Cost]);
+            else if (ParentName.Contains("(Enemy)"))
+                MemoryService.CreateTimer(HostName, ParentName.Replace("Enemy", "Ally"), MemoryService.OptionCooldowns[HostName][Cost]);
 
             ToastService.ShowSuccess("Option Redeemed Successfully!");
         }

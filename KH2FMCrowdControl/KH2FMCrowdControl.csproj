@@ -3,8 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>a18e18cc-1be0-40e8-a6c9-54a3ca1b1beb</UserSecretsId>
-    <Version>0.5.0</Version>
-    <PackageReleaseNotes>0.5.0 - Fixes applied from Project 0.5.0</PackageReleaseNotes>
+    <Version>0.7.0</Version>
+    <PackageReleaseNotes>0.7.0 - Fixes applied from Project 0.7.0
+0.5.0 - Fixes applied from Project 0.5.0</PackageReleaseNotes>
     <Authors>waterkh</Authors>
     <Company>waterkh</Company>
   </PropertyGroup>
@@ -22,7 +23,7 @@
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
     <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="MatBlazor" Version="2.7.0" />
-    <PackageReference Include="MemoryContract" Version="1.0.12" />
+    <PackageReference Include="MemoryContract" Version="1.0.15" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="3.1.9" />
     <PackageReference Include="Microsoft.Azure.SignalR" Version="1.5.1" />

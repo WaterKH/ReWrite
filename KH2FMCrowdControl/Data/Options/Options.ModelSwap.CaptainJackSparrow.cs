@@ -82,24 +82,26 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Captain Jack Sparrow (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Captain Jack Sparrow",
-                    ImageUrl = "Characters/CaptainJackSparrow.png",
+                    ImageUrl = "Characters/Jack_Sparrow.png",
                     SubMethodParams = ally
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Captain Jack Sparrow (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Captain Jack Sparrow",
-                    ImageUrl = "Characters/CaptainJackSparrow.png",
+                    ImageUrl = "Characters/Jack_Sparrow.png",
                     SubMethodParams = enemy
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Captain Jack Sparrow (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendCaptainJackSparrowAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Captain Jack Sparrow (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendCaptainJackSparrowEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Captain Jack Sparrow (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendCaptainJackSparrowModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Captain Jack Sparrow (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendCaptainJackSparrowModelMessage");
 
             return options;
         }

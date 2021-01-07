@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Beast (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Beast",
                     ImageUrl = "Characters/Beast.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Beast (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Beast",
                     ImageUrl = "Characters/Beast.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Beast (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBeastAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Beast (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendBeastEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Beast (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBeastModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Beast (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendBeastModelMessage");
 
             return options;
         }

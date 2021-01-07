@@ -81,8 +81,10 @@ namespace KH2FMCrowdControl.Data
                 if (previousCost == cost)
                 {
                     this.OptionCooldowns[hostName][previousCost] = cooldown;
+                    
+                    return true;
                 }
-                else
+                else if (!this.OptionCooldowns[hostName].ContainsKey(cost))
                 {
                     this.OptionCooldowns[hostName].Remove(previousCost);
                     this.OptionCooldowns[hostName].Add(cost, cooldown);
@@ -94,9 +96,9 @@ namespace KH2FMCrowdControl.Data
                             x.SubMethodParams.Where(x => x.Cost == previousCost).ToList().ForEach(x => x.Cost = cost);
                         });
                     }
-                }
 
-                return true;
+                    return true;
+                }
             }
             else if (!this.OptionCooldowns[hostName].ContainsKey(cost))
             {

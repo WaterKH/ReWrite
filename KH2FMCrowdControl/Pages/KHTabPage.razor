@@ -1,44 +1,57 @@
 ﻿@using Waterkh.Common.Memory
 
-@foreach (var (subGroup, elements) in PageElements)
+@if (IsActive)
 {
-    @if (subGroup != SubGroupType.None)
+    @foreach (var (subGroup, elements) in PageElements)
     {
-        <h1><span class="headline">@subGroup</span></h1>
-    }
-
-    <div class="row">
-        @foreach (var option in elements)
+        @if (subGroup != SubGroupType.None)
         {
-            @if (option.Cost == 0)
-            {
-                <KHButtonComponent HostName="@Host"
-                                   Name="@option.Name"
-                                   Cost="0"
-                                   ImageUrl="@option.ImageUrl"
-                                   Description="@option.Description"
-                                   Method="@(() => DisplayModal(option.SubMethodParams.Where(x => x.IsActive).ToList(), option.Name))"
-                                   IsDisabled="@option.IsDisabled" />
-            }
-            else
-            {
-                <KHButtonComponent HostName="@Host"
-                                   Name="@option.Name"
-                                   Cost="@option.Cost"
-                                   ViewerName="@Viewer"
-                                   Value="@option.Value"
-                                   ManipulationType="@option.ManipulationType"
-                                   ImageUrl="@option.ImageUrl"
-                                   Description="@option.Description" />
-            }
+            <h1>
+                <button type="button" class="btn btn-link" style="margin: 15px 0px 0px 0px;" @onclick="@(() => ExpandCollapse(@subGroup))">
+                    <span class="@this.ExpandCollapseElements[subGroup]" /><span class="headline"> @subGroup</span>
+                </button>
+            </h1>
         }
-    </div>
+
+        @if (this.ExpandCollapseElements[subGroup] == "icon-down" || subGroup == SubGroupType.None)
+        {
+            <div class="row">
+                @foreach (var option in elements)
+                {
+                    @if (option.Cost == 0)
+                    {
+                        <KHButtonComponent HostName="@Host"
+                                           Name="@option.Name"
+                                           Cost="0"
+                                           ImageUrl="@option.ImageUrl"
+                                           Description="@option.Description"
+                                           Method="@(() => DisplayModal(option.SubMethodParams.Where(x => x.IsActive).ToList(), option.Name))"
+                                           IsDisabled="@option.IsDisabled" />
+                    }
+                    else
+                    {
+                        <KHButtonComponent HostName="@Host"
+                                           Name="@option.Name"
+                                           Cost="@option.Cost"
+                                           ViewerName="@Viewer"
+                                           Value="@option.Value"
+                                           ManipulationType="@option.ManipulationType"
+                                           ImageUrl="@option.ImageUrl"
+                                           Description="@option.Description" />
+                    }
+                }
+            </div>
+        }
+    }
+}
+else
+{
+
 }
 
 @code {
     [CascadingParameter]
     public IModalService Modal { get; set; }
-
 
 
     [Parameter]
@@ -50,20 +63,27 @@
     [Parameter]
     public System.Collections.Generic.IEnumerable<ButtonTemplate> Inputs { get; set; }
 
+    [Parameter]
+    public bool IsActive { get; set; }
+
 
     Dictionary<SubGroupType, List<ButtonTemplate>> PageElements;
-
+    Dictionary<SubGroupType, string> ExpandCollapseElements;
 
     protected override async Task OnInitializedAsync()
     {
-        PageElements = new Dictionary<SubGroupType, List<ButtonTemplate>>();
+        this.PageElements = new Dictionary<SubGroupType, List<ButtonTemplate>>();
+        this.ExpandCollapseElements = new Dictionary<SubGroupType, string>();
 
         foreach (var input in Inputs)
         {
-            if (!PageElements.ContainsKey(input.SubCategory))
-                PageElements.Add(input.SubCategory, new List<ButtonTemplate>());
+            if (!this.PageElements.ContainsKey(input.SubCategory))
+                this.PageElements.Add(input.SubCategory, new List<ButtonTemplate>());
 
-            PageElements[input.SubCategory].Add(input);
+            this.PageElements[input.SubCategory].Add(input);
+
+            if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
+                this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
         }
 
         await base.OnInitializedAsync();
@@ -80,5 +100,10 @@
         parameters.Add("ViewerName", Viewer);
 
         Modal.Show<KHModalItems>(parameterName, parameters);
+    }
+
+    protected void ExpandCollapse(SubGroupType subGroupType)
+    {
+        this.ExpandCollapseElements[subGroupType] = this.ExpandCollapseElements[subGroupType] == "icon-down" ? "icon-up" : "icon-down";
     }
 }

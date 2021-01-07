@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Tron (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Tron",
                     ImageUrl = "Characters/Tron.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Tron (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Tron",
                     ImageUrl = "Characters/Tron.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Tron (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTronAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Tron (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTronEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Tron (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTronModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Tron (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTronModelMessage");
 
             return options;
         }

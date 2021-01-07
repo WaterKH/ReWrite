@@ -2,6 +2,9 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-image: linear-gradient(#006994, #98FF98);
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
 a, .btn-link {
@@ -21,9 +24,11 @@ app {
 }
 
 .top-row {
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: #FFF;
+    z-index: 5;
 }
 
 .main {
@@ -46,59 +51,30 @@ app {
     text-overflow: ellipsis;
 }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-}
-
-    .sidebar .top-row {
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    .sidebar .navbar-brand {
-        font-size: 1.1rem;
-    }
-
-    .sidebar .oi {
-        width: 2rem;
-        font-size: 1.1rem;
-        vertical-align: text-top;
-        top: -2px;
-    }
-
-    .sidebar .nav-item {
-        font-size: 0.9rem;
-        padding-bottom: 0.5rem;
-    }
-
-        .sidebar .nav-item:first-of-type {
-            padding-top: 1rem;
-        }
-
-        .sidebar .nav-item:last-of-type {
-            padding-bottom: 1rem;
-        }
-
-        .sidebar .nav-item a {
-            color: #d7d7d7;
-            border-radius: 4px;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            line-height: 3rem;
-        }
-
-            .sidebar .nav-item a.active {
-                background-color: rgba(255,255,255,0.25);
-                color: white;
-            }
-
-            .sidebar .nav-item a:hover {
-                background-color: rgba(255,255,255,0.1);
-                color: white;
-            }
-
 .content {
     padding-top: 1.1rem;
+    max-width: 99%;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+    background: white;
+    min-height: 100vh;
+    border-radius: 10px;
+    padding-bottom: 3rem;
+}
+
+.icon-up:before {
+    content: "\25B2";
+    color: #006994;
+}
+
+.icon-down:before {
+    content: "\25BC";
+    color: #3eB489;
+}
+
+.icon-right:before {
+    content: "\25B6";
 }
 
 .navbar-toggler {
@@ -137,13 +113,14 @@ app {
 }
 
 .kh-button {
-    width: 50%;
+    width: 150px !important;
     height: 150px !important;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: auto;
     margin-left: auto;
+    padding: 0;
 }
 
 .child-kh-button {
@@ -187,9 +164,9 @@ app {
 }
 
 .blazored-modal-content {
-    max-height: 700px;
+    /*max-height: 700px;*/
     overflow-y: auto;
-    max-width: 1250px;
+    /*max-width: 1250px;*/
     overflow-x: hidden;
 }
 
@@ -204,6 +181,31 @@ h1:after {
     content: ' ';
     display: block;
     border: 2px solid black;
+}
+
+.kh-modal {
+    display: flex;
+    z-index: 102;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    padding: 1.5rem;
+    box-shadow: 0 2px 2px rgba(0,0,0,.25);
+    width: 85%;
+    height: 90%;
+}
+
+.kh-parallax-bg1 {
+    /* The image used */
+    background-image: url('../images/kh2_opening_darkened.png');
+    /* Full height */
+    height: 100%;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 ::-webkit-scrollbar{

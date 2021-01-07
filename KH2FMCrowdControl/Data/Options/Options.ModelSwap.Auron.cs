@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Auron (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Auron",
                     ImageUrl = "Characters/Auron.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Auron (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Auron",
                     ImageUrl = "Characters/Auron.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Auron (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendAuronAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Auron (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendAuronEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Auron (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendAuronModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Auron (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendAuronModelMessage");
 
             return options;
         }

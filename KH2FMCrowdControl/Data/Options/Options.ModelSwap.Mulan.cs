@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Mulan (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Mulan",
                     ImageUrl = "Characters/Mulan.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Mulan (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Mulan",
                     ImageUrl = "Characters/Mulan.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Mulan (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendMulanAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Mulan (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendMulanEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Mulan (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendMulanModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Mulan (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendMulanModelMessage");
 
             return options;
         }

@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Aladdin (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Aladdin",
                     ImageUrl = "Characters/Aladdin.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Aladdin (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Aladdin",
                     ImageUrl = "Characters/Aladdin.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Aladdin (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendAladdinAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Aladdin (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendAladdinEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Aladdin (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendAladdinModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Aladdin (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendAladdinModelMessage");
 
             return options;
         }

@@ -16,8 +16,11 @@
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
+    [CascadingParameter]
     public TabPage ActivePage { get; set; }
-    List<TabPage> Pages = new List<TabPage>();
+
+    [CascadingParameter]
+    public List<TabPage> Pages { get; set; } = new List<TabPage>();
 
     internal void AddPage(TabPage tabPage)
     {

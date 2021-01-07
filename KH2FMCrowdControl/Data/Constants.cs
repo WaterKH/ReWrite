@@ -5,8 +5,8 @@ namespace KH2FMCrowdControl.Data
 {
     public static class Constants
     {
-        //public static string RedirectUriHost = "https://localhost:44362/crowdcontrolhost";
-        //public static string RedirectUriViewer = "https://localhost:44362/crowdcontrolviewer";
+        //public static string RedirectUriHost = "https://localhost:44303/crowdcontrolhost";
+        //public static string RedirectUriViewer = "https://localhost:44303/crowdcontrolviewer";
 
         public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
         public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
@@ -92,7 +92,7 @@ namespace KH2FMCrowdControl.Data
         #region Staffs
 
         public static string MagesStaff = "Mage's Staff";
-        public static string HammerStaff = "Hammer Stuff";
+        public static string HammerStaff = "Hammer Staff";
         public static string VictoryBell = "Victory Bell";
         public static string MeteorStaff = "Meteor Staff";
         public static string CometStaff = "Comet Staff";
@@ -117,27 +117,27 @@ namespace KH2FMCrowdControl.Data
 
         #region Shields
 
-        public static string KnightsShield = "Mage's Staff";
-        public static string DetectionShield = "Hammer Stuff";
-        public static string AdamantShield = "Victory Bell";
-        public static string ChainGear = "Meteor Staff";
-        public static string OgreShield = "Comet Staff";
-        public static string FallingStar = "Lord's Broom";
-        public static string Dreamcloud = "Wisdom Wand";
-        public static string KnightDefender = "Rising Dragon";
-        public static string GenjiShield = "Nobody Lance";
-        public static string AkashicRecord = "Shaman's Relic";
-        public static string AkashicRecordPlus = "Shaman's Relic+";
-        public static string NobodyGuard = "Staff of Detection";
-        public static string SaveTheKing = "Save the Queen";
-        public static string SaveTheKingPlus = "Save the Queen+";
-        public static string FrozenPride = "Centurion";
-        public static string FrozenPridePlus = "Centurion+";
-        public static string JoyousMushroom = "Plain Mushroom";
-        public static string JoyousMushroomPlus = "Plain Mushroom+";
-        public static string MajesticMushroom = "Precious Mushroom";
-        public static string MajesticMushroomPlus = "Precious Mushroom+";
-        public static string UltimateMushroom = "Premium Mushroom";
+        public static string KnightsShield = "Knight's Shield";
+        public static string DetectionShield = "Detection Shield";
+        public static string AdamantShield = "Adamant Shield";
+        public static string ChainGear = "Chain Gear";
+        public static string OgreShield = "Ogre Shield";
+        public static string FallingStar = "Falling Star";
+        public static string Dreamcloud = "Dreamcloud";
+        public static string KnightDefender = "Knight Defender";
+        public static string GenjiShield = "Genji Shield";
+        public static string AkashicRecord = "Akashic Record";
+        public static string AkashicRecordPlus = "Akashic Record+";
+        public static string NobodyGuard = "Nobody Guard";
+        public static string SaveTheKing = "Save the King";
+        public static string SaveTheKingPlus = "Save the King+";
+        public static string FrozenPride = "Frozen Pride";
+        public static string FrozenPridePlus = "Frozen Pride+";
+        public static string JoyousMushroom = "Joyous Mushroom";
+        public static string JoyousMushroomPlus = "Joyous Mushroom+";
+        public static string MajesticMushroom = "Majestic Mushroom";
+        public static string MajesticMushroomPlus = "Majestic Mushroom+";
+        public static string UltimateMushroom = "Ultimate Mushroom";
 
         #endregion Shields
 

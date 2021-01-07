@@ -2,7 +2,7 @@
 
 @using KH2FMCrowdControl.Data
 @using KH2FMCrowdControl.Twitch
-@using Waterkh.Common.Memory; 
+@using Waterkh.Common.Memory;
 
 @inject TwitchService TwitchService
 @inject MemoryService MemoryService
@@ -12,148 +12,227 @@
 @inject IJSRuntime JSRuntime
 @inject BlazorDownloadFile.IBlazorDownloadFileService BlazorDownloadFileService
 
-<h1>KH2FM Crowd Control (Host View)</h1>
+<div class="main">
+    <div class="top-row px-4">
+        <div class="row" style="padding-top: 15px;padding-bottom: 10px;">
+            <div class="col-2">
+                <div style="max-height: 50px; overflow: hidden;">
+                    <img style="width: 25%;" src="images/ReWrite-Trimmed.png">
+                </div>
+            </div>
 
-<div>@username Connection Status: @connectionStatus</div>
+            <div class="col-8">
+                <h2 style="text-align: center;">@username Host View</h2>
+            </div>
 
-<div class="row">
-    <div class="col-3">
-        <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
-    </div>
-    <div class="col-3">
-        <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
-    </div>
-    @if (twitchApi != null)
-    {
-        <div class="col-1"></div>
-        <div class="col-3">
-            <InputFile OnChange="UploadOptionSettings" />
+            @if (twitchApi != null)
+            {
+                <div class="col-2">
+                    <button class="btn btn-outline-info" style="overflow: hidden; float: right;" @onclick="@(async () => await OnStreamerSelectedAsync(username))">Viewer View</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-2"></div>
+            }
+
+            <div class="col-12">
+                <h1>
+                </h1>
+            </div>
         </div>
-        <div class="col-2">
-            <button type="button" class="btn btn-info" @onclick="DownloadOptionSettings">Download Settings File</button>
-            <input type="text" class="form-control" @bind-value="@fileName" placeholder="Optional File Name" style="margin: 5px 0px 0px 0px">
-        </div>
-    }
-</div>
 
-@if (twitchApi != null)
-{
-    <br />
+        <div class="row" style="padding-top: 15px;padding-bottom: 10px;">
+            <div class="col-1">
+                <a href="" style="float: left;">Back To Main</a>
+            </div>
 
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Enter Point Amount" @bind-value="pointAmount">
-        <input type="text" class="form-control" placeholder="Enter Time in Seconds" @bind-value="time">
-        <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="button" @onclick="UpdatePointsPerTime">Update</button>
-        </div>
-    </div>
+            <div class="col-1">
+                @if (twitchApi != null)
+                {
+                    <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
+                }
+            </div>
 
-    <br />
-    <br />
+            <div class="col-2">
+                <div>Client Connection: <b>@connectionStatus</b></div>
+            </div>
 
-    <div class="row">
-        <TabControl>
-            <TabPage Text="Alerts">
-                <div class="col-12" style="padding: 10px;">
-                    <div class="row">
-                        <div class="col-3">
-
-                        </div>
-
-                        <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse;">
-                            @foreach (var alert in alerts)
-                            {
-                                <KHAlert Username="@alert.Viewer"
-                                         Item="@alert.Item"
-                                         ImageUrl="@alert.ImageUrl" />
-                            }
+            @if (twitchApi != null)
+            {
+                <div class="col-4">
+                    <div style="text-align: center;">
+                        <div class="btn-group" role="group" style="display: inline-table !important;">
+                            <button type="button" class="btn @GetButtonClass(0)" @onclick=@(() => ActivatePage(0))>
+                                Alerts
+                            </button>
+                            <button type="button" class="btn @GetButtonClass(1)" @onclick=@(() => ActivatePage(1))>
+                                Options
+                            </button>
+                            <button type="button" class="btn @GetButtonClass(2)" @onclick=@(() => ActivatePage(2))>
+                                Cooldowns
+                            </button>
                         </div>
                     </div>
                 </div>
-            </TabPage>
-            <TabPage Text="Option Control">
-                <div class="col-12" style="padding: 10px;">
-                    <TabControl>
-                        @foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
-                        {
-                            <TabPage Text="@group.ToString()">
-                                <div class="col-12" style="padding: 10px;">
-                                    <TabControl>
+            }
+            else
+            {
+                <div class="col-4"></div>
+            }
+
+            <div class="col-4">
+
+                <a href="https://discord.gg/8KUBjDV" target="_blank" style="float: right;">Developer Discord Server</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content px-4">
+        
+        @if (twitchApi != null)
+        {
+            <br />
+
+            <div class="row">
+                <div class="col-2">
+                    <b>Points earned per Second:</b>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-2">
+                    <b>Upload Options</b>
+                </div>
+                <div class="col-2">
+                    <b>Download Options</b>
+                </div>
+                
+                <div class="col-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Point Amount" @bind-value="pointAmount">
+                        <input type="text" class="form-control" placeholder="Enter Time in Seconds" @bind-value="time">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="button" @onclick="UpdatePointsPerTime">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5"></div>
+                <div class="col-2">
+                    <InputFile OnChange="UploadOptionSettings" />
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-info" @onclick="DownloadOptionSettings">Download Settings File</button>
+                    <input type="text" class="form-control" @bind-value="@fileName" placeholder="Optional File Name" style="margin: 5px 0px 0px 0px">
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="row">
+                <div class="col-12"><h1></h1></div>
+                @if (ActiveTab == 0)
+                {
+                    <div class="col-12" style="padding: 10px;">
+                        <div class="row">
+                            <div class="col-3">
+
+                            </div>
+
+                            <div class="col-3">
+                                <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse;">
+                                    @foreach (var alert in alerts)
+                                    {
+                                        <KHAlert Username="@alert.Viewer"
+                                                 Item="@alert.Item"
+                                                 ImageUrl="@alert.ImageUrl" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (ActiveTab == 1)
+                {
+                    <div class="col-12" style="padding: 10px; text-align: center;">
+                        <TabControl>
+                            @foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
+                            {
+                                <TabPage Text="@group.ToString()">
+                                    <div class="row" style="padding: 10px;">
                                         @foreach (var option in MemoryService.Options[username][group])
                                         {
-                                            <TabPage Text="@option.Name">
-                                                <div class="row">
-                                                    <div class="col-6" style="padding: 10px;">
-                                                        <ChangeOption HostName="@username"
-                                                                      Category="group"
-                                                                      OptionName="@option.Name"
-                                                                      Cost="@option.Cost"
-                                                                      IsActive="@option.IsActive" />
-
-                                                        @if (option.Cost == 0)
-                                                        {
-                                                            @foreach (var subOption in option.SubMethodParams)
-                                                            {
-                                                                <ChangeOption HostName="@username"
-                                                                              Category="@group"
-                                                                              OptionName="@option.Name"
-                                                                              SubOptionName="@subOption.Name"
-                                                                              Cost="@subOption.Cost"
-                                                                              IsActive="@subOption.IsActive" />
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            <ChangeOption HostName="@username"
-                                                                          Category="@group"
-                                                                          OptionName="@option.Name"
-                                                                          Cost="@option.Cost"
-                                                                          IsActive="@option.IsActive" />
-                                                        }
-                                                    </div>
+                                            @if (option.SubCategory != SubGroupType.None && option.SubCategory != PreviousSubGroupType)
+                                            {
+                                                <div class="col-12" style="text-align: left;">
+                                                    <h1>
+                                                        <button type="button" class="btn btn-link" style="margin: 15px 0px 0px 0px;" @onclick="@(() => ExpandCollapse(option.SubCategory))">
+                                                            <span class="@this.ExpandCollapseElements[option.SubCategory]" /><span class="headline"> @option.SubCategory</span>
+                                                        </button>
+                                                    </h1>
                                                 </div>
-                                            </TabPage>
+
+                                                PreviousSubGroupType = option.SubCategory;
+                                            }
+
+                                            @if (this.ExpandCollapseElements[option.SubCategory] == "icon-down" || option.SubCategory == SubGroupType.None)
+                                            {
+                                                <KHButtonComponent HostName="@username"
+                                                                    Name="@option.Name"
+                                                                    Cost="0"
+                                                                    ImageUrl="@option.ImageUrl"
+                                                                    Description="@(option.IsActive == true ? "Active" : "Not Active")"
+                                                                    Method="@(() => DisplayModal(option, username, group))" />
+                                            }
                                         }
-                                    </TabControl>
-                                </div>
-                            </TabPage>
-                        }
-                    </TabControl>
-                </div>
-            </TabPage>
-            <TabPage Text="Cooldown Control">
-                <div class="col-12" style="padding: 10px;">
-                    <div class="row">
-                        <div class="col-4">
-                            <label class="form-control">Cost & Cooldown</label>
-                        </div>
-                        <div class="col-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" @bind-value="cost">
-                                <input type="text" class="form-control" @bind-value="cooldown">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button" @onclick="AddCostCooldown">Add</button>
-                                </div>
-                            </div>
-                        </div>
+                                    </div>
+                                </TabPage>
+                            }
+                        </TabControl>
                     </div>
-                    @foreach (var costCooldown in MemoryService.OptionCooldowns[username])
-                    {
+                }
+                else if (ActiveTab == 2)
+                {
+                    <div class="col-12" style="padding: 10px;">
                         <div class="row">
-                            <div class="col-4" style="padding: 5px;">
-                                <ChangeCost HostName="@username"
-                                            Cost="@costCooldown.Key"
-                                            Cooldown="@costCooldown.Value" />
+                            <div class="col-4">
+                                <label class="form-control">Cost & Cooldown</label>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" @bind-value="cost">
+                                    <input type="text" class="form-control" @bind-value="cooldown">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" @onclick="AddCostCooldown">Add</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    }
-                </div>
-            </TabPage>
-        </TabControl>
+                        @foreach (var costCooldown in MemoryService.OptionCooldowns[username])
+                        {
+                            <div class="row">
+                                <div class="col-4" style="padding: 5px;">
+                                    <ChangeCost HostName="@username"
+                                                Cost="@costCooldown.Key"
+                                                Cooldown="@costCooldown.Value" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
     </div>
-}
+</div>
 
 @code {
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    #region Private Vars
 
     private string username;
     private string clientId;
@@ -169,13 +248,20 @@
 
     private string fileName = string.Empty;
 
-    private int pointAmount;
-    private int time;
+    private int pointAmount = 100;
+    private int time = 10;
+
+    Dictionary<SubGroupType, string> ExpandCollapseElements;
+    private SubGroupType PreviousSubGroupType;
+
+    #endregion Private Vars
 
     protected override async Task OnInitializedAsync()
     {
         MemoryService.OnAlertReceived += CreateAlert;
         MessageHub.OnConnectionStatusChanged += UpdateConnectionStatus;
+
+        this.ExpandCollapseElements = new Dictionary<SubGroupType, string>();
 
         await base.OnInitializedAsync();
     }
@@ -196,21 +282,73 @@
 
         twitchApi = TwitchService.GetTwitchApi(username);
 
+        if (!string.IsNullOrEmpty(username) && MemoryService.Options.ContainsKey(username))
+        {
+            foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+            {
+                foreach (var input in MemoryService.Options[username][groupType])
+                {
+                    if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
+                        this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
+                }
+            }
+        }
+
         await InvokeAsync(() =>
         {
             base.StateHasChanged();
         });
     }
 
-    public async Task CreateAlert(object sender, AlertArgs alertArgs)
+    #region General Host Methods
+
+    private async Task StartHosting()
     {
-        if (alertArgs.Host != username)
-            return;
+        if (twitchApi != null)
+        {
+            await Task.Run(() => ToastService.ShowInfo("Already Hosting!"));
+        }
+        else if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
+        {
+            twitchApi = await TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
 
-        alerts.Add(new KH2FMCrowdControl.Data.KHAlert { Viewer = alertArgs.Viewer, Item = alertArgs.Item, ImageUrl = alertArgs.ImageUrl });
+            await MemoryService.InitializeOptions(username);
 
-        if (alerts.Count > 5)
-            alerts.RemoveAt(0);
+            MessageHubMessages.SendUpdateOptionsMessage(username);
+
+            await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
+
+            System.Diagnostics.Trace.WriteLine($"{username} Started Hosting...");
+
+            foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+            {
+                foreach (var input in MemoryService.Options[username][groupType])
+                {
+                    if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
+                        this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
+                }
+            }
+
+            await InvokeAsync(() =>
+            {
+                base.StateHasChanged();
+            });
+        }
+        else
+        {
+            await Task.Run(() => ToastService.ShowError("Please Connect the Client First"));
+        }
+    }
+
+    private async Task StopHosting()
+    {
+        TwitchService.RemoveHost(username);
+
+        twitchApi = null;
+
+        await Task.Run(() => ToastService.ShowInfo("Stopped Hosting"));
+
+        System.Diagnostics.Trace.WriteLine($"{username} Stopped Hosting...");
 
         await InvokeAsync(() =>
         {
@@ -242,44 +380,50 @@
         });
     }
 
-    private async Task StartHosting()
+    private async Task UpdatePointsPerTime()
     {
-        if (twitchApi != null)
+        if (pointAmount > 0 && time > 0)
         {
-            await Task.Run(() => ToastService.ShowInfo("Already Hosting!"));
-        }
-        else if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
-        {
-            twitchApi = TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
-
-            await MemoryService.InitializeOptions(username);
-
-            MessageHubMessages.SendUpdateOptionsMessage(username);
-
-            await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
-
-            System.Diagnostics.Trace.WriteLine($"{username} Started Hosting...");
-
-            await InvokeAsync(() =>
-            {
-                base.StateHasChanged();
-            });
+            DbContext.Points[username].PointAmount = pointAmount;
+            DbContext.Points[username].Time = time;
         }
         else
         {
-            await Task.Run(() => ToastService.ShowError("Please Connect the Client First"));
+            ToastService.ShowError("Points and Time need to be greater than 0.");
+
+            return;
         }
+
+        // TODO Maybe pass in vars?
+        if (twitchApi != null)
+            twitchApi.GenerateTimer(username);
+
+
+        ToastService.ShowSuccess("Successfully Updated Points per Second!");
     }
 
-    private async Task StopHosting()
+    protected async Task OnStreamerSelectedAsync(string username)
     {
-        TwitchService.RemoveHost(username);
+        await localStorage.SetItemAsync("username", username);
 
-        twitchApi = null;
+        var url = TwitchService.RedirectToViewer(username);
 
-        await Task.Run(() => ToastService.ShowInfo("Stopped Hosting"));
+        //NavigationManager.NavigateTo(url);
+        await JSRuntime.InvokeAsync<object>("open", url, "_blank");
+    }
 
-        System.Diagnostics.Trace.WriteLine($"{username} Stopped Hosting...");
+    #region Tab Control
+
+    public int ActiveTab { get; set; } = 0;
+
+    string GetButtonClass(int tab)
+    {
+        return tab == ActiveTab ? "btn-primary" : "btn-secondary";
+    }
+
+    protected async Task ActivatePage(int tab)
+    {
+        ActiveTab = tab;
 
         await InvokeAsync(() =>
         {
@@ -287,28 +431,42 @@
         });
     }
 
-    private async Task AddCostCooldown()
+    #endregion Tab Control
+
+    #endregion General Host Methods
+
+    #region Alerts
+
+    public async Task CreateAlert(object sender, AlertArgs alertArgs)
     {
-        if (cost == 0)
-        {
-            ToastService.ShowError("Cost cannot be 0");
-
+        if (alertArgs.Host != username)
             return;
-        }
 
-        var didUpdate = await MemoryService.AddCostCooldown(username, cost, cooldown);
+        alerts.Add(new KH2FMCrowdControl.Data.KHAlert { Viewer = alertArgs.Viewer, Item = alertArgs.Item, ImageUrl = alertArgs.ImageUrl });
 
-        if (didUpdate)
+        if (alerts.Count > 5)
+            alerts.RemoveAt(0);
+
+        await InvokeAsync(() =>
         {
-            // TODO Do I need to update the view here?
-        }
-        else
-        {
-            ToastService.ShowError("Probable cause: New cost is already set in the current list");
-        }
+            base.StateHasChanged();
+        });
+    }
 
-        cost = 0;
-        cooldown = 0;
+    #endregion Alerts
+
+    #region Options
+
+    protected void DisplayModal(ButtonTemplate option, string hostName, GroupType groupType)
+    {
+        var parameterName = "Options";
+        var parameters = new ModalParameters();
+
+        parameters.Add("Option", option);
+        parameters.Add("HostName", hostName);
+        parameters.Add("GroupType", groupType);
+
+        Modal.Show<KHHostModalOptions>(parameterName, parameters);
     }
 
     private async Task DownloadOptionSettings()
@@ -358,17 +516,38 @@
         }
     }
 
-    private async Task UpdatePointsPerTime()
+    protected void ExpandCollapse(SubGroupType subGroupType)
     {
-        DbContext.Points[username].PointAmount = pointAmount;
-        DbContext.Points[username].Time = time;
-
-
-        // TODO Maybe pass in vars?
-        if(twitchApi != null)
-            twitchApi.GenerateTimer(username);
-
-
-        ToastService.ShowSuccess("Successfully Updated Points per Second!");
+        this.ExpandCollapseElements[subGroupType] = this.ExpandCollapseElements[subGroupType] == "icon-down" ? "icon-up" : "icon-down";
     }
+
+    #endregion Options
+
+    #region Cost/ Cooldown
+
+    private async Task AddCostCooldown()
+    {
+        if (cost == 0)
+        {
+            ToastService.ShowError("Cost cannot be 0");
+
+            return;
+        }
+
+        var didUpdate = await MemoryService.AddCostCooldown(username, cost, cooldown);
+
+        if (didUpdate)
+        {
+            // TODO Do I need to update the view here?
+        }
+        else
+        {
+            ToastService.ShowError("Probable cause: New cost is already set in the current list");
+        }
+
+        cost = 0;
+        cooldown = 0;
+    }
+
+    #endregion Cost/ Cooldown
 }

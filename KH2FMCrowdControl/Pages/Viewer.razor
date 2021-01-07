@@ -10,39 +10,81 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IToastService ToastService
 
-<h1>KH2FM Crowd Control (Watcher View)</h1>
+<div class="main">
+    <div class="top-row px-4">
+        <div class="row" style="padding-top: 15px;padding-bottom: 10px;">
+            <div class="col-2">
+                <div style="max-height: 50px; overflow: hidden;">
+                    <img style="width: 25%;" src="images/ReWrite-Trimmed.png">
+                </div>
+            </div>
 
-@if (twitchApi == null)
-{
-    <div>Loading...</div>
-}
-else
-{
-    <h2>@viewerUsername Point Total: @(TwitchService.GetUsersCoins(hostUsername, viewerUsername))</h2>
-
-    <br />
-    <br />
-
-    <TabControl>
-        @foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
-        {
-            <TabPage Text="@group.ToString()">
-
-                <br />
-                <br />
-
-                <div class="row">
-                    <KHAccordian ContentHeader="@group.ToString()"
-                                 SubGroupTypes="@MemoryService.Options[hostUsername][group].Where(x => x.IsActive).Select(x => x.SubCategory).Distinct()" />
+            @if (twitchApi == null)
+            {
+                <div>Loading...</div>
+            }
+            else
+            {
+                <div class="col-8">
+                    <h2 style="text-align: center;">@(host.DisplayName)'s Options</h2>
                 </div>
 
-                <KHTabPage Host="@hostUsername"
-                           Viewer="@viewerUsername"
-                           Inputs="@MemoryService.Options[hostUsername][group].Where(x => x.IsActive)" />
-            </TabPage>
+                <div class="col-2">
+                    <a href="@host.StreamUrl" target="_blank" style="float: right;">Host's Twitch Channel</a>
+                </div>
+            }
+            <div class="col-12">
+                <h1>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 15px;padding-bottom: 10px;">
+            <div class="col-1">
+                <a href="" style="float: left;">Back To Main</a>
+            </div>
+
+            <div class="col-3">
+                <h4 style="text-align: center">Point Total: @(TwitchService.GetUsersCoins(hostUsername, viewerUsername))</h4>
+            </div>
+
+            <div class="col-4">
+                <div style="text-align: center;">
+                    <div class="btn-group" role="group" style="display: inline-table !important;">
+                        @foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+                        {
+                            <button type="button" class="btn @GetButtonClass(groupType)" @onclick=@(() => ActivatePage(groupType))>
+                                @groupType.ToString()
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <a href="https://discord.gg/8KUBjDV" target="_blank" style="float: right;">Developer Discord Server</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content px-4">
+
+        @if (twitchApi == null)
+        {
+            <div>Loading...</div>
         }
-    </TabControl>
-}
+        else
+        {
+            @foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+            {
+                <KHTabPage Host="@hostUsername"
+                            Viewer="@viewerUsername"
+                            Inputs="@MemoryService.Options[hostUsername][groupType].Where(x => x.IsActive)"
+                            IsActive="@(ActiveTab == groupType)" />
+            }
+        }
+    </div>
+</div>
 
 @code {
 
@@ -52,6 +94,8 @@ else
 
     private TwitchApi twitchApi;
     private TwitchUserInfo twitchUserInfo;
+
+    private Data.Host host;
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,6 +117,12 @@ else
         hostUsername = await localStorage.GetItemAsync<string>("username");
 
         twitchApi = TwitchService.GetTwitchApi(hostUsername);
+        host = DbContext.Hosts[hostUsername];
+
+        //foreach (GroupType group in Enum.GetValues(typeof(GroupType)))
+        //{
+        //    this.AddPage(group, new KHTabPage() { Host = hostUsername, Viewer = viewerUsername, Inputs = MemoryService.Options[hostUsername][group].Where(x => x.IsActive) });
+        //}
 
         //await MemoryService.InitializeOptions(hostUsername);
 
@@ -91,4 +141,25 @@ else
             base.StateHasChanged();
         });
     }
+
+    #region region Tab Control
+
+    public GroupType ActiveTab { get; set; } = GroupType.Sora;
+
+    string GetButtonClass(GroupType tab)
+    {
+        return tab == ActiveTab ? "btn-primary" : "btn-secondary";
+    }
+
+    protected async Task ActivatePage(GroupType tab)
+    {
+        ActiveTab = tab;
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    #endregion Tab Control
 }

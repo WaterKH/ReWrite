@@ -8,5 +8,6 @@
         public int Value { get; set; }
         public int ToggleValue { get; set; }
         public int MaxNumber { get; set; } = 1;
+        public AbilityType AbilityType { get; set; }
     }
 }

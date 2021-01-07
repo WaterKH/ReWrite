@@ -1,96 +1,237 @@
 ﻿@page "/"
+
 @using KH2FMCrowdControl.Data
 
-@inject TwitchService TwitchService
-@inject NavigationManager NavigationManager
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+<div class="main">
+    <div class="content px-4">
 
-<h1>Welcome to Re:Write</h1>
-<h4>A crowd control project by waterkh</h4>
-
-<br />
-
-<div class="row">
-    <div class="col-6">
-
-        <div>
-            If you are a viewer, please select a streamer who is hosting:
+        <div class="row">
+            <div class="col-10">
+            </div>
+            <div class="col-2" style="padding-bottom: 10px;">
+                <button type="button" class="btn btn-info" style="float: right;" @onclick="OnStartHostingClickedAsync">Start Hosting</button>
+            </div>
+            <br />
         </div>
 
-        <br />
-        <div class="col-6">
-            <select class="form-control d-flex" @onchange="@((ChangeEventArgs e) => OnStreamerSelectedAsync(e.Value.ToString()))">
-                <option value="" hidden disabled selected>Select your streamer</option>
-                @foreach (var host in DbContext.Hosts.Where(x => x.Value.IsHosting))
-                {
-                    <option value="@host.Key">@host.Key</option>
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="col-6">
-
-        <div>
-            If you are a host, please enter your Twitch username along with your client Id:
+        <div class="row kh-parallax-bg1">
+            <div class="col-12" style="text-align: center; padding: 20px;">
+                <img style="width: 50%;" src="images/ReWrite-Trimmed.png">
+            </div>
+            <div class="col-12" style="text-align: center; padding: 25px;">
+                <button type="button" class="btn btn-primary btn-lg" @onclick="OnSelectStreamerClickedAsync">Select a Streamer to Get Started</button>
+            </div>
         </div>
 
-        <div class="col-6">
-            <input type="text" class="form-control d-flex" aria-describedby="usernameHelp" placeholder="Enter Twitch Username" @onchange="@((ChangeEventArgs e) => username = e.Value.ToString())">
+        <div class="row" style="padding: 25px;">
+            <div class="col-12" style="text-align: center;">
+                <h1>About Re:Write</h1>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4" style="text-align: center;">
+                <img src="/images/icons/github_icon.png" style="padding-right: 3px;" /> <a href="https://github.com/WaterKH/ReWrite/projects" style="padding-right: 15px;">GitHub Project Source</a>
+                <img src="/images/icons/patreon_icon.png" style="height: 24px; padding-right: 3px;" /> <a href="https://www.patreon.com/khrewrite">Patreon</a>
+            </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-6">
-            <input type="text" class="form-control d-flex" aria-describedby="clientIdHelp" placeholder="Enter ClientId" @onchange="@((ChangeEventArgs e) => clientId = e.Value.ToString())">
-        </div>
-        
-        <br />
 
-        <div class="col-3">
-            <button type="button" class="btn btn-info" @onclick="OnHostClickedAsync">Host</button>
+        <div class="row" style="padding: 25px;">
+            <div class="col-8">
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;<b>Re:Write</b> is an open-source project created by me, waterkh. The idea was inspired by the initial randomizer for KH2FM, as well as crowd control projects for The Legend of Zelda: Link to the Past and Super Metroid. I remember having the idea a little before I was honored to be a guest on the longest running Kingdom Hearts podcast <a href="https://www.youtube.com/watch?v=b9vsb3ZtH4U">The Ansem Report Podcast: Episode 83</a>. After a couple weeks, I was able to have an alpha done for several different Twitch streamers to showcase and intentionally break it. Soon after, a <a href="https://github.com/WaterKH/ReWrite/projects" style="padding-right: 15px;">project roadmap</a>was created on my GitHub to keep track of updates to a full 1.0 release.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;We are slowly making our way to an official 1.0 release, but there are still many things to include in the project, some of those being changing the next room, magic updates, dynamic options and much more. After 1.0, I'll be continuing support for this extension/ mod with plans to push out around 2-3 big updates, as well as consistent stability patches. <a href="https://www.twitch.tv/tatsoomaki">Tatsoomaki over on Twitch</a> mentioned a very cool mechanic in the way of setting up a cooperative or competitive race using Re:Write that will be worked on with his help. But that will definitely be in the future as there's still plenty of work that needs to be done currently.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;If you would like to stay up to date on progress updates, I do have a Discord that you can join - and if you would like to support me through Patreon, that's listed above as well.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;With the brief history and update talk out of the way, what exactly is Re:Write? What can you do with it?
+                </p>
+            </div>
+            <div class="col-4">
+                <div class="col-12">
+                    <iframe src="https://discord.com/widget?id=675934643849265152&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 75px;">
+        </div>
+
+        <div class="row" style="padding: 5px;">
+            <div class="col-12" style="padding-bottom: 10px;">
+                <h1>Change & Control</h1>
+            </div>
+            <div class="col-7">
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;Re:Write allows Viewers on Twitch to manipulate aspects of the game, in the following categories:
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;&emsp;<span class="icon-right" /> <b>Sora</b>: Health, Magic, Quick Menu, Abilities, Keyblades, Forms - All of these and more are subject to change by Viewers.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;&emsp;<span class="icon-right" /> <b>Party</b>: Like Sora, Health, Magic, Abilities and Equipment can be changed.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;&emsp;<span class="icon-right" /> <b>Model Swap</b>: Sora, Donald, Goofy and Party Members all can be changed - Meaning you could have Roxas with party members of Larxene and Riku.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;&emsp;<span class="icon-right" /> <b>Enemy</b>: Set up a timer that increases Health, Strength and Defense if Sora is not able to defeat them quickly enough, as well as change bosses.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;&emsp;<span class="icon-right" /> <b>Items</b>: Mostly to be all encompassing, these allow you to change items in the player's Stock.
+                </p>
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;All the Viewers need to do is be active in the Twitch streamer's chat to start earning points on the Re:Write website. Click the above or below buttons to select a Streamer and start manipulating their game!
+                </p>
+                <p style="font-size: 20px; text-align: center;">
+                    <button type="button" class="btn btn-primary btn-lg" @onclick="OnSelectStreamerClickedAsync">Select a Streamer to Get Started</button>
+                </p>
+            </div>
+            <div class="col-5">
+                <div class="col-12">
+                    <iframe src="https://clips.twitch.tv/embed?clip=ObedientTentativeVultureBrainSlug&parent=localhost" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 75px;">
+        </div>
+
+        <div class="row" style="padding: 5px;">
+            <div class="col-12" style="padding-bottom: 10px;">
+                <h1>Host</h1>
+            </div>
+            <div class="col-7">
+                <p style="font-size: 20px;">
+                    &emsp;&emsp;Hosting consists of downloading the latest client to attach to your PCSX2 Emulator. After this, selecting to Host from this website will allow you to hook up the website to the client and the client to PCSX2, allowing your Twitch Viewers the ability to start earning points and manipulating your game in real time. Hosting also allow you to change things like Costs/ Cooldowns and allowing certain Options. It also features an Alert link that allows you to setup an Alert Window using a browser source in StreamLabs/ OBS, so that you can display who is redeeming what on your stream.
+                </p>
+                <p style="font-size: 20px; text-align: center;">
+                    <button type="button" class="btn btn-primary btn-lg" @onclick="OnStartHostingClickedAsync">Start Hosting</button>
+                </p>
+            </div>
+            <div class="col-5">
+                <iframe src="https://clips.twitch.tv/embed?clip=HonestRoughMetalCoolStoryBro&parent=localhost" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+            </div>
+        </div>
+
+        <div style="height: 75px;">
+        </div>
+
+        <div class="row" style="padding: 5px;">
+            <div class="col-4">
+                <div class="col-12" style="padding-bottom: 10px; text-align: center;">
+                    <h1>Credits</h1>
+                </div>
+
+                <p style="text-align: center;">
+                    <b>WaterKH</b> - Main developer/ concept designer.
+                </p>
+                <p style="text-align: center;">
+                    <b>Mattie</b> - Icon/ web designer.
+                </p>
+                <p style="text-align: center;">
+                    <b>Xaddgx</b> - Help providing assistance with assembly/ KH2FM/ PCSX2.
+                </p>
+                <p style="text-align: center;">
+                    <b>Corey</b> - Providing support and general help.
+                </p>
+                <p style="text-align: center;">
+                    <b>KHWiki/ KHInsider</b> - Images/ icons used and/ or modified.
+                </p>
+                <p style="text-align: center;">
+                    <b>KH2FM Plando Dev Server</b>
+                </p>
+            </div>
+            <div class="col-4">
+                <div class="col-12" style="padding-bottom: 10px; text-align: center;">
+                    <h1>Testers</h1>
+                </div>
+
+                <p style="text-align: center;">
+                    <a href="https://www.twitch.tv/bioroxas">Bio-Roxas</a>
+                </p>
+                <p style="text-align: center;">
+                    <a href="https://www.twitch.tv/superspikeghettibros">SuperSpikeGhettiBros</a>
+                </p>
+                <p style="text-align: center;">
+                    <a href="https://www.twitch.tv/shibuyagato">ShibuyaGato</a>
+                </p>
+                <p style="text-align: center;">
+                    <a href="https://www.twitch.tv/tatsoomaki">Tatsoomaki</a>
+                </p>
+                <p style="text-align: center;">
+                    <a href="https://www.twitch.tv/violinsr">ViolinSR</a>
+                </p>
+                <p style="text-align: center;">
+                    <a href="https://www.twitch.tv/ninten">Ninten</a>
+                </p>
+            </div>
+            <div class="col-4">
+                <div class="col-12" style="padding-bottom: 10px; text-align: center;">
+                    <h1>Patreon Supporters</h1>
+                </div>
+
+                <p style="text-align: center;">
+                    <b>Luis Flores</b>
+                </p>
+                <p style="text-align: center;">
+                    <b>Tatsoomaki</b>
+                </p>
+                <p style="text-align: center;">
+                    <b>Bio-Roxas</b>
+                </p>
+                <p style="text-align: center;">
+                    <b>Shawn McKee</b>
+                </p>
+                <p style="text-align: center;">
+                    <b>PreferredWhale6</b>
+                </p>
+                <p style="text-align: center;">
+                    <b>SuperSpikeGhettiBros</b>
+                </p>
+            </div>
+        </div>
+
+
+        <div style="height: 75px;">
+        </div>
+
+        <div style="content: ' '; display: block; border: 1px solid black;"></div>
+
+        <div class="row" style="padding: 5px;">
+            <div class="col-2"></div>
+            <div class="col-8" style="text-align: center;">
+                <span class="headline">If you would like to see more of what you can do and also learn where else you can find updates and support me, please watch the video below. Thank you all again for your continued support!</span>
+            </div>
+            <div class="col-2"></div>
+
+            <div class="col-12" style="text-align: center; padding-top: 10px;">
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gkthe5687lw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 </div>
 
-
 @code {
-    private string clientId;
-    private string username;
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
 
 
-    protected async Task OnStreamerSelectedAsync(string username)
+    protected async Task OnStartHostingClickedAsync()
     {
-        await this.CreateCookie("username", username);
-
-        var url = TwitchService.RedirectToViewer(username);
-
-        NavigationManager.NavigateTo(url);
+        Modal.Show<KHHostModal>("Log In to Host");
     }
 
-    protected async Task OnHostClickedAsync()
+    protected async Task OnSelectStreamerClickedAsync()
     {
-        await this.CreateCookie("username", username);
-        await this.CreateCookie("clientId", clientId);
+        var parameters = new ModalParameters();
 
-        var url = TwitchService.RedirectToCreateHost(clientId);
-        NavigationManager.NavigateTo(url);
-    }
+        parameters.Add("Hosts", DbContext.Hosts.Where(x => x.Value.IsHosting));
 
-    protected async Task CreateCookie(string name, string value)
-    {
-        await localStorage.SetItemAsync(name, value);
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        TwitchService.OnHostsChanged += UpdateHostList;
-
-        await base.OnInitializedAsync();
-    }
-
-    protected async Task UpdateHostList(object sender, ChangeEventArgs e)
-    {
-        await InvokeAsync(() =>
-        {
-            base.StateHasChanged();
-        });
+        Modal.Show<KHViewerModal>("Select Streamer", parameters);
     }
 }

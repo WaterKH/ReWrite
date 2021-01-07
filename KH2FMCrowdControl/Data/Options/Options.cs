@@ -19,11 +19,8 @@ namespace KH2FMCrowdControl.Data
             var options = new Dictionary<GroupType, List<ButtonTemplate>>
             {
                 { GroupType.Items, await this.InitializeItemOptions() },
-                { GroupType.Drive, await this.InitializeDriveOptions() },
-                { GroupType.Summon, await this.InitializeSummonOptions() },
                 { GroupType.Sora, await this.InitializeSoraOptions() },
                 { GroupType.ModelSwap, await this.InitializeModelSwapOptions() },
-                { GroupType.Misc, await this.InitializeMiscOptions() },
                 { GroupType.Party, await this.InitializePartyOptions() },
                 { GroupType.Enemy, await this.InitializeEnemyOptions() },
             };

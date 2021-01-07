@@ -13,6 +13,8 @@ namespace KH2FMCrowdControl.Data
             options.AddRange(await this.InitializeSoraEquipmentOptions());
             options.AddRange(await this.InitializeSoraStatsOptions());
             options.AddRange(await this.InitializeSoraMagicOptions());
+            options.AddRange(await this.InitializeSoraDriveOptions());
+            options.AddRange(await this.InitializeSoraSummonOptions());
             options.AddRange(await this.InitializeSoraAbilityOptions());
 
             return options;

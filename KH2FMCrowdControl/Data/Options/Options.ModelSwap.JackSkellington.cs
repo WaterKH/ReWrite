@@ -82,24 +82,26 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Jack Skellington (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Jack Skellington",
-                    ImageUrl = "Characters/JackSkellington.png",
+                    ImageUrl = "Characters/Halloween_Jack.png",
                     SubMethodParams = ally
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Jack Skellington (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Jack Skellington",
-                    ImageUrl = "Characters/JackSkellington.png",
+                    ImageUrl = "Characters/Halloween_Jack.png",
                     SubMethodParams = enemy
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Jack Skellington (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendJackSkellingtonAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Jack Skellington (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendJackSkellingtonEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Jack Skellington (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendJackSkellingtonModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Jack Skellington (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendJackSkellingtonModelMessage");
 
             return options;
         }

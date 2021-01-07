@@ -1,0 +1,45 @@
+﻿@using Waterkh.Common.Memory 
+
+<div class="simple-form">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6" style="padding: 10px;">
+                <ChangeOption HostName="@HostName"
+                              Category="@GroupType"
+                              OptionName="@Option.Name"
+                              Cost="@Option.Cost"
+                              IsActive="@Option.IsActive" />
+
+                @foreach (var subOption in Option.SubMethodParams)
+                {
+                    <ChangeOption HostName="@HostName"
+                                  Category="@GroupType"
+                                  OptionName="@Option.Name"
+                                  SubOptionName="@subOption.Name"
+                                  Cost="@subOption.Cost"
+                                  IsActive="@subOption.IsActive" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <button @onclick="BlazoredModal.Cancel" class="btn btn-secondary">Cancel</button>
+</div>
+
+@code { 
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; }
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+
+    [Parameter]
+    public ButtonTemplate Option { get; set; }
+
+    [Parameter]
+    public string HostName { get; set; }
+
+    [Parameter]
+    public GroupType GroupType { get; set; }
+}

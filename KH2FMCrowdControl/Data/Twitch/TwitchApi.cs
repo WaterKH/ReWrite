@@ -30,7 +30,7 @@ namespace KH2FMCrowdControl.Twitch
 
             this.api.Settings.ClientId = clientId;
             this.api.Settings.AccessToken = accessToken;
-            this.api.Settings.Scopes = new List<AuthScopes> { AuthScopes.Any };
+            this.api.Settings.Scopes = new List<AuthScopes> { AuthScopes.Any, AuthScopes.User_Read };
 
             this.username = Task.Run(async () => await this.api.Helix.Users.GetUsersAsync()).Result.Users
                 .Select(x => x.Login)

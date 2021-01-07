@@ -81,6 +81,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Goofy (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Goofy",
                     ImageUrl = "Characters/Goofy.png",
@@ -90,6 +91,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Goofy (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Goofy",
                     ImageUrl = "Characters/Goofy.png",
@@ -99,6 +101,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Halloween Goofy (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Halloween Goofy",
                     ImageUrl = "Characters/HalloweenGoofy.png",
@@ -108,6 +111,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Halloween Goofy (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Halloween Goofy",
                     ImageUrl = "Characters/HalloweenGoofy.png",
@@ -117,6 +121,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Christmas Goofy (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Christmas Goofy",
                     ImageUrl = "Characters/ChristmasGoofy.png",
@@ -126,6 +131,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Christmas Goofy (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Christmas Goofy",
                     ImageUrl = "Characters/ChristmasGoofy.png",
@@ -133,26 +139,29 @@ namespace KH2FMCrowdControl.Data
                 },
                 new ButtonTemplate
                 {
-                    Name = "Change Bird Goofy (Ally)",
+                    Name = "Change Tortoise Goofy (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
-                    Description = "Choose which Character will replace Bird Goofy",
-                    ImageUrl = "Characters/BirdGoofy.png",
+                    Description = "Choose which Character will replace Tortoise Goofy",
+                    ImageUrl = "Characters/Tortoise_Goofy.png",
                     SubMethodParams = ally.CreateListFromList()
                 },
                 new ButtonTemplate
                 {
-                    Name = "Change Bird Goofy (Enemy)",
+                    Name = "Change Tortoise Goofy (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
-                    Description = "Choose which Character will replace Bird Goofy",
-                    ImageUrl = "Characters/BirdGoofy.png",
+                    Description = "Choose which Character will replace Tortoise Goofy",
+                    ImageUrl = "Characters/Tortoise_Goofy.png",
                     SubMethodParams = enemy.CreateListFromList()
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Space Paranoids Goofy (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Space Paranoids Goofy",
                     ImageUrl = "Characters/SpaceParanoidsGoofy.png",
@@ -162,6 +171,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Space Paranoids Goofy (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Space Paranoids Goofy",
                     ImageUrl = "Characters/SpaceParanoidsGoofy.png",
@@ -171,6 +181,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Timeless River Goofy (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Timeless River Goofy",
                     ImageUrl = "Characters/TimelessRiverGoofy.png",
@@ -180,6 +191,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Timeless River Goofy (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Goofy,
                     Cost = 0,
                     Description = "Choose which Character will replace Timeless River Goofy",
                     ImageUrl = "Characters/TimelessRiverGoofy.png",
@@ -187,18 +199,18 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenGoofyAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenGoofyEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasGoofyAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasGoofyEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Bird Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdGoofyAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Bird Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdGoofyEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsGoofyAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsGoofyEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverGoofyAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverGoofyEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Tortoise Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTortoiseGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Tortoise Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTortoiseGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Goofy (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverGoofyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Goofy (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverGoofyModelMessage");
 
             return options;
         }

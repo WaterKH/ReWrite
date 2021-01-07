@@ -1,6 +1,6 @@
 ﻿@using Waterkh.Common.Memory 
 
-<div class="simple-form blazored-modal-content">
+<div class="simple-form">
 
     <div class="form-group">
         <div class="row">
@@ -42,7 +42,7 @@
 @code { 
     [CascadingParameter]
     BlazoredModalInstance BlazoredModal { get; set; }
-    
+
     [CascadingParameter]
     public IModalService Modal { get; set; }
 

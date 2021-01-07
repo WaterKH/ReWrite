@@ -82,6 +82,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Simba (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Simba",
                     ImageUrl = "Characters/Simba.png",
@@ -91,6 +92,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Simba (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Party,
                     Cost = 0,
                     Description = "Choose which Character will replace Simba",
                     ImageUrl = "Characters/Simba.png",
@@ -98,8 +100,8 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Simba (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSimbaAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Simba (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSimbaEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Simba (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSimbaModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Simba (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSimbaModelMessage");
 
             return options;
         }

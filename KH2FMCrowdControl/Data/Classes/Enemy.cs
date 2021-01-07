@@ -6,5 +6,6 @@
         public int ValueAddress { get; set; }
         public int Value { get; set; }
         public int EntitySlot { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

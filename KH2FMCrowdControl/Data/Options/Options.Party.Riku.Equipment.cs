@@ -10,7 +10,7 @@ namespace KH2FMCrowdControl.Data
         {
             var options = new List<ButtonTemplate>();
 
-            options.AddRange(await this.InitializeRikuWeaponsOptions());
+            //options.AddRange(await this.InitializeRikuWeaponsOptions());
             options.AddRange(await this.InitializeRikuArmorOptions());
             options.AddRange(await this.InitializeRikuAccessoriesOptions());
             options.AddRange(await this.InitializeRikuItemsOptions());

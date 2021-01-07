@@ -81,6 +81,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Donald (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Donald",
                     ImageUrl = "Characters/Donald.png",
@@ -90,6 +91,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Donald (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Donald",
                     ImageUrl = "Characters/Donald.png",
@@ -99,6 +101,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Halloween Donald (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Halloween Donald",
                     ImageUrl = "Characters/HalloweenDonald.png",
@@ -108,6 +111,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Halloween Donald (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Halloween Donald",
                     ImageUrl = "Characters/HalloweenDonald.png",
@@ -117,6 +121,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Christmas Donald (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Christmas Donald",
                     ImageUrl = "Characters/ChristmasDonald.png",
@@ -126,6 +131,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Christmas Donald (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Christmas Donald",
                     ImageUrl = "Characters/ChristmasDonald.png",
@@ -135,24 +141,27 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Bird Donald (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Bird Donald",
-                    ImageUrl = "Characters/BirdDonald.png",
+                    ImageUrl = "Characters/Bird_Donald.png",
                     SubMethodParams = ally.CreateListFromList()
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Bird Donald (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Bird Donald",
-                    ImageUrl = "Characters/BirdDonald.png",
+                    ImageUrl = "Characters/Bird_Donald.png",
                     SubMethodParams = enemy.CreateListFromList()
                 },
                 new ButtonTemplate
                 {
                     Name = "Change Space Paranoids Donald (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Space Paranoids Donald",
                     ImageUrl = "Characters/SpaceParanoidsDonald.png",
@@ -162,6 +171,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Space Paranoids Donald (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Space Paranoids Donald",
                     ImageUrl = "Characters/SpaceParanoidsDonald.png",
@@ -171,6 +181,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Timeless River Donald (Ally)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Timeless River Donald",
                     ImageUrl = "Characters/TimelessRiverDonald.png",
@@ -180,6 +191,7 @@ namespace KH2FMCrowdControl.Data
                 {
                     Name = "Change Timeless River Donald (Enemy)",
                     Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Donald,
                     Cost = 0,
                     Description = "Choose which Character will replace Timeless River Donald",
                     ImageUrl = "Characters/TimelessRiverDonald.png",
@@ -187,18 +199,18 @@ namespace KH2FMCrowdControl.Data
                 }
             };
 
-            options.FirstOrDefault(x => x.Name.Equals("Change Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenDonaldAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenDonaldEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasDonaldAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasDonaldEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsDonaldAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsDonaldEnemyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverDonaldAllyModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverDonaldEnemyModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Halloween Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Christmas Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldodelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverDonaldModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Timeless River Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendTimelessRiverDonaldModelMessage");
 
             return options;
         }

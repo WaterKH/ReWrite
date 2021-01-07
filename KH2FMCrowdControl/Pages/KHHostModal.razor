@@ -1,0 +1,78 @@
+﻿@using KH2FMCrowdControl.Data
+
+@inject TwitchService TwitchService
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<div class="simple-form">
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
+                <h4>To Host a Re:Write session, you will need a Twitch channel and a Twitch bot created.</h4>
+
+                <h1>
+                    <button type="button" class="btn btn-link" style="margin: 15px 0px 0px 0px;" @onclick="@(() => ExpandCollapse())">
+                        <span class="@this.expandCollapseClass" /><span class="headline">If you need help setting up your Twitch bot, expand this:</span>
+                    </button>
+                </h1>
+
+                @if (this.expandCollapseClass == "icon-down")
+                {
+                <div class="col-12" style="text-align: left;">
+                    <h5><span class="icon-right" /> To set up a twitch key, navigate to your <a href="https://dev.twitch.tv/console/apps">Twitch developer console</a>.</h5>
+                    <h5><span class="icon-right" /> Select “+ Register Your Application”.</h5>
+                    <h5><span class="icon-right" /> Name it whatever you would like, and add these urls as redirects:</h5>
+                    <h5>&emsp;<span class="icon-right" /> <a href="https://memoryscape.azurewebsites.net/crowdcontrolhost">https://memoryscape.azurewebsites.net/crowdcontrolhost</a></h5>
+                    <h5>&emsp;<span class="icon-right" /> <a href="https://memoryscape.azurewebsites.net/crowdcontrolviewer">https://memoryscape.azurewebsites.net/crowdcontrolviewer</a></h5>
+                    <h5><span class="icon-right" /> Select “Website Integration” under the Category dropdown.</h5>
+                    <h5><span class="icon-right" /> Click “Create Application”.</h5>
+                    <h5><span class="icon-right" /> Select “Manage” and scroll down to find your ClientId (Not your client secret).</h5>
+                </div>
+                }
+            </div>
+
+            <div class="col-12" style="padding-top: 10px;">
+                <input type="text" style="width: 95%; margin: auto; display: block;" class="form-control d-flex" aria-describedby="usernameHelp" placeholder="Enter Twitch Username" @onchange="@((ChangeEventArgs e) => username = e.Value.ToString())">
+            </div>
+            <div class="col-12" style="padding-top: 10px;">
+                <input type="text" style="width: 95%; margin: auto; display: block;" class="form-control d-flex" aria-describedby="clientIdHelp" placeholder="Enter ClientId" @onchange="@((ChangeEventArgs e) => clientId = e.Value.ToString())">
+            </div>
+
+            <br />
+
+            <div class="col-12" style="padding-top: 15px; text-align: center;">
+                <button type="button" class="btn btn-info" @onclick="OnHostClickedAsync">Log In</button>
+            </div>
+        </div>
+    </div>
+
+    <button @onclick="BlazoredModal.Cancel" class="btn btn-secondary">Cancel</button>
+</div>
+
+@code {
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; }
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    private string clientId;
+    private string username;
+
+    private string expandCollapseClass = "icon-up";
+
+    protected async Task OnHostClickedAsync()
+    {
+        await localStorage.SetItemAsync("username", username);
+        await localStorage.SetItemAsync("clientId", clientId);
+
+        var url = TwitchService.RedirectToCreateHost(clientId);
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected void ExpandCollapse()
+    {
+        this.expandCollapseClass = this.expandCollapseClass == "icon-down" ? "icon-up" : "icon-down";
+    }
+}
