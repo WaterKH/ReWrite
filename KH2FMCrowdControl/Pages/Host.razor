@@ -17,7 +17,7 @@
         <div class="row" style="padding-top: 15px;padding-bottom: 10px;">
             <div class="col-2">
                 <div style="max-height: 50px; overflow: hidden;">
-                    <img style="width: 25%;" src="images/ReWrite-Trimmed.png">
+                    <img style="width: 50%;" src="images/ReWrite-short.png">
                 </div>
             </div>
 
@@ -47,19 +47,22 @@
                 <a href="" style="float: left;">Back To Main</a>
             </div>
 
-            <div class="col-1">
-                @if (twitchApi != null)
+            <div class="col-3" style="text-align: center;">
+                @if (twitchApi != null && DbContext.Hosts[username].IsHosting)
                 {
+                    <button type="button" class="btn btn-outline-info" @onclick="IntermidiateHosting">Pause Hosting</button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
+                }
+                else if (twitchApi != null && !DbContext.Hosts[username].IsHosting)
+                {
+                    <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
                 }
                 else
                 {
+                    <button type="button" class="btn btn-outline-info" @onclick="IntermidiateHosting">Setup Hosting</button>
                     <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
                 }
-            </div>
-
-            <div class="col-2">
-                <div>Client Connection: <b>@connectionStatus</b></div>
             </div>
 
             @if (twitchApi != null)
@@ -85,9 +88,15 @@
                 <div class="col-4"></div>
             }
 
-            <div class="col-4">
 
-                <a href="https://discord.gg/8KUBjDV" target="_blank" style="float: right;">Developer Discord Server</a>
+            <div class="col-2">
+                <div>Client Connection: <b>@connectionStatus</b></div>
+            </div>
+
+
+            <div class="col-2">
+
+                <a href="https://discord.gg/8KUBjDV" target="_blank" style="float: right;">Dev Discord Server</a>
             </div>
         </div>
     </div>
@@ -302,32 +311,25 @@
 
     #region General Host Methods
 
+    #region Hosting 
+
     private async Task StartHosting()
     {
-        if (twitchApi != null)
+        if (twitchApi != null && DbContext.Hosts[username].IsHosting)
         {
             await Task.Run(() => ToastService.ShowInfo("Already Hosting!"));
         }
         else if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
         {
-            twitchApi = await TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
+            if (twitchApi == null)
+                await this.CreateHost();
 
-            await MemoryService.InitializeOptions(username);
-
-            MessageHubMessages.SendUpdateOptionsMessage(username);
+            DbContext.Hosts[username].IsHosting = true;
 
             await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
 
             System.Diagnostics.Trace.WriteLine($"{username} Started Hosting...");
 
-            foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
-            {
-                foreach (var input in MemoryService.Options[username][groupType])
-                {
-                    if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
-                        this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
-                }
-            }
 
             await InvokeAsync(() =>
             {
@@ -355,6 +357,50 @@
             base.StateHasChanged();
         });
     }
+
+    private async Task IntermidiateHosting()
+    {
+        if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
+        {
+            if (twitchApi == null)
+                await this.CreateHost();
+
+            DbContext.Hosts[username].IsHosting = false;
+
+            await Task.Run(() => ToastService.ShowInfo("Setup/ Paused Hosting!"));
+
+            System.Diagnostics.Trace.WriteLine($"{username} Setup/ Paused Hosting...");
+
+            await InvokeAsync(() =>
+            {
+                base.StateHasChanged();
+            });
+        }
+        else
+        {
+            await Task.Run(() => ToastService.ShowError("Please Connect the Client First"));
+        }
+    }
+
+    private async Task CreateHost()
+    {
+        twitchApi = await TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
+
+        await MemoryService.InitializeOptions(username);
+
+        MessageHubMessages.SendUpdateOptionsMessage(username);
+
+        foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+        {
+            foreach (var input in MemoryService.Options[username][groupType])
+            {
+                if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
+                    this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
+            }
+        }
+    }
+
+    #endregion Hosting
 
     public async Task UpdateConnectionStatus(object sender, MessageHubArgs messageHubArgs)
     {

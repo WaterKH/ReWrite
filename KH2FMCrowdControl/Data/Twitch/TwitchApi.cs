@@ -1,5 +1,6 @@
 ﻿using KH2FMCrowdControl.Data;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -61,54 +62,61 @@ namespace KH2FMCrowdControl.Twitch
 
         private async void SetupUserTracker(object sender, ElapsedEventArgs e)
         {
-            var response = await httpClient.GetAsync(chatUrl);
-
-            var users = JsonSerializer.Deserialize<TwitchChatInfo>(await response.Content.ReadAsStringAsync()).chatters;
-
-            // TODO What if the user navigates to the site without first being added here?
-
-            foreach (var user in users.broadcaster)
+            try
             {
-                if (!UserCoins.ContainsKey(user))
-                    UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
+                var response = await httpClient.GetAsync(chatUrl);
 
-                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                var users = JsonSerializer.Deserialize<TwitchChatInfo>(await response.Content.ReadAsStringAsync()).chatters;
+
+                // TODO What if the user navigates to the site without first being added here?
+
+                foreach (var user in users.broadcaster)
+                {
+                    if (!UserCoins.ContainsKey(user))
+                        UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
+
+                    UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                }
+
+                foreach (var user in users.admins)
+                {
+                    if (!UserCoins.ContainsKey(user))
+                        UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
+
+                    UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                }
+
+                foreach (var user in users.moderators)
+                {
+                    if (!UserCoins.ContainsKey(user))
+                        UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
+
+                    UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                }
+
+                foreach (var user in users.vips)
+                {
+                    if (!UserCoins.ContainsKey(user))
+                        UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
+
+                    UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                }
+
+                foreach (var user in users.viewers)
+                {
+                    if (!UserCoins.ContainsKey(user))
+                        UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
+
+                    UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                }
+
+
+                TwitchService.UserCoinsUpdated(this, new ChangeEventArgs());
             }
-
-            foreach (var user in users.admins)
+            catch(Exception ex)
             {
-                if (!UserCoins.ContainsKey(user))
-                    UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
-
-                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
+                System.Diagnostics.Trace.WriteLine($"ERROR [SetupUserTracker]: {ex.Message}");
             }
-
-            foreach (var user in users.moderators)
-            {
-                if (!UserCoins.ContainsKey(user))
-                    UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
-
-                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
-            }
-
-            foreach (var user in users.vips)
-            {
-                if (!UserCoins.ContainsKey(user))
-                    UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
-
-                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
-            }
-
-            foreach (var user in users.viewers)
-            {
-                if (!UserCoins.ContainsKey(user))
-                    UserCoins.Add(user, new TwitchUser { Name = user, Coins = 0 });
-
-                UserCoins[user].Coins += DbContext.Points[username].PointAmount;
-            }
-
-
-            TwitchService.UserCoinsUpdated(this, new ChangeEventArgs());
         }
     }
 }

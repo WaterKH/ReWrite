@@ -130,7 +130,7 @@ namespace KH2FMCrowdControl.Data
                         {
                             new ButtonTemplate { Name = "Instant Timer Refill", Cost = Constants.Cost300, Value = 0, ManipulationType = ManipulationType.Set, Description = "Restore Sora's Magic Bar", ImageUrl = "Sora/Stats/SetMP.png", MethodName = "SendSoraRechargeMagicMessage" },
                             new ButtonTemplate { Name = "Max Out Timer", Cost = Constants.Cost500, Value = 3000, ManipulationType = ManipulationType.Set, Description = "Fill the Timer Back To Full", ImageUrl = "Sora/Stats/SetMP0.png", MethodName = "SendSoraRechargeMagicMessage" },
-                            new ButtonTemplate { Name = "Fill Half Timer", Cost = Constants.Cost400, Value = 1500, ManipulationType = ManipulationType.Set, Description = "Fill the Timer to Half-way", ImageUrl = "Sora/Stats/SetMPHalf.png", MethodName = "SendSoraRechargeMagicMessage" },
+                            new ButtonTemplate { Name = "Fill Half Timer", Cost = Constants.Cost400, Value = 1500, ManipulationType = ManipulationType.Set, Description = "Fill the Timer to Half-way", ImageUrl = "Sora/Stats/MPrecHalf.png", MethodName = "SendSoraRechargeMagicMessage" },
                         }
                 },
                 new ButtonTemplate
@@ -244,13 +244,13 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Sora/Stats/SetSPEED.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
+                        new ButtonTemplate { Name = "Slow Down", Cost = Constants.Cost400, Value = 1086324736, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Slow", ImageUrl = "Sora/Stats/SetSPEEDdown.png", MethodName = "SendSoraSpeedMessage" },
+                        new ButtonTemplate { Name = "Slow Down x2", Cost = Constants.Cost500, Value = 1078984704, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Slow x2", ImageUrl = "Sora/Stats/SetSPEEDdown1.png", MethodName = "SendSoraSpeedMessage" },
+                        new ButtonTemplate { Name = "Slow Down x3", Cost = Constants.Cost1000, Value = 1073741824, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Slow x3", ImageUrl = "Sora/Stats/SetSPEEDdown2.png", MethodName = "SendSoraSpeedMessage" },
                         new ButtonTemplate { Name = "Revert to Normal", Cost = Constants.Cost500, Value = 1090519040, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Normal", ImageUrl = "Sora/Stats/SetSPEEDnormal.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Slow Down", Cost = Constants.Cost400, Value = 1086324736, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Slow", ImageUrl = "Sora/Stats/SetSPEEDup.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Slow Down x2", Cost = Constants.Cost500, Value = 1078984704, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Slow x2", ImageUrl = "Sora/Stats/SetSPEEDup1.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Slow Down x3", Cost = Constants.Cost1000, Value = 1073741824, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Slow x3", ImageUrl = "Sora/Stats/SetSPEEDup2.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Speed Up", Cost = Constants.Cost400, Value = 1103101952, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast", ImageUrl = "Sora/Stats/SetSPEEDdown.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Speed Up x2", Cost = Constants.Cost500, Value = 1112539136, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x2", ImageUrl = "Sora/Stats/SetSPEEDdown1.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Speed Up x3", Cost = Constants.Cost1000, Value = 1140850688, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x3", ImageUrl = "Sora/Stats/SetSPEEDdown2.png", MethodName = "SendSoraSpeedMessage" },
+                        new ButtonTemplate { Name = "Speed Up", Cost = Constants.Cost400, Value = 1103101952, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast", ImageUrl = "Sora/Stats/SetSPEEDup.png", MethodName = "SendSoraSpeedMessage" },
+                        new ButtonTemplate { Name = "Speed Up x2", Cost = Constants.Cost500, Value = 1112539136, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x2", ImageUrl = "Sora/Stats/SetSPEEDup1.png", MethodName = "SendSoraSpeedMessage" },
+                        new ButtonTemplate { Name = "Speed Up x3", Cost = Constants.Cost1000, Value = 1140850688, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x3", ImageUrl = "Sora/Stats/SetSPEEDup2.png", MethodName = "SendSoraSpeedMessage" },
                     }
                 },
             };

@@ -17,7 +17,7 @@ namespace KH2FMCrowdControl.Data
                     SubCategory = SubGroupType.Drive,
                     Cost = 0,
                     Description = "Give or Take from Sora's Drive Counter",
-                    ImageUrl = "Sora/Drive/SetDRIVE.png",
+                    ImageUrl = "Sora/Drive/DriveChange.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
                         new ButtonTemplate { Name = "Set Drive Counter 0", Cost = Constants.Cost750, Value = 0, ManipulationType = ManipulationType.Set, Description = "Take all of Sora's Drive Counters", ImageUrl = "Sora/Drive/SetDRIVE0.png", MethodName = "SendCurrentDriveCounterMessage" },
@@ -34,7 +34,7 @@ namespace KH2FMCrowdControl.Data
                     SubCategory = SubGroupType.Drive,
                     Cost = 0,
                     Description = "Give or Take from Sora's Max Drive Counter",
-                    ImageUrl = "Sora/Drive/SetDRIVEMax.png",
+                    ImageUrl = "Sora/Drive/SetDRIVE.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
                         new ButtonTemplate { Name = "Set Max Drive Counter 0", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Take all of Sora's Max Drive Counters", ImageUrl = "Sora/Drive/SetDRIVE0.png", MethodName = "SendMaxDriveCounterMessage" },
@@ -68,7 +68,7 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Sora/Drive/DRIVEOrb.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "Disable Drives", Cost = Constants.Cost1000, Value = 1, ManipulationType = ManipulationType.Set, Description = "Disable Sora's Drive Forms", ImageUrl = "Sora/Drive/DRIVETrigger.png", MethodName = "SendDisableDriveMessage" },
+                        new ButtonTemplate { Name = "Disable Drives", Cost = Constants.Cost1000, Value = 1, ManipulationType = ManipulationType.Set, Description = "Disable Sora's Drive Forms", ImageUrl = "Sora/Drive/DriveDisable.png", MethodName = "SendDisableDriveMessage" },
                         new ButtonTemplate { Name = "Enable Drives", Cost = Constants.Cost750, Value = 0, ManipulationType = ManipulationType.Set, Description = "Enable Sora's Drive Forms", ImageUrl = "Sora/Drive/DRIVEOrb.png", MethodName = "SendDisableDriveMessage" },
                     }
                 },

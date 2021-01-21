@@ -47,14 +47,14 @@ namespace KH2FMCrowdControl.Data
             if (DbContext.Hosts[username.ToLower()] != null)
             {
                 DbContext.Hosts[username.ToLower()].TwitchApi = twitchApi;
-                DbContext.Hosts[username.ToLower()].IsHosting = true;
+                DbContext.Hosts[username.ToLower()].IsHosting = false;
                 DbContext.Hosts[username.ToLower()].DisplayName = channel.DisplayName;
                 DbContext.Hosts[username.ToLower()].ImageUrl = channel.ProfileImageUrl;
                 DbContext.Hosts[username.ToLower()].StreamUrl = $"https://www.twitch.tv/{username}";
             }
             else
             {
-                DbContext.Hosts[username.ToLower()] = new Host { ConnectionId = connectionId, IsHosting = true, TwitchApi = twitchApi, DisplayName = channel.DisplayName, ImageUrl = channel.ProfileImageUrl, StreamUrl = $"https://www.twitch.tv/{username}" };
+                DbContext.Hosts[username.ToLower()] = new Host { ConnectionId = connectionId, IsHosting = false, TwitchApi = twitchApi, DisplayName = channel.DisplayName, ImageUrl = channel.ProfileImageUrl, StreamUrl = $"https://www.twitch.tv/{username}" };
             }
 
             HostsUpdated(this, new ChangeEventArgs());

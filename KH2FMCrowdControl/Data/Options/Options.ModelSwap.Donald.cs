@@ -43,8 +43,8 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
                 new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
                 new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
-                new ButtonTemplate { Name = Constants.Hercules, Cost = Constants.Cost750, Value = 0x16A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Hercules.png" },
-                new ButtonTemplate { Name = Constants.Minnie, Cost = Constants.Cost750, Value = 0x4BB, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Minnie.png" },
+                new ButtonTemplate { Name = Constants.Hercules, Cost = Constants.Cost750, Value = 0x16A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Hercules", ImageUrl = "Characters/Hercules.png" },
+                new ButtonTemplate { Name = Constants.Minnie, Cost = Constants.Cost750, Value = 0x4BB, ManipulationType = ManipulationType.Set, Description = "Switch Model to Minnie", ImageUrl = "Characters/Minnie.png" },
             };
 
             var enemy = new List<ButtonTemplate>
@@ -205,7 +205,7 @@ namespace KH2FMCrowdControl.Data
             options.FirstOrDefault(x => x.Name.Equals("Change Halloween Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendHalloweenDonaldModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Christmas Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasDonaldModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Christmas Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendChristmasDonaldModelMessage");
-            options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldodelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Bird Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendBirdDonaldModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Donald (Ally)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsDonaldModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Donald (Enemy)")).SubMethodParams.ForEach(x => x.MethodName = "SendSpaceParanoidsDonaldModelMessage");

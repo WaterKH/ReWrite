@@ -37,11 +37,11 @@ namespace KH2FMCrowdControl.Data
                     SubCategory = SubGroupType.Summon,
                     Cost = 0,
                     Description = "Give or Take from Sora's Summon Timer",
-                    ImageUrl = "Sora/Drive/SetFORM.png",
+                    ImageUrl = "Sora/Drive/DriveChange.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "Set Summon Timer 0", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Sets Summon Timer to 0", ImageUrl = "Sora/Drive/SetFORM0.png", MethodName = "SendDriveTimeMessage" },
-                        new ButtonTemplate { Name = "Set Summon Timer Max", Cost = Constants.Cost500, Value = 5000, ManipulationType = ManipulationType.Set, Description = "Sets Summon Timer to Current Max", ImageUrl = "Sora/Drive/SetFORM9.png", MethodName = "SendDriveTimeMessage" },
+                        new ButtonTemplate { Name = "Set Summon Timer 0", Cost = Constants.Cost500, Value = 0, ManipulationType = ManipulationType.Set, Description = "Sets Summon Timer to 0", ImageUrl = "Sora/Drive/Summon0.png", MethodName = "SendDriveTimeMessage" },
+                        new ButtonTemplate { Name = "Set Summon Timer Max", Cost = Constants.Cost500, Value = 5000, ManipulationType = ManipulationType.Set, Description = "Sets Summon Timer to Current Max", ImageUrl = "Sora/Drive/Summon9.png", MethodName = "SendDriveTimeMessage" },
                     }
                 }
             };

@@ -129,9 +129,9 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Enemy/BOSSstrSET.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "Max Strength", Value = "Max", ManipulationType = ManipulationType.Set, Description = "Sets Boss Strength To Max", ImageUrl = "Enemy/BOSSdefSETmax.png", SubMethodParams = enemies.CreateListFromList() },
-                        new ButtonTemplate { Name = "Half Strength", Value = "Half", ManipulationType = ManipulationType.Set, Description = "Sets Boss Strength To Half", ImageUrl = "Enemy/BOSSdefSEThalf.png", SubMethodParams = enemies.CreateListFromList() },
-                        new ButtonTemplate { Name = "Zero Strength", Value = "Zero", ManipulationType = ManipulationType.Set, Description = "Sets Boss Strength To Zero", ImageUrl = "Enemy/BOSSdefSET0.png", SubMethodParams = enemies.CreateListFromList() },
+                        new ButtonTemplate { Name = "Max Strength", Value = "Max", ManipulationType = ManipulationType.Set, Description = "Sets Boss Strength To Max", ImageUrl = "Enemy/BOSSstrSETmax.png", SubMethodParams = enemies.CreateListFromList() },
+                        new ButtonTemplate { Name = "Half Strength", Value = "Half", ManipulationType = ManipulationType.Set, Description = "Sets Boss Strength To Half", ImageUrl = "Enemy/BOSSstrSEThalf.png", SubMethodParams = enemies.CreateListFromList() },
+                        new ButtonTemplate { Name = "Zero Strength", Value = "Zero", ManipulationType = ManipulationType.Set, Description = "Sets Boss Strength To Zero", ImageUrl = "Enemy/BOSSstrSET0.png", SubMethodParams = enemies.CreateListFromList() },
                     }
                 },
                 new ButtonTemplate
@@ -143,9 +143,9 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Enemy/BOSSdefSET.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        new ButtonTemplate { Name = "Max Defense", Value = "Max", ManipulationType = ManipulationType.Set, Description = "Sets Boss Defense To Max", ImageUrl = "Enemy/BOSSstrSETmax.png", SubMethodParams = enemies.CreateListFromList() },
-                        new ButtonTemplate { Name = "Half Defense", Value = "Half", ManipulationType = ManipulationType.Set, Description = "Sets Boss Defense To Half", ImageUrl = "Enemy/BOSSstrSEThalf.png", SubMethodParams = enemies.CreateListFromList() },
-                        new ButtonTemplate { Name = "Zero Defense", Value = "Zero", ManipulationType = ManipulationType.Set, Description = "Sets Boss Defense To Zero", ImageUrl = "Enemy/BOSSstrSET0.png", SubMethodParams = enemies.CreateListFromList() },
+                        new ButtonTemplate { Name = "Max Defense", Value = "Max", ManipulationType = ManipulationType.Set, Description = "Sets Boss Defense To Max", ImageUrl = "Enemy/BOSSdefSETmax.png", SubMethodParams = enemies.CreateListFromList() },
+                        new ButtonTemplate { Name = "Half Defense", Value = "Half", ManipulationType = ManipulationType.Set, Description = "Sets Boss Defense To Half", ImageUrl = "Enemy/BOSSdefSEThalf.png", SubMethodParams = enemies.CreateListFromList() },
+                        new ButtonTemplate { Name = "Zero Defense", Value = "Zero", ManipulationType = ManipulationType.Set, Description = "Sets Boss Defense To Zero", ImageUrl = "Enemy/BOSSdefSET0.png", SubMethodParams = enemies.CreateListFromList() },
                     }
                 },
             };
