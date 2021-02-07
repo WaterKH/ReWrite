@@ -12,6 +12,8 @@ namespace KH2FMCrowdControl.Data
             var ally = new List<ButtonTemplate>
             {                
                 new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                                
+                new ButtonTemplate { Name = "Randomize", Cost = Constants.Cost750, Value = "RandomAlly", ManipulationType = ManipulationType.Set, Description = "Switch Model to a Random one on room change", ImageUrl = "Characters/Simba.png" },
 
                 new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
                 new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Bird Donald", ImageUrl = "Characters/Bird_Donald.png" },
@@ -50,6 +52,8 @@ namespace KH2FMCrowdControl.Data
 
             var enemy = new List<ButtonTemplate>
             {
+                new ButtonTemplate { Name = "Randomize", Cost = Constants.Cost750, Value = "RandomEnemy", ManipulationType = ManipulationType.Set, Description = "Switch Model to a Random one on room change", ImageUrl = "Characters/Simba.png" },
+
                 new ButtonTemplate { Name = Constants.Leon, Cost = Constants.Cost500, Value = 0x8F8, ManipulationType = ManipulationType.Set, Description = "Switch Model to Leon", ImageUrl = "Characters/Leon.png" },
                 new ButtonTemplate { Name = Constants.Yuffie, Cost = Constants.Cost500, Value = 0x8FB, ManipulationType = ManipulationType.Set, Description = "Switch Model to Yuffie", ImageUrl = "Characters/Yuffie.png" },
                 new ButtonTemplate { Name = Constants.Tifa, Cost = Constants.Cost500, Value = 0x8FA, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tifa", ImageUrl = "Characters/Tifa.png" },

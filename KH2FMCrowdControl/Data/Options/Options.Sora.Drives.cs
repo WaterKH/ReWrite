@@ -94,6 +94,8 @@ namespace KH2FMCrowdControl.Data
                         new ButtonTemplate { Name = Constants.Take(Constants.FinalForm), Cost = Constants.Cost1000, Value = 32, ManipulationType = ManipulationType.Subtract, Description = "Take Final Form from Sora", ImageUrl = "Sora/Drive/FormFinalTAKE.png", MethodName = "SendValorWisdomMasterFinalAntiMessage" },
                         new ButtonTemplate { Name = Constants.Give(Constants.Antiform), Cost = Constants.Cost750, Value = 64, ManipulationType = ManipulationType.Add, Description = "Give Anti Form to Sora", ImageUrl = "Sora/Drive/FormAnti.png", MethodName = "SendValorWisdomMasterFinalAntiMessage" },
                         new ButtonTemplate { Name = Constants.Take(Constants.Antiform), Cost = Constants.Cost750, Value = 64, ManipulationType = ManipulationType.Subtract, Description = "Take Anti Form from Sora", ImageUrl = "Sora/Drive/FormAntiTAKE.png", MethodName = "SendValorWisdomMasterFinalAntiMessage" },
+                        new ButtonTemplate { Name = "Give All Forms", Cost = Constants.Cost1000, Value = 118, ManipulationType = ManipulationType.Set, Description = "Give All Forms to Sora", ImageUrl = "Sora/Drive/DRIVEOrb.png", MethodName = "SendAllDriveFormsMessage" },
+                        new ButtonTemplate { Name = "Take All Forms", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Take All Forms from Sora", ImageUrl = "Sora/Drive/DriveDisable.png", MethodName = "SendAllDriveFormsMessage" },
                     }
                 },
                 new ButtonTemplate

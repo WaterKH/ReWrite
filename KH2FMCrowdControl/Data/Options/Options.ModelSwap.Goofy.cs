@@ -25,6 +25,7 @@ namespace KH2FMCrowdControl.Data
                 //new ButtonTemplate { Name = Constants.SpaceParanoidsDonald, Cost = Constants.Cost750, Value = 0x55A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Goofy", ImageUrl = "Characters/Christmas_Goofy.png" },
                 //new ButtonTemplate { Name = Constants.TimelessRiverDonald, Cost = Constants.Cost750, Value = 0x5CF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Goofy", ImageUrl = "Characters/Christmas_Goofy.png" },
 
+                new ButtonTemplate { Name = "Randomize", Cost = Constants.Cost750, Value = "RandomAlly", ManipulationType = ManipulationType.Set, Description = "Switch Model to a Random one on room change", ImageUrl = "Characters/Goofy.png" },
 
                 new ButtonTemplate { Name = Constants.Riku, Cost = Constants.Cost1000, Value = 0x819, ManipulationType = ManipulationType.Set, Description = "Switch Model to Riku", ImageUrl = "Characters/Riku.png" },
                 new ButtonTemplate { Name = Constants.Axel, Cost = Constants.Cost1000, Value = 0x4DC, ManipulationType = ManipulationType.Set, Description = "Switch Model to Axel", ImageUrl = "Characters/Axel.png" },
@@ -48,7 +49,9 @@ namespace KH2FMCrowdControl.Data
             };
 
             var enemy = new List<ButtonTemplate>
-            {
+            {                
+                new ButtonTemplate { Name = "Randomize", Cost = Constants.Cost750, Value = "RandomEnemy", ManipulationType = ManipulationType.Set, Description = "Switch Model to a Random one on room change", ImageUrl = "Characters/Goofy.png" },
+
                 new ButtonTemplate { Name = Constants.Leon, Cost = Constants.Cost500, Value = 0x8F8, ManipulationType = ManipulationType.Set, Description = "Switch Model to Leon", ImageUrl = "Characters/Leon.png" },
                 new ButtonTemplate { Name = Constants.Yuffie, Cost = Constants.Cost500, Value = 0x8FB, ManipulationType = ManipulationType.Set, Description = "Switch Model to Yuffie", ImageUrl = "Characters/Yuffie.png" },
                 new ButtonTemplate { Name = Constants.Tifa, Cost = Constants.Cost500, Value = 0x8FA, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tifa", ImageUrl = "Characters/Tifa.png" },

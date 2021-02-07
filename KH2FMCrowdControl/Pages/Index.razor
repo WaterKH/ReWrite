@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @using KH2FMCrowdControl.Data
+@using System.Timers; 
 
 <div class="main">
     <div class="content px-4">
@@ -20,6 +21,22 @@
             </div>
             <div class="col-12" style="text-align: center; padding: 25px;">
                 <button type="button" class="btn btn-primary btn-lg" @onclick="OnSelectStreamerClickedAsync">Select a Streamer to Get Started</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h1 style="text-align: center;">Version History</h1>
+            </div>
+            <div class="col-12">
+                <MatSlider Value="@version" Step="1" EnableStep="true" ValueMin="3" ValueMax="10" Markers="true" Pin="true" TValue="int" Discrete="true" ValueChanged="@OnValueChanged"></MatSlider>
+            </div>
+            <div class="col-12">
+                <h1 style="text-align: center;">(@currentVersionHistory.Version) @currentVersionHistory.Title - @(currentVersionHistory.IsComplete ? "FINISHED" : "STILL IN PROGRESS")</h1>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-6">
+                @(!string.IsNullOrEmpty(currentVersionHistory.Description) ? currentVersionHistory.Description : $"Check the projects page on GitHub for open items for {currentVersionHistory.Version}")
             </div>
         </div>
 
@@ -223,6 +240,58 @@
     [CascadingParameter]
     public IModalService Modal { get; set; }
 
+
+    private int version = 9;
+
+    private Timer versionTimer;
+    private int previousVersion = 8;
+
+    private VersionHistory currentVersionHistory = VersionHistoryMappings.VersionHistories[9];
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.versionTimer = new Timer
+        {
+            AutoReset = true,
+            Interval = 5000,
+        };
+
+        this.versionTimer.Elapsed += async (sender, obj) =>
+        {
+            if(this.version == this.previousVersion)
+            {
+                this.version += 1;
+
+                if (this.version > 10)
+                    this.version = 3;
+
+                currentVersionHistory = VersionHistoryMappings.VersionHistories[this.version];
+            }
+            else
+            {
+                this.previousVersion = this.version;
+            }
+
+            await InvokeAsync(() =>
+            {
+                base.StateHasChanged();
+            });
+        };
+
+        this.versionTimer.Start();
+
+        await base.OnInitializedAsync();
+    }
+
+    public async Task OnValueChanged(int val)
+    {
+        version = val;
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
 
     protected async Task OnStartHostingClickedAsync()
     {

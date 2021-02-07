@@ -279,6 +279,271 @@ namespace KH2FMCrowdControl.Data
                         new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
                     }
                 },
+
+                new ButtonTemplate
+                {
+                    Name = "Change Valor Form Sora",
+                    Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Sora,
+                    Cost = 0,
+                    Description = "Choose which Character will replace Valor Form Sora",
+                    ImageUrl = "Characters/Valor_Sora.png",
+                    SubMethodParams = new List<ButtonTemplate>
+                    {
+                        new ButtonTemplate { Name = Constants.ValorForm, Cost = Constants.Cost2000, Value = 0x55, ManipulationType = ManipulationType.Set, Description = "Switch Model to Valor Form", ImageUrl = "Characters/Valor_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.WisdomForm, Cost = Constants.Cost2000, Value = 0x56, ManipulationType = ManipulationType.Set, Description = "Switch Model to Wisdom Form", ImageUrl = "Characters/Wisdom_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LimitForm, Cost = Constants.Cost2000, Value = 0x95D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Limit Form", ImageUrl = "Characters/Limit_Sora.png" },
+                        new ButtonTemplate { Name = Constants.MasterForm, Cost = Constants.Cost2000, Value = 0x57, ManipulationType = ManipulationType.Set, Description = "Switch Model to Master Form", ImageUrl = "Characters/Master_Sora.png" },
+                        new ButtonTemplate { Name = Constants.FinalForm, Cost = Constants.Cost2000, Value = 0x58, ManipulationType = ManipulationType.Set, Description = "Switch Model to Final Form", ImageUrl = "Characters/Final_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.Sora, Cost = Constants.Cost500, Value = 0x54, ManipulationType = ManipulationType.Set, Description = "Revert Sora to KH2 Model", ImageUrl = "Characters/Sora.png" },
+                        new ButtonTemplate { Name = Constants.KH1Sora, Cost = Constants.Cost500, Value = 0x6C1, ManipulationType = ManipulationType.Set, Description = "Switch Model to KH1 Sora", ImageUrl = "Characters/KH1_Sora.png" },
+                        new ButtonTemplate { Name = Constants.CardSora, Cost = Constants.Cost1000, Value = 0x601, ManipulationType = ManipulationType.Set, Description = "Switch Model to Card Sora", ImageUrl = "Characters/Card_Sora.png" },
+                        new ButtonTemplate { Name = Constants.DieSora, Cost = Constants.Cost1000, Value = 0x602, ManipulationType = ManipulationType.Set, Description = "Switch Model to Die Sora", ImageUrl = "Characters/Die_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LionSora, Cost = Constants.Cost750, Value = 0x28A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lion Sora", ImageUrl = "Characters/Lion_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost750, Value = 0x5A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
+                        new ButtonTemplate { Name = Constants.DualwieldRoxas, Cost = Constants.Cost1000, Value = 0x323, ManipulationType = ManipulationType.Set, Description = "Switch Model to Dualwield Roxas", ImageUrl = "Characters/Roxas_Dualwield.png" },
+                        new ButtonTemplate { Name = Constants.MickeyRobed, Cost = Constants.Cost500, Value = 0x5B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Robed Mickey", ImageUrl = "Characters/Mickey_Robed.png" },
+                        new ButtonTemplate { Name = Constants.Mickey, Cost = Constants.Cost500, Value = 0x318, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mickey", ImageUrl = "Characters/Mickey.png" },
+
+                        new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
+                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost750, Value = 0x5D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy", ImageUrl = "Characters/Goofy.png" },
+                        new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald Bird", ImageUrl = "Characters/Bird_Donald.png" },
+                        new ButtonTemplate { Name = Constants.TortoiseGoofy, Cost = Constants.Cost750, Value = 0x61B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy Tortoise", ImageUrl = "Characters/Tortoise_Goofy.png" },
+                        //new ButtonTemplate { Name = Constants.Beast, Cost = Constants.Cost750, Value = 0x5E, ManipulationType = ManipulationType.Set, Description = "Switch Model to Beast", ImageUrl = "Characters/Beast.png" },
+                        new ButtonTemplate { Name = Constants.Ping, Cost = Constants.Cost750, Value = 0x64, ManipulationType = ManipulationType.Set, Description = "Switch Model to Ping", ImageUrl = "Characters/Ping.png" },
+                        new ButtonTemplate { Name = Constants.Mulan, Cost = Constants.Cost750, Value = 0x63, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mulan", ImageUrl = "Characters/Mulan.png" },
+                        new ButtonTemplate { Name = Constants.Auron, Cost = Constants.Cost750, Value = 0x65, ManipulationType = ManipulationType.Set, Description = "Switch Model to Auron", ImageUrl = "Characters/Auron.png" },
+                        new ButtonTemplate { Name = Constants.Aladdin, Cost = Constants.Cost750, Value = 0x62, ManipulationType = ManipulationType.Set, Description = "Switch Model to Aladdin", ImageUrl = "Characters/Aladdin.png" },
+                        new ButtonTemplate { Name = Constants.JackSparrow, Cost = Constants.Cost750, Value = 0x66, ManipulationType = ManipulationType.Set, Description = "Switch Model to Captain Jack Sparrow", ImageUrl = "Characters/Jack_Sparrow.png" },
+                        new ButtonTemplate { Name = Constants.HalloweenJack, Cost = Constants.Cost750, Value = 0x5F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Halloween Town Jack", ImageUrl = "Characters/Halloween_Jack.png" },
+                        new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
+                        new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                        new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
+                    }
+                },
+                new ButtonTemplate
+                {
+                    Name = "Change Wisdom Form Sora",
+                    Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Sora,
+                    Cost = 0,
+                    Description = "Choose which Character will replace Wisdom Form Sora",
+                    ImageUrl = "Characters/Wisdom_Sora.png",
+                    SubMethodParams = new List<ButtonTemplate>
+                    {
+                        new ButtonTemplate { Name = Constants.WisdomForm, Cost = Constants.Cost2000, Value = 0x56, ManipulationType = ManipulationType.Set, Description = "Switch Model to Wisdom Form", ImageUrl = "Characters/Wisdom_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.ValorForm, Cost = Constants.Cost2000, Value = 0x55, ManipulationType = ManipulationType.Set, Description = "Switch Model to Valor Form", ImageUrl = "Characters/Valor_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LimitForm, Cost = Constants.Cost2000, Value = 0x95D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Limit Form", ImageUrl = "Characters/Limit_Sora.png" },
+                        new ButtonTemplate { Name = Constants.MasterForm, Cost = Constants.Cost2000, Value = 0x57, ManipulationType = ManipulationType.Set, Description = "Switch Model to Master Form", ImageUrl = "Characters/Master_Sora.png" },
+                        new ButtonTemplate { Name = Constants.FinalForm, Cost = Constants.Cost2000, Value = 0x58, ManipulationType = ManipulationType.Set, Description = "Switch Model to Final Form", ImageUrl = "Characters/Final_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.Sora, Cost = Constants.Cost500, Value = 0x54, ManipulationType = ManipulationType.Set, Description = "Revert Sora to KH2 Model", ImageUrl = "Characters/Sora.png" },
+                        new ButtonTemplate { Name = Constants.KH1Sora, Cost = Constants.Cost500, Value = 0x6C1, ManipulationType = ManipulationType.Set, Description = "Switch Model to KH1 Sora", ImageUrl = "Characters/KH1_Sora.png" },
+                        new ButtonTemplate { Name = Constants.CardSora, Cost = Constants.Cost1000, Value = 0x601, ManipulationType = ManipulationType.Set, Description = "Switch Model to Card Sora", ImageUrl = "Characters/Card_Sora.png" },
+                        new ButtonTemplate { Name = Constants.DieSora, Cost = Constants.Cost1000, Value = 0x602, ManipulationType = ManipulationType.Set, Description = "Switch Model to Die Sora", ImageUrl = "Characters/Die_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LionSora, Cost = Constants.Cost750, Value = 0x28A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lion Sora", ImageUrl = "Characters/Lion_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost750, Value = 0x5A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
+                        new ButtonTemplate { Name = Constants.DualwieldRoxas, Cost = Constants.Cost1000, Value = 0x323, ManipulationType = ManipulationType.Set, Description = "Switch Model to Dualwield Roxas", ImageUrl = "Characters/Roxas_Dualwield.png" },
+                        new ButtonTemplate { Name = Constants.MickeyRobed, Cost = Constants.Cost500, Value = 0x5B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Robed Mickey", ImageUrl = "Characters/Mickey_Robed.png" },
+                        new ButtonTemplate { Name = Constants.Mickey, Cost = Constants.Cost500, Value = 0x318, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mickey", ImageUrl = "Characters/Mickey.png" },
+
+                        new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
+                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost750, Value = 0x5D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy", ImageUrl = "Characters/Goofy.png" },
+                        new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald Bird", ImageUrl = "Characters/Bird_Donald.png" },
+                        new ButtonTemplate { Name = Constants.TortoiseGoofy, Cost = Constants.Cost750, Value = 0x61B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy Tortoise", ImageUrl = "Characters/Tortoise_Goofy.png" },
+                        //new ButtonTemplate { Name = Constants.Beast, Cost = Constants.Cost750, Value = 0x5E, ManipulationType = ManipulationType.Set, Description = "Switch Model to Beast", ImageUrl = "Characters/Beast.png" },
+                        new ButtonTemplate { Name = Constants.Ping, Cost = Constants.Cost750, Value = 0x64, ManipulationType = ManipulationType.Set, Description = "Switch Model to Ping", ImageUrl = "Characters/Ping.png" },
+                        new ButtonTemplate { Name = Constants.Mulan, Cost = Constants.Cost750, Value = 0x63, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mulan", ImageUrl = "Characters/Mulan.png" },
+                        new ButtonTemplate { Name = Constants.Auron, Cost = Constants.Cost750, Value = 0x65, ManipulationType = ManipulationType.Set, Description = "Switch Model to Auron", ImageUrl = "Characters/Auron.png" },
+                        new ButtonTemplate { Name = Constants.Aladdin, Cost = Constants.Cost750, Value = 0x62, ManipulationType = ManipulationType.Set, Description = "Switch Model to Aladdin", ImageUrl = "Characters/Aladdin.png" },
+                        new ButtonTemplate { Name = Constants.JackSparrow, Cost = Constants.Cost750, Value = 0x66, ManipulationType = ManipulationType.Set, Description = "Switch Model to Captain Jack Sparrow", ImageUrl = "Characters/Jack_Sparrow.png" },
+                        new ButtonTemplate { Name = Constants.HalloweenJack, Cost = Constants.Cost750, Value = 0x5F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Halloween Town Jack", ImageUrl = "Characters/Halloween_Jack.png" },
+                        new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
+                        new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                        new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
+                    }
+                },
+                new ButtonTemplate
+                {
+                    Name = "Change Limit Form Sora",
+                    Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Sora,
+                    Cost = 0,
+                    Description = "Choose which Character will replace Limit Form Sora",
+                    ImageUrl = "Characters/Limit_Sora.png",
+                    SubMethodParams = new List<ButtonTemplate>
+                    {                        
+                        new ButtonTemplate { Name = Constants.LimitForm, Cost = Constants.Cost2000, Value = 0x95D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Limit Form", ImageUrl = "Characters/Limit_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.ValorForm, Cost = Constants.Cost2000, Value = 0x55, ManipulationType = ManipulationType.Set, Description = "Switch Model to Valor Form", ImageUrl = "Characters/Valor_Sora.png" },
+                        new ButtonTemplate { Name = Constants.WisdomForm, Cost = Constants.Cost2000, Value = 0x56, ManipulationType = ManipulationType.Set, Description = "Switch Model to Wisdom Form", ImageUrl = "Characters/Wisdom_Sora.png" },
+                        new ButtonTemplate { Name = Constants.MasterForm, Cost = Constants.Cost2000, Value = 0x57, ManipulationType = ManipulationType.Set, Description = "Switch Model to Master Form", ImageUrl = "Characters/Master_Sora.png" },
+                        new ButtonTemplate { Name = Constants.FinalForm, Cost = Constants.Cost2000, Value = 0x58, ManipulationType = ManipulationType.Set, Description = "Switch Model to Final Form", ImageUrl = "Characters/Final_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.Sora, Cost = Constants.Cost500, Value = 0x54, ManipulationType = ManipulationType.Set, Description = "Revert Sora to KH2 Model", ImageUrl = "Characters/Sora.png" },
+                        new ButtonTemplate { Name = Constants.KH1Sora, Cost = Constants.Cost500, Value = 0x6C1, ManipulationType = ManipulationType.Set, Description = "Switch Model to KH1 Sora", ImageUrl = "Characters/KH1_Sora.png" },
+                        new ButtonTemplate { Name = Constants.CardSora, Cost = Constants.Cost1000, Value = 0x601, ManipulationType = ManipulationType.Set, Description = "Switch Model to Card Sora", ImageUrl = "Characters/Card_Sora.png" },
+                        new ButtonTemplate { Name = Constants.DieSora, Cost = Constants.Cost1000, Value = 0x602, ManipulationType = ManipulationType.Set, Description = "Switch Model to Die Sora", ImageUrl = "Characters/Die_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LionSora, Cost = Constants.Cost750, Value = 0x28A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lion Sora", ImageUrl = "Characters/Lion_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost750, Value = 0x5A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
+                        new ButtonTemplate { Name = Constants.DualwieldRoxas, Cost = Constants.Cost1000, Value = 0x323, ManipulationType = ManipulationType.Set, Description = "Switch Model to Dualwield Roxas", ImageUrl = "Characters/Roxas_Dualwield.png" },
+                        new ButtonTemplate { Name = Constants.MickeyRobed, Cost = Constants.Cost500, Value = 0x5B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Robed Mickey", ImageUrl = "Characters/Mickey_Robed.png" },
+                        new ButtonTemplate { Name = Constants.Mickey, Cost = Constants.Cost500, Value = 0x318, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mickey", ImageUrl = "Characters/Mickey.png" },
+
+                        new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
+                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost750, Value = 0x5D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy", ImageUrl = "Characters/Goofy.png" },
+                        new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald Bird", ImageUrl = "Characters/Bird_Donald.png" },
+                        new ButtonTemplate { Name = Constants.TortoiseGoofy, Cost = Constants.Cost750, Value = 0x61B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy Tortoise", ImageUrl = "Characters/Tortoise_Goofy.png" },
+                        //new ButtonTemplate { Name = Constants.Beast, Cost = Constants.Cost750, Value = 0x5E, ManipulationType = ManipulationType.Set, Description = "Switch Model to Beast", ImageUrl = "Characters/Beast.png" },
+                        new ButtonTemplate { Name = Constants.Ping, Cost = Constants.Cost750, Value = 0x64, ManipulationType = ManipulationType.Set, Description = "Switch Model to Ping", ImageUrl = "Characters/Ping.png" },
+                        new ButtonTemplate { Name = Constants.Mulan, Cost = Constants.Cost750, Value = 0x63, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mulan", ImageUrl = "Characters/Mulan.png" },
+                        new ButtonTemplate { Name = Constants.Auron, Cost = Constants.Cost750, Value = 0x65, ManipulationType = ManipulationType.Set, Description = "Switch Model to Auron", ImageUrl = "Characters/Auron.png" },
+                        new ButtonTemplate { Name = Constants.Aladdin, Cost = Constants.Cost750, Value = 0x62, ManipulationType = ManipulationType.Set, Description = "Switch Model to Aladdin", ImageUrl = "Characters/Aladdin.png" },
+                        new ButtonTemplate { Name = Constants.JackSparrow, Cost = Constants.Cost750, Value = 0x66, ManipulationType = ManipulationType.Set, Description = "Switch Model to Captain Jack Sparrow", ImageUrl = "Characters/Jack_Sparrow.png" },
+                        new ButtonTemplate { Name = Constants.HalloweenJack, Cost = Constants.Cost750, Value = 0x5F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Halloween Town Jack", ImageUrl = "Characters/Halloween_Jack.png" },
+                        new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
+                        new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                        new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
+                    }
+                },
+                new ButtonTemplate
+                {
+                    Name = "Change Master Form Sora",
+                    Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Sora,
+                    Cost = 0,
+                    Description = "Choose which Character will replace Master Form Sora",
+                    ImageUrl = "Characters/Master_Sora.png",
+                    SubMethodParams = new List<ButtonTemplate>
+                    {                        
+                        new ButtonTemplate { Name = Constants.MasterForm, Cost = Constants.Cost2000, Value = 0x57, ManipulationType = ManipulationType.Set, Description = "Switch Model to Master Form", ImageUrl = "Characters/Master_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.ValorForm, Cost = Constants.Cost2000, Value = 0x55, ManipulationType = ManipulationType.Set, Description = "Switch Model to Valor Form", ImageUrl = "Characters/Valor_Sora.png" },
+                        new ButtonTemplate { Name = Constants.WisdomForm, Cost = Constants.Cost2000, Value = 0x56, ManipulationType = ManipulationType.Set, Description = "Switch Model to Wisdom Form", ImageUrl = "Characters/Wisdom_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LimitForm, Cost = Constants.Cost2000, Value = 0x95D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Limit Form", ImageUrl = "Characters/Limit_Sora.png" },
+                        new ButtonTemplate { Name = Constants.FinalForm, Cost = Constants.Cost2000, Value = 0x58, ManipulationType = ManipulationType.Set, Description = "Switch Model to Final Form", ImageUrl = "Characters/Final_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.Sora, Cost = Constants.Cost500, Value = 0x54, ManipulationType = ManipulationType.Set, Description = "Revert Sora to KH2 Model", ImageUrl = "Characters/Sora.png" },
+                        new ButtonTemplate { Name = Constants.KH1Sora, Cost = Constants.Cost500, Value = 0x6C1, ManipulationType = ManipulationType.Set, Description = "Switch Model to KH1 Sora", ImageUrl = "Characters/KH1_Sora.png" },
+                        new ButtonTemplate { Name = Constants.CardSora, Cost = Constants.Cost1000, Value = 0x601, ManipulationType = ManipulationType.Set, Description = "Switch Model to Card Sora", ImageUrl = "Characters/Card_Sora.png" },
+                        new ButtonTemplate { Name = Constants.DieSora, Cost = Constants.Cost1000, Value = 0x602, ManipulationType = ManipulationType.Set, Description = "Switch Model to Die Sora", ImageUrl = "Characters/Die_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LionSora, Cost = Constants.Cost750, Value = 0x28A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lion Sora", ImageUrl = "Characters/Lion_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost750, Value = 0x5A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
+                        new ButtonTemplate { Name = Constants.DualwieldRoxas, Cost = Constants.Cost1000, Value = 0x323, ManipulationType = ManipulationType.Set, Description = "Switch Model to Dualwield Roxas", ImageUrl = "Characters/Roxas_Dualwield.png" },
+                        new ButtonTemplate { Name = Constants.MickeyRobed, Cost = Constants.Cost500, Value = 0x5B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Robed Mickey", ImageUrl = "Characters/Mickey_Robed.png" },
+                        new ButtonTemplate { Name = Constants.Mickey, Cost = Constants.Cost500, Value = 0x318, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mickey", ImageUrl = "Characters/Mickey.png" },
+
+                        new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
+                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost750, Value = 0x5D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy", ImageUrl = "Characters/Goofy.png" },
+                        new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald Bird", ImageUrl = "Characters/Bird_Donald.png" },
+                        new ButtonTemplate { Name = Constants.TortoiseGoofy, Cost = Constants.Cost750, Value = 0x61B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy Tortoise", ImageUrl = "Characters/Tortoise_Goofy.png" },
+                        //new ButtonTemplate { Name = Constants.Beast, Cost = Constants.Cost750, Value = 0x5E, ManipulationType = ManipulationType.Set, Description = "Switch Model to Beast", ImageUrl = "Characters/Beast.png" },
+                        new ButtonTemplate { Name = Constants.Ping, Cost = Constants.Cost750, Value = 0x64, ManipulationType = ManipulationType.Set, Description = "Switch Model to Ping", ImageUrl = "Characters/Ping.png" },
+                        new ButtonTemplate { Name = Constants.Mulan, Cost = Constants.Cost750, Value = 0x63, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mulan", ImageUrl = "Characters/Mulan.png" },
+                        new ButtonTemplate { Name = Constants.Auron, Cost = Constants.Cost750, Value = 0x65, ManipulationType = ManipulationType.Set, Description = "Switch Model to Auron", ImageUrl = "Characters/Auron.png" },
+                        new ButtonTemplate { Name = Constants.Aladdin, Cost = Constants.Cost750, Value = 0x62, ManipulationType = ManipulationType.Set, Description = "Switch Model to Aladdin", ImageUrl = "Characters/Aladdin.png" },
+                        new ButtonTemplate { Name = Constants.JackSparrow, Cost = Constants.Cost750, Value = 0x66, ManipulationType = ManipulationType.Set, Description = "Switch Model to Captain Jack Sparrow", ImageUrl = "Characters/Jack_Sparrow.png" },
+                        new ButtonTemplate { Name = Constants.HalloweenJack, Cost = Constants.Cost750, Value = 0x5F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Halloween Town Jack", ImageUrl = "Characters/Halloween_Jack.png" },
+                        new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
+                        new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                        new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
+                    }
+                },
+                new ButtonTemplate
+                {
+                    Name = "Change Final Form Sora",
+                    Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Sora,
+                    Cost = 0,
+                    Description = "Choose which Character will replace Final Form Sora",
+                    ImageUrl = "Characters/Final_Sora.png",
+                    SubMethodParams = new List<ButtonTemplate>
+                    {
+                        new ButtonTemplate { Name = Constants.FinalForm, Cost = Constants.Cost2000, Value = 0x58, ManipulationType = ManipulationType.Set, Description = "Switch Model to Final Form", ImageUrl = "Characters/Final_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.ValorForm, Cost = Constants.Cost2000, Value = 0x55, ManipulationType = ManipulationType.Set, Description = "Switch Model to Valor Form", ImageUrl = "Characters/Valor_Sora.png" },
+                        new ButtonTemplate { Name = Constants.WisdomForm, Cost = Constants.Cost2000, Value = 0x56, ManipulationType = ManipulationType.Set, Description = "Switch Model to Wisdom Form", ImageUrl = "Characters/Wisdom_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LimitForm, Cost = Constants.Cost2000, Value = 0x95D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Limit Form", ImageUrl = "Characters/Limit_Sora.png" },
+                        new ButtonTemplate { Name = Constants.MasterForm, Cost = Constants.Cost2000, Value = 0x57, ManipulationType = ManipulationType.Set, Description = "Switch Model to Master Form", ImageUrl = "Characters/Master_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.Sora, Cost = Constants.Cost500, Value = 0x54, ManipulationType = ManipulationType.Set, Description = "Revert Sora to KH2 Model", ImageUrl = "Characters/Sora.png" },
+                        new ButtonTemplate { Name = Constants.KH1Sora, Cost = Constants.Cost500, Value = 0x6C1, ManipulationType = ManipulationType.Set, Description = "Switch Model to KH1 Sora", ImageUrl = "Characters/KH1_Sora.png" },
+                        new ButtonTemplate { Name = Constants.CardSora, Cost = Constants.Cost1000, Value = 0x601, ManipulationType = ManipulationType.Set, Description = "Switch Model to Card Sora", ImageUrl = "Characters/Card_Sora.png" },
+                        new ButtonTemplate { Name = Constants.DieSora, Cost = Constants.Cost1000, Value = 0x602, ManipulationType = ManipulationType.Set, Description = "Switch Model to Die Sora", ImageUrl = "Characters/Die_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LionSora, Cost = Constants.Cost750, Value = 0x28A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lion Sora", ImageUrl = "Characters/Lion_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost750, Value = 0x5A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
+                        new ButtonTemplate { Name = Constants.DualwieldRoxas, Cost = Constants.Cost1000, Value = 0x323, ManipulationType = ManipulationType.Set, Description = "Switch Model to Dualwield Roxas", ImageUrl = "Characters/Roxas_Dualwield.png" },
+                        new ButtonTemplate { Name = Constants.MickeyRobed, Cost = Constants.Cost500, Value = 0x5B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Robed Mickey", ImageUrl = "Characters/Mickey_Robed.png" },
+                        new ButtonTemplate { Name = Constants.Mickey, Cost = Constants.Cost500, Value = 0x318, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mickey", ImageUrl = "Characters/Mickey.png" },
+
+                        new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
+                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost750, Value = 0x5D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy", ImageUrl = "Characters/Goofy.png" },
+                        new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald Bird", ImageUrl = "Characters/Bird_Donald.png" },
+                        new ButtonTemplate { Name = Constants.TortoiseGoofy, Cost = Constants.Cost750, Value = 0x61B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy Tortoise", ImageUrl = "Characters/Tortoise_Goofy.png" },
+                        //new ButtonTemplate { Name = Constants.Beast, Cost = Constants.Cost750, Value = 0x5E, ManipulationType = ManipulationType.Set, Description = "Switch Model to Beast", ImageUrl = "Characters/Beast.png" },
+                        new ButtonTemplate { Name = Constants.Ping, Cost = Constants.Cost750, Value = 0x64, ManipulationType = ManipulationType.Set, Description = "Switch Model to Ping", ImageUrl = "Characters/Ping.png" },
+                        new ButtonTemplate { Name = Constants.Mulan, Cost = Constants.Cost750, Value = 0x63, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mulan", ImageUrl = "Characters/Mulan.png" },
+                        new ButtonTemplate { Name = Constants.Auron, Cost = Constants.Cost750, Value = 0x65, ManipulationType = ManipulationType.Set, Description = "Switch Model to Auron", ImageUrl = "Characters/Auron.png" },
+                        new ButtonTemplate { Name = Constants.Aladdin, Cost = Constants.Cost750, Value = 0x62, ManipulationType = ManipulationType.Set, Description = "Switch Model to Aladdin", ImageUrl = "Characters/Aladdin.png" },
+                        new ButtonTemplate { Name = Constants.JackSparrow, Cost = Constants.Cost750, Value = 0x66, ManipulationType = ManipulationType.Set, Description = "Switch Model to Captain Jack Sparrow", ImageUrl = "Characters/Jack_Sparrow.png" },
+                        new ButtonTemplate { Name = Constants.HalloweenJack, Cost = Constants.Cost750, Value = 0x5F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Halloween Town Jack", ImageUrl = "Characters/Halloween_Jack.png" },
+                        new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
+                        new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                        new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
+                    }
+                },
+                new ButtonTemplate
+                {
+                    Name = "Change Anti Form Sora",
+                    Category = GroupType.ModelSwap,
+                    SubCategory = SubGroupType.Sora,
+                    Cost = 0,
+                    Description = "Choose which Character will replace Anti Form Sora",
+                    ImageUrl = "Characters/Anti_Sora.png",
+                    SubMethodParams = new List<ButtonTemplate>
+                    {   
+                        new ButtonTemplate { Name = Constants.Antiform, Cost = Constants.Cost3000, Value = 0x59, ManipulationType = ManipulationType.Set, Description = "Switch Model to Anti Form", ImageUrl = "Characters/Anti_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.ValorForm, Cost = Constants.Cost2000, Value = 0x55, ManipulationType = ManipulationType.Set, Description = "Switch Model to Valor Form", ImageUrl = "Characters/Valor_Sora.png" },
+                        new ButtonTemplate { Name = Constants.WisdomForm, Cost = Constants.Cost2000, Value = 0x56, ManipulationType = ManipulationType.Set, Description = "Switch Model to Wisdom Form", ImageUrl = "Characters/Wisdom_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LimitForm, Cost = Constants.Cost2000, Value = 0x95D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Limit Form", ImageUrl = "Characters/Limit_Sora.png" },
+                        new ButtonTemplate { Name = Constants.MasterForm, Cost = Constants.Cost2000, Value = 0x57, ManipulationType = ManipulationType.Set, Description = "Switch Model to Master Form", ImageUrl = "Characters/Master_Sora.png" },
+                        new ButtonTemplate { Name = Constants.FinalForm, Cost = Constants.Cost2000, Value = 0x58, ManipulationType = ManipulationType.Set, Description = "Switch Model to Final Form", ImageUrl = "Characters/Final_Sora.png" },
+
+                        new ButtonTemplate { Name = Constants.Sora, Cost = Constants.Cost500, Value = 0x54, ManipulationType = ManipulationType.Set, Description = "Revert Sora to KH2 Model", ImageUrl = "Characters/Sora.png" },
+                        new ButtonTemplate { Name = Constants.KH1Sora, Cost = Constants.Cost500, Value = 0x6C1, ManipulationType = ManipulationType.Set, Description = "Switch Model to KH1 Sora", ImageUrl = "Characters/KH1_Sora.png" },
+                        new ButtonTemplate { Name = Constants.CardSora, Cost = Constants.Cost1000, Value = 0x601, ManipulationType = ManipulationType.Set, Description = "Switch Model to Card Sora", ImageUrl = "Characters/Card_Sora.png" },
+                        new ButtonTemplate { Name = Constants.DieSora, Cost = Constants.Cost1000, Value = 0x602, ManipulationType = ManipulationType.Set, Description = "Switch Model to Die Sora", ImageUrl = "Characters/Die_Sora.png" },
+                        new ButtonTemplate { Name = Constants.LionSora, Cost = Constants.Cost750, Value = 0x28A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Lion Sora", ImageUrl = "Characters/Lion_Sora.png" },
+                        new ButtonTemplate { Name = Constants.Roxas, Cost = Constants.Cost750, Value = 0x5A, ManipulationType = ManipulationType.Set, Description = "Switch Model to Roxas", ImageUrl = "Characters/Roxas.png" },
+                        new ButtonTemplate { Name = Constants.DualwieldRoxas, Cost = Constants.Cost1000, Value = 0x323, ManipulationType = ManipulationType.Set, Description = "Switch Model to Dualwield Roxas", ImageUrl = "Characters/Roxas_Dualwield.png" },
+                        new ButtonTemplate { Name = Constants.MickeyRobed, Cost = Constants.Cost500, Value = 0x5B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Robed Mickey", ImageUrl = "Characters/Mickey_Robed.png" },
+                        new ButtonTemplate { Name = Constants.Mickey, Cost = Constants.Cost500, Value = 0x318, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mickey", ImageUrl = "Characters/Mickey.png" },
+
+                        new ButtonTemplate { Name = Constants.Donald, Cost = Constants.Cost750, Value = 0x5C, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald", ImageUrl = "Characters/Donald.png" },
+                        new ButtonTemplate { Name = Constants.Goofy, Cost = Constants.Cost750, Value = 0x5D, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy", ImageUrl = "Characters/Goofy.png" },
+                        new ButtonTemplate { Name = Constants.BirdDonald, Cost = Constants.Cost750, Value = 0x5EF, ManipulationType = ManipulationType.Set, Description = "Switch Model to Donald Bird", ImageUrl = "Characters/Bird_Donald.png" },
+                        new ButtonTemplate { Name = Constants.TortoiseGoofy, Cost = Constants.Cost750, Value = 0x61B, ManipulationType = ManipulationType.Set, Description = "Switch Model to Goofy Tortoise", ImageUrl = "Characters/Tortoise_Goofy.png" },
+                        //new ButtonTemplate { Name = Constants.Beast, Cost = Constants.Cost750, Value = 0x5E, ManipulationType = ManipulationType.Set, Description = "Switch Model to Beast", ImageUrl = "Characters/Beast.png" },
+                        new ButtonTemplate { Name = Constants.Ping, Cost = Constants.Cost750, Value = 0x64, ManipulationType = ManipulationType.Set, Description = "Switch Model to Ping", ImageUrl = "Characters/Ping.png" },
+                        new ButtonTemplate { Name = Constants.Mulan, Cost = Constants.Cost750, Value = 0x63, ManipulationType = ManipulationType.Set, Description = "Switch Model to Mulan", ImageUrl = "Characters/Mulan.png" },
+                        new ButtonTemplate { Name = Constants.Auron, Cost = Constants.Cost750, Value = 0x65, ManipulationType = ManipulationType.Set, Description = "Switch Model to Auron", ImageUrl = "Characters/Auron.png" },
+                        new ButtonTemplate { Name = Constants.Aladdin, Cost = Constants.Cost750, Value = 0x62, ManipulationType = ManipulationType.Set, Description = "Switch Model to Aladdin", ImageUrl = "Characters/Aladdin.png" },
+                        new ButtonTemplate { Name = Constants.JackSparrow, Cost = Constants.Cost750, Value = 0x66, ManipulationType = ManipulationType.Set, Description = "Switch Model to Captain Jack Sparrow", ImageUrl = "Characters/Jack_Sparrow.png" },
+                        new ButtonTemplate { Name = Constants.HalloweenJack, Cost = Constants.Cost750, Value = 0x5F, ManipulationType = ManipulationType.Set, Description = "Switch Model to Halloween Town Jack", ImageUrl = "Characters/Halloween_Jack.png" },
+                        new ButtonTemplate { Name = Constants.ChristmasJack, Cost = Constants.Cost750, Value = 0x60, ManipulationType = ManipulationType.Set, Description = "Switch Model to Christmas Town Jack", ImageUrl = "Characters/Christmas_Jack.png" },
+                        new ButtonTemplate { Name = Constants.Simba, Cost = Constants.Cost750, Value = 0x61, ManipulationType = ManipulationType.Set, Description = "Switch Model to Simba", ImageUrl = "Characters/Simba.png" },
+                        new ButtonTemplate { Name = Constants.Tron, Cost = Constants.Cost750, Value = 0x2D4, ManipulationType = ManipulationType.Set, Description = "Switch Model to Tron", ImageUrl = "Characters/Tron.png" },
+                    }
+                },
             };
 
             options.FirstOrDefault(x => x.Name.Equals("Change Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraModelMessage");
@@ -287,6 +552,14 @@ namespace KH2FMCrowdControl.Data
             options.FirstOrDefault(x => x.Name.Equals("Change Halloween Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraHalloweenModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Christmas Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraChristmasModelMessage");
             options.FirstOrDefault(x => x.Name.Equals("Change Space Paranoids Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraSpaceParanoidsModelMessage");
+
+
+            options.FirstOrDefault(x => x.Name.Equals("Change Valor Form Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraValorFormModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Wisdom Form Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraWisdomFormModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Limit Form Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraLimitFormModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Master Form Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraMasterFormModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Final Form Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraFinalFormModelMessage");
+            options.FirstOrDefault(x => x.Name.Equals("Change Anti Form Sora")).SubMethodParams.ForEach(x => x.MethodName = "SendSoraAntiFormModelMessage");
 
             return options;
         }

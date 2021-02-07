@@ -250,7 +250,7 @@ namespace KH2FMCrowdControl.Data
                         new ButtonTemplate { Name = "Revert to Normal", Cost = Constants.Cost500, Value = 1090519040, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Normal", ImageUrl = "Sora/Stats/SetSPEEDnormal.png", MethodName = "SendSoraSpeedMessage" },
                         new ButtonTemplate { Name = "Speed Up", Cost = Constants.Cost400, Value = 1103101952, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast", ImageUrl = "Sora/Stats/SetSPEEDup.png", MethodName = "SendSoraSpeedMessage" },
                         new ButtonTemplate { Name = "Speed Up x2", Cost = Constants.Cost500, Value = 1112539136, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x2", ImageUrl = "Sora/Stats/SetSPEEDup1.png", MethodName = "SendSoraSpeedMessage" },
-                        new ButtonTemplate { Name = "Speed Up x3", Cost = Constants.Cost1000, Value = 1140850688, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x3", ImageUrl = "Sora/Stats/SetSPEEDup2.png", MethodName = "SendSoraSpeedMessage" },
+                        new ButtonTemplate { Name = "Speed Up x3", Cost = Constants.Cost1000, Value = 1121976320, ManipulationType = ManipulationType.Set, Description = "Set Sora's Speed to Fast x3", ImageUrl = "Sora/Stats/SetSPEEDup2.png", MethodName = "SendSoraSpeedMessage" },
                     }
                 },
             };

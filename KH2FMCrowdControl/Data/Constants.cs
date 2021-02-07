@@ -5,11 +5,11 @@ namespace KH2FMCrowdControl.Data
 {
     public static class Constants
     {
-        public static string RedirectUriHost = "https://localhost:44303/crowdcontrolhost";
-        public static string RedirectUriViewer = "https://localhost:44303/crowdcontrolviewer";
+        //public static string RedirectUriHost = "https://localhost:44303/crowdcontrolhost";
+        //public static string RedirectUriViewer = "https://localhost:44303/crowdcontrolviewer";
 
-        //public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
-        //public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
+        public static string RedirectUriHost = "https://memoryscape.azurewebsites.net/crowdcontrolhost";
+        public static string RedirectUriViewer = "https://memoryscape.azurewebsites.net/crowdcontrolviewer";
 
         public static string None = "None";
 
