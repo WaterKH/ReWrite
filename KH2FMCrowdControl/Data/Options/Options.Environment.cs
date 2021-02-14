@@ -11,7 +11,7 @@ namespace KH2FMCrowdControl.Data
         {
             List<ButtonTemplate> worlds = new List<ButtonTemplate>();
 
-            WorldRoomMappings.Worlds.Values.ToList().ForEach(x => worlds.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost3000, Value = x.Value, ManipulationType = ManipulationType.Set, ImageUrl = x.ImageUrl }));
+            WorldRoomMappings.Worlds.Values.ToList().ForEach(x => worlds.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost3000, Value = x.Value, ManipulationType = ManipulationType.Set, ImageUrl = "Worlds/" + x.ImageUrl }));
 
 
             var roomModifier = new List<ButtonTemplate>();
@@ -19,7 +19,11 @@ namespace KH2FMCrowdControl.Data
             worlds.CreateListFromList().ForEach(x => {
 
                 var rooms = new List<ButtonTemplate>();
-                WorldRoomMappings.Rooms[(int)x.Value].Values.ToList().ForEach(r => rooms.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost1000, Value = x.Value, ManipulationType = ManipulationType.Set, ImageUrl = x.ImageUrl }));
+
+                foreach((string name, int id) in WorldRoomMappings.Rooms[(int)x.Value])
+                {
+                    rooms.Add(new ButtonTemplate { Name = name, Cost = Constants.Cost1000, Value = id, ManipulationType = ManipulationType.Set, ImageUrl = x.ImageUrl });
+                }
 
                 x.SubMethodParams = rooms;
                 x.SubMethodParams.ForEach(y => { 

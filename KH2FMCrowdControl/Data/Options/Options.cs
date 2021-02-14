@@ -21,6 +21,7 @@ namespace KH2FMCrowdControl.Data
                 { GroupType.Items, await this.InitializeItemOptions() },
                 { GroupType.Sora, await this.InitializeSoraOptions() },
                 { GroupType.ModelSwap, await this.InitializeModelSwapOptions() },
+                { GroupType.Environment, await this.InitializeEnvironmentOptions() },
                 { GroupType.Party, await this.InitializePartyOptions() },
                 { GroupType.Enemy, await this.InitializeEnemyOptions() },
             };

@@ -1,5 +1,67 @@
 ﻿@page "/alert"
 
+@using KH2FMCrowdControl.Data
+
+@inject MemoryService MemoryService
+@inject NavigationManager NavigationManager
+
+
+<div class="main">
+    <div class="content px-4">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-3">
+                    
+                </div>
+
+                <div class="col-3">
+                    <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse; background-color:@alertSettings.BackgroundColor">
+                        @foreach (var alert in DbContext.Alerts[this.username])
+                        {
+                            <KHAlert Username="@alert.Viewer"
+                                     Item="@alert.Item"
+                                     ImageUrl="@alert.ImageUrl" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @code {
-    @* How to create Dynamic Page? *@
+
+    private string username = "";
+
+    private AlertSettings alertSettings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        MemoryService.OnAlertReceived += UpdateAlerts;
+
+        try
+        {
+            var results = NavigationManager.Uri.Split('?')[1].Split('&');
+
+            this.username = results.FirstOrDefault(x => x.Contains("username")).Split('=')[1];
+
+            if(DbContext.AlertSettings.ContainsKey(this.username))
+                alertSettings = DbContext.AlertSettings[this.username];
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error Initializing Alerts", ex);
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    protected async Task UpdateAlerts(object sender, AlertArgs alertArgs)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
 }

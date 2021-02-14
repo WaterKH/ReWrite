@@ -142,20 +142,32 @@
             <br />
 
             <div class="row">
-                <div class="col-12"><h1></h1></div>
+                <div class="col-12"><h1>@(ActiveTab == 0 ? "Alerts" : ActiveTab == 1 ? "Options" : "Costs/ Cooldowns")</h1></div>
                 @if (ActiveTab == 0)
                 {
                     <div class="col-12" style="padding: 10px;">
                         <div class="row">
                             <div class="col-3">
-
+                                <div style="padding: 5px">
+                                    <h4>Background Color:   </h4><input type="color" @bind="@DbContext.AlertSettings[this.username].BackgroundColor" style="width:25%;">
+                                </div>
+                                <div style="padding: 5px">
+                                    <h4>Alert Count:    </h4><input type="number" @oninput="@(() => UpdateCount(DbContext.AlertSettings[this.username].AlertCount))" @bind="@DbContext.AlertSettings[this.username].AlertCount" min="1" max="10" style="width:25%" />
+                                    <span>@alertError</span>
+                                </div>
+                                <div style="padding: 5px">
+                                    <button class="btn btn-primary" type="button" @onclick="NavigateToAlerts">Open Alerts Browser Source</button>
+                                </div>
+                                <div style="padding: 5px">
+                                    <button class="btn btn-danger" type="button" @onclick="RemoveAlerts">Clear Alerts</button>
+                                </div>
                             </div>
 
                             <div class="col-3">
-                                <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse;">
-                                    @foreach (var alert in alerts)
+                                <div style="padding: 10px; overflow: auto; display: flex; flex-direction: column-reverse; background-color:@DbContext.AlertSettings[this.username].BackgroundColor">
+                                    @foreach (var alert in DbContext.Alerts[this.username])
                                     {
-                                        <KHAlert Username="@alert.Viewer"
+                                    <KHAlert Username="@alert.Viewer"
                                                  Item="@alert.Item"
                                                  ImageUrl="@alert.ImageUrl" />
                                     }
@@ -250,7 +262,7 @@
 
     private TwitchApi twitchApi;
 
-    private List<KH2FMCrowdControl.Data.KHAlert> alerts = new List<KH2FMCrowdControl.Data.KHAlert>();
+    private string alertError = string.Empty;
 
     private int cost;
     private int cooldown;
@@ -267,7 +279,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        MemoryService.OnAlertReceived += CreateAlert;
+        MemoryService.OnAlertReceived += UpdateAlerts;
         MessageHub.OnConnectionStatusChanged += UpdateConnectionStatus;
 
         this.ExpandCollapseElements = new Dictionary<SubGroupType, string>();
@@ -288,6 +300,12 @@
 
         if (DbContext.Hosts.ContainsKey(username))
             connectionStatus = DbContext.Hosts[username].ConnectionId == string.Empty ? "Disconnected" : "Connected";
+
+        if (!DbContext.AlertSettings.ContainsKey(this.username))
+            DbContext.AlertSettings.Add(this.username, new AlertSettings { AlertCount = 5, BackgroundColor = "#FFFFFF", Username = this.username });
+
+        if (!DbContext.Alerts.ContainsKey(this.username))
+            DbContext.Alerts.Add(this.username, new List<Data.KHAlert>());
 
         twitchApi = TwitchService.GetTwitchApi(username);
 
@@ -483,15 +501,48 @@
 
     #region Alerts
 
-    public async Task CreateAlert(object sender, AlertArgs alertArgs)
+    protected async Task NavigateToAlerts()
     {
-        if (alertArgs.Host != username)
-            return;
+        var url = $"{Constants.RedirectUriAlert}?username={this.username}";
 
-        alerts.Add(new KH2FMCrowdControl.Data.KHAlert { Viewer = alertArgs.Viewer, Item = alertArgs.Item, ImageUrl = alertArgs.ImageUrl });
+        await JSRuntime.InvokeAsync<object>("open", url, "_blank");
+    }
 
-        if (alerts.Count > 5)
-            alerts.RemoveAt(0);
+    protected async Task UpdateCount(int count)
+    {
+        if (count > 10)
+        {
+            DbContext.AlertSettings[this.username].AlertCount = 10;
+            alertError = "Alert Count needs to be under 10";
+        }
+        else if (count < 1)
+        {
+            DbContext.AlertSettings[this.username].AlertCount = 1;
+            alertError = "Alert Count needs to be above 1";
+        }
+        else
+        {
+            DbContext.AlertSettings[this.username].AlertCount = count;
+            alertError = "";
+        }
+
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    protected async Task UpdateAlerts(object sender, AlertArgs alertArgs)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    protected async Task RemoveAlerts()
+    {
+        DbContext.Alerts[this.username].Clear();
 
         await InvokeAsync(() =>
         {

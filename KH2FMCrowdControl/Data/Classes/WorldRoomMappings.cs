@@ -15,7 +15,7 @@ namespace KH2FMCrowdControl.Data
             { "Olympus Coliseum", new World { Name = "Olympus Coliseum", Value = 6, ImageUrl = "Olympus_Coliseum.png" } },
             { "Agrabah", new World { Name = "Agrabah", Value = 7, ImageUrl = "Agrabah.png" } },
             { "The Land of Dragons", new World { Name = "The Land of Dragons", Value = 8, ImageUrl = "The_Land_of_Dragons.png" } },
-            { "100 Acre Wood", new World { Name = "100 Acre Wood", Value = 9, ImageUrl = "100 Acre Wood.png" } },
+            { "100 Acre Wood", new World { Name = "100 Acre Wood", Value = 9, ImageUrl = "100_Acre_Wood.png" } },
             { "Pride Lands", new World { Name = "Pride Lands", Value = 10, ImageUrl = "Pride_Lands.png" } },
             //{ "Atlantica", new World { Name = "Atlantica", Value = 11, ImageUrl = "Atlantica.png" } },
             { "Disney Castle", new World { Name = "Disney Castle", Value = 12, ImageUrl = "Disney_Castle.png" } },
@@ -277,7 +277,7 @@ namespace KH2FMCrowdControl.Data
                  { "Toy Factory: The Wrapping Room", 10 },
                  }
             },
-            { 16, new Dictionary<string, int> {{ "Rampart", 0 },
+            { 15, new Dictionary<string, int> {{ "Rampart", 0 },
                  { "Harbor 1", 1 },
                  { "Town", 2 },
                  { "The Interceptor 1", 3 },
@@ -305,7 +305,7 @@ namespace KH2FMCrowdControl.Data
                  { "Isla de Muerta: Rock Face 2", 25 },
                  }
             },
-            { 17, new Dictionary<string, int> {{ "Pit Cell", 0 },
+            { 16, new Dictionary<string, int> {{ "Pit Cell", 0 },
                  { "Canyon", 1 },
                  { "Game Grid", 2 },
                  { "Dataspace", 3 },
@@ -318,7 +318,7 @@ namespace KH2FMCrowdControl.Data
                  { "Solar Sailer Simulation 2", 10 },
                  }
             },
-            { 18, new Dictionary<string, int> {{ "Where Nothing Gathers", 0 },
+            { 17, new Dictionary<string, int> {{ "Where Nothing Gathers", 0 },
                  { "Alley to Between", 1 },
                  { "Fragment Crossing", 2 },
                  { "Memory's Skyscraper", 3 },

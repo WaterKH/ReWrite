@@ -28,9 +28,17 @@ namespace KH2FMCrowdControl.Data
 
         public static Options OptionsClass;
 
-        public static void SendAlert(object sender, AlertArgs e)
+        public static void SendAlert(object sender, AlertArgs alertArgs)
         {
-            OnAlertReceived?.Invoke(sender, e);
+            if (DbContext.Alerts.ContainsKey(alertArgs.Host))
+            {
+                DbContext.Alerts[alertArgs.Host].Add(new KH2FMCrowdControl.Data.KHAlert { Viewer = alertArgs.Viewer, Item = alertArgs.Item, ImageUrl = alertArgs.ImageUrl });
+
+                while (DbContext.Alerts[alertArgs.Host].Count > DbContext.AlertSettings[alertArgs.Host].AlertCount)
+                    DbContext.Alerts[alertArgs.Host].RemoveAt(0);
+            }
+
+            OnAlertReceived?.Invoke(sender, alertArgs);
         }
 
         public MemoryService(IHubContext<MessageHub> context)
