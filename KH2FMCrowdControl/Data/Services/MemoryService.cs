@@ -269,7 +269,7 @@ namespace KH2FMCrowdControl.Data
             }
             finally
             {
-                MemoryService.TimerUpdated(this, new ChangeEventArgs());
+                MemoryService.TimerUpdated(this, new ChangeEventArgs { Value = optionName });
             }
         }
 

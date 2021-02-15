@@ -11,18 +11,20 @@ namespace KH2FMCrowdControl.Data
 
         public override Task OnConnectedAsync()
         {
-            var username = Context.GetHttpContext().Request.Query["username"];
+            var username = Context.GetHttpContext().Request.Query["username"].ToString();
 
             if (!string.IsNullOrEmpty(username))
             {
-                if (!DbContext.Hosts.ContainsKey(username))
-                    DbContext.Hosts.Add(username, new Host());
+                var lowerUsername = username.ToLower();
 
-                DbContext.Hosts[username].ConnectionId = Context.ConnectionId;
+                if (!DbContext.Hosts.ContainsKey(lowerUsername))
+                    DbContext.Hosts.Add(lowerUsername, new Host());
+
+                DbContext.Hosts[lowerUsername].ConnectionId = Context.ConnectionId;
 
                 System.Diagnostics.Trace.WriteLine($"{username} MessageHub Connected...");
 
-                SendConnectionStatusChange(this, new MessageHubArgs { HostName = username, ConnectionStatus = "Connected", ConnectionId = Context.ConnectionId });
+                SendConnectionStatusChange(this, new MessageHubArgs { HostName = lowerUsername, ConnectionStatus = "Connected", ConnectionId = Context.ConnectionId });
             }
 
             return base.OnConnectedAsync();
@@ -30,19 +32,21 @@ namespace KH2FMCrowdControl.Data
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            var username = Context.GetHttpContext().Request.Query["username"];
+            var username = Context.GetHttpContext().Request.Query["username"].ToString();
 
             if (!string.IsNullOrEmpty(username))
             {
-                if (DbContext.Hosts.ContainsKey(username))
-                    DbContext.Hosts.Remove(username);
+                var lowerUsername = username.ToLower();
+
+                if (DbContext.Hosts.ContainsKey(lowerUsername))
+                    DbContext.Hosts.Remove(lowerUsername);
+
+                System.Diagnostics.Trace.WriteLine($"{username} MessageHub Disconnected...");
+
+                //DbContext.Hosts[username].ConnectionId = string.Empty;
+
+                SendConnectionStatusChange(this, new MessageHubArgs { HostName = lowerUsername, ConnectionStatus = "Disconnected" });
             }
-
-            System.Diagnostics.Trace.WriteLine($"{username} MessageHub Disconnected...");
-
-            //DbContext.Hosts[username].ConnectionId = string.Empty;
-
-            SendConnectionStatusChange(this, new MessageHubArgs { HostName = username, ConnectionStatus = "Disconnected" });
 
             return base.OnDisconnectedAsync(exception);
         }

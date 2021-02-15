@@ -24,7 +24,8 @@
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
     <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="MatBlazor" Version="2.7.0" />
-    <PackageReference Include="MemoryContract" Version="1.0.16" />
+    <PackageReference Include="MemoryContract" Version="1.0.18" />
+    <PackageReference Include="MemoryMappings" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="3.1.9" />
     <PackageReference Include="Microsoft.Azure.SignalR" Version="1.5.1" />

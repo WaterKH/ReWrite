@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Waterkh.Common.Mappings;
 using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
@@ -11,7 +12,7 @@ namespace KH2FMCrowdControl.Data
         {
             List<ButtonTemplate> enemies = new List<ButtonTemplate>();
 
-            EnemyMappings.Enemies.Values.ToList().ForEach(x => enemies.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost3000, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = x.ImageUrl }));
+            EnemyMapping.Enemies.Values.ToList().ForEach(x => enemies.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost3000, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = x.ImageUrl }));
 
             var bossModelModifier = new List<ButtonTemplate>();
 

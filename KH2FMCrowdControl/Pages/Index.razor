@@ -1,7 +1,8 @@
 ﻿@page "/"
 
 @using KH2FMCrowdControl.Data
-@using System.Timers; 
+@using Waterkh.Common.Mappings;
+@using System.Timers;
 
 <div class="main">
     <div class="content px-4">
@@ -246,7 +247,7 @@
     private Timer versionTimer;
     private int previousVersion = 8;
 
-    private VersionHistory currentVersionHistory = VersionHistoryMappings.VersionHistories[9];
+    private VersionHistory currentVersionHistory = VersionHistoryMapping.VersionHistories[9];
 
     protected override async Task OnInitializedAsync()
     {
@@ -265,7 +266,7 @@
                 if (this.version > 10)
                     this.version = 3;
 
-                currentVersionHistory = VersionHistoryMappings.VersionHistories[this.version];
+                currentVersionHistory = VersionHistoryMapping.VersionHistories[this.version];
             }
             else
             {

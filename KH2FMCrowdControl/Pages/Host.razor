@@ -22,13 +22,13 @@
             </div>
 
             <div class="col-8">
-                <h2 style="text-align: center;">@username Host View</h2>
+                <h2 style="text-align: center;">@this.displayName Host View</h2>
             </div>
 
             @if (twitchApi != null)
             {
                 <div class="col-2">
-                    <button class="btn btn-outline-info" style="overflow: hidden; float: right;" @onclick="@(async () => await OnStreamerSelectedAsync(username))">Viewer View</button>
+                    <button class="btn btn-outline-info" style="overflow: hidden; float: right;" @onclick="@(async () => await OnStreamerSelectedAsync())">Viewer View</button>
                 </div>
             }
             else
@@ -48,12 +48,12 @@
             </div>
 
             <div class="col-3" style="text-align: center;">
-                @if (twitchApi != null && DbContext.Hosts[username].IsHosting)
+                @if (twitchApi != null && DbContext.Hosts[this.username].IsHosting)
                 {
                     <button type="button" class="btn btn-outline-info" @onclick="IntermidiateHosting">Pause Hosting</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
                 }
-                else if (twitchApi != null && !DbContext.Hosts[username].IsHosting)
+                else if (twitchApi != null && !DbContext.Hosts[this.username].IsHosting)
                 {
                     <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
@@ -184,7 +184,7 @@
                             {
                                 <TabPage Text="@group.ToString()">
                                     <div class="row" style="padding: 10px;">
-                                        @foreach (var option in MemoryService.Options[username][group])
+                                        @foreach (var option in MemoryService.Options[this.username][group])
                                         {
                                             @if (option.SubCategory != SubGroupType.None && option.SubCategory != PreviousSubGroupType)
                                             {
@@ -201,12 +201,12 @@
 
                                             @if (this.ExpandCollapseElements[option.SubCategory] == "icon-down" || option.SubCategory == SubGroupType.None)
                                             {
-                                                <KHButtonComponent HostName="@username"
+                                                <KHButtonComponent HostName="@this.username"
                                                                     Name="@option.Name"
                                                                     Cost="0"
                                                                     ImageUrl="@option.ImageUrl"
                                                                     Description="@(option.IsActive == true ? "Active" : "Not Active")"
-                                                                    Method="@(() => DisplayModal(option, username, group))" />
+                                                                    Method="@(() => DisplayModal(option, this.username, group))" />
                                             }
                                         }
                                     </div>
@@ -232,11 +232,11 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach (var costCooldown in MemoryService.OptionCooldowns[username])
+                        @foreach (var costCooldown in MemoryService.OptionCooldowns[this.username])
                         {
                             <div class="row">
                                 <div class="col-4" style="padding: 5px;">
-                                    <ChangeCost HostName="@username"
+                                    <ChangeCost HostName="@this.username"
                                                 Cost="@costCooldown.Key"
                                                 Cooldown="@costCooldown.Value" />
                                 </div>
@@ -250,12 +250,13 @@
 </div>
 
 @code {
-    [CascadingParameter]
-    public IModalService Modal { get; set; }
+        [CascadingParameter]
+        public IModalService Modal { get; set; }
 
     #region Private Vars
 
     private string username;
+    private string displayName;
     private string clientId;
     private string connectionStatus = "Disconnected";
     private string connectionId;
@@ -292,14 +293,19 @@
         if (!firstRender)
             return;
 
-        username = await localStorage.GetItemAsync<string>("username");
-        clientId = await localStorage.GetItemAsync<string>("clientId");
+        this.username = await localStorage.GetItemAsync<string>("username");
+        this.clientId = await localStorage.GetItemAsync<string>("clientId");
 
-        if (!DbContext.Points.ContainsKey(username))
-            DbContext.Points.Add(username, new PointCounter { PointAmount = 100, Time = 10 });
+        if (!DbContext.Points.ContainsKey(this.username))
+            DbContext.Points.Add(this.username, new PointCounter { PointAmount = 100, Time = 10 });
 
-        if (DbContext.Hosts.ContainsKey(username))
-            connectionStatus = DbContext.Hosts[username].ConnectionId == string.Empty ? "Disconnected" : "Connected";
+        if (DbContext.Hosts.ContainsKey(this.username))
+        {
+            var host = DbContext.Hosts[this.username];
+
+            this.connectionStatus = host.ConnectionId == string.Empty ? "Disconnected" : "Connected";
+            this.displayName = !string.IsNullOrEmpty(host.DisplayName) ? host.DisplayName : this.username;
+        }
 
         if (!DbContext.AlertSettings.ContainsKey(this.username))
             DbContext.AlertSettings.Add(this.username, new AlertSettings { AlertCount = 5, BackgroundColor = "#FFFFFF", Username = this.username });
@@ -307,13 +313,13 @@
         if (!DbContext.Alerts.ContainsKey(this.username))
             DbContext.Alerts.Add(this.username, new List<Data.KHAlert>());
 
-        twitchApi = TwitchService.GetTwitchApi(username);
+        this.twitchApi = TwitchService.GetTwitchApi(this.username);
 
-        if (!string.IsNullOrEmpty(username) && MemoryService.Options.ContainsKey(username))
+        if (!string.IsNullOrEmpty(this.username) && MemoryService.Options.ContainsKey(this.username))
         {
             foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
             {
-                foreach (var input in MemoryService.Options[username][groupType])
+                foreach (var input in MemoryService.Options[this.username][groupType])
                 {
                     if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
                         this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
@@ -333,20 +339,20 @@
 
     private async Task StartHosting()
     {
-        if (twitchApi != null && DbContext.Hosts[username].IsHosting)
+        if (twitchApi != null && DbContext.Hosts[this.username].IsHosting)
         {
             await Task.Run(() => ToastService.ShowInfo("Already Hosting!"));
         }
-        else if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
+        else if (this.connectionStatus.Equals("Connected") && this.connectionId != string.Empty)
         {
-            if (twitchApi == null)
+            if (this.twitchApi == null)
                 await this.CreateHost();
 
-            DbContext.Hosts[username].IsHosting = true;
+            DbContext.Hosts[this.username].IsHosting = true;
 
             await Task.Run(() => ToastService.ShowSuccess("Successfully Started Hosting!"));
 
-            System.Diagnostics.Trace.WriteLine($"{username} Started Hosting...");
+            System.Diagnostics.Trace.WriteLine($"{this.username} Started Hosting...");
 
 
             await InvokeAsync(() =>
@@ -362,13 +368,13 @@
 
     private async Task StopHosting()
     {
-        TwitchService.RemoveHost(username);
+        TwitchService.RemoveHost(this.username);
 
-        twitchApi = null;
+        this.twitchApi = null;
 
         await Task.Run(() => ToastService.ShowInfo("Stopped Hosting"));
 
-        System.Diagnostics.Trace.WriteLine($"{username} Stopped Hosting...");
+        System.Diagnostics.Trace.WriteLine($"{this.username} Stopped Hosting...");
 
         await InvokeAsync(() =>
         {
@@ -378,16 +384,16 @@
 
     private async Task IntermidiateHosting()
     {
-        if (connectionStatus.Equals("Connected") && connectionId != string.Empty)
+        if (this.connectionStatus.Equals("Connected") && this.connectionId != string.Empty)
         {
-            if (twitchApi == null)
+            if (this.twitchApi == null)
                 await this.CreateHost();
 
-            DbContext.Hosts[username].IsHosting = false;
+            DbContext.Hosts[this.username].IsHosting = false;
 
             await Task.Run(() => ToastService.ShowInfo("Setup/ Paused Hosting!"));
 
-            System.Diagnostics.Trace.WriteLine($"{username} Setup/ Paused Hosting...");
+            System.Diagnostics.Trace.WriteLine($"{this.username} Setup/ Paused Hosting...");
 
             await InvokeAsync(() =>
             {
@@ -402,31 +408,33 @@
 
     private async Task CreateHost()
     {
-        twitchApi = await TwitchService.CreateHost(username, clientId, connectionId, NavigationManager);
+        this.twitchApi = await TwitchService.CreateHost(this.username, this.clientId, this.connectionId, NavigationManager);
 
-        await MemoryService.InitializeOptions(username);
+        await MemoryService.InitializeOptions(this.username);
 
-        MessageHubMessages.SendUpdateOptionsMessage(username);
+        MessageHubMessages.SendUpdateOptionsMessage(this.username);
 
         foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
         {
-            foreach (var input in MemoryService.Options[username][groupType])
+            foreach (var input in MemoryService.Options[this.username][groupType])
             {
                 if (!this.ExpandCollapseElements.ContainsKey(input.SubCategory))
                     this.ExpandCollapseElements.Add(input.SubCategory, "icon-up");
             }
         }
+
+        this.displayName = DbContext.Hosts[this.username].DisplayName;
     }
 
     #endregion Hosting
 
     public async Task UpdateConnectionStatus(object sender, MessageHubArgs messageHubArgs)
     {
-        if (messageHubArgs.HostName != username)
+        if (messageHubArgs.HostName != this.username)
             return;
 
-        connectionStatus = messageHubArgs.ConnectionStatus;
-        connectionId = messageHubArgs.ConnectionId;
+        this.connectionStatus = messageHubArgs.ConnectionStatus;
+        this.connectionId = messageHubArgs.ConnectionId;
 
 
         if (string.IsNullOrEmpty(messageHubArgs.ConnectionId))
@@ -435,7 +443,7 @@
         }
         else
         {
-            MessageHubMessages.SendUpdateOptionsMessage(username);
+            MessageHubMessages.SendUpdateOptionsMessage(this.username);
         }
 
         await InvokeAsync(() =>
@@ -466,11 +474,11 @@
         ToastService.ShowSuccess("Successfully Updated Points per Second!");
     }
 
-    protected async Task OnStreamerSelectedAsync(string username)
+    protected async Task OnStreamerSelectedAsync()
     {
-        await localStorage.SetItemAsync("username", username);
+        await localStorage.SetItemAsync("username", this.username);
 
-        var url = TwitchService.RedirectToViewer(username);
+        var url = TwitchService.RedirectToViewer(this.username);
 
         //NavigationManager.NavigateTo(url);
         await JSRuntime.InvokeAsync<object>("open", url, "_blank");
@@ -570,12 +578,12 @@
     {
         try
         {
-            var file = await MemoryService.ExportOptionCostCooldown(username);
+            var file = await MemoryService.ExportOptionCostCooldown(this.username);
             var convertedFile = System.Text.Encoding.UTF8.GetBytes(file);
 
             if (file.Length > 0)
             {
-                var fullFileName = fileName.Length > 0 ? $"{fileName}.txt" : $"{username}_optionCosts.txt";
+                var fullFileName = this.fileName.Length > 0 ? $"{this.fileName}.txt" : $"{this.username}_optionCosts.txt";
 
                 await BlazorDownloadFileService.DownloadFile(fullFileName, convertedFile, new System.Threading.CancellationToken(), "application/json");
 
@@ -596,7 +604,7 @@
     {
         try
         {
-            var isSuccessful = await MemoryService.ImportOptionCostCooldown(username, files.FirstOrDefault());
+            var isSuccessful = await MemoryService.ImportOptionCostCooldown(this.username, files.FirstOrDefault());
 
             if (isSuccessful)
             {
@@ -624,14 +632,14 @@
 
     private async Task AddCostCooldown()
     {
-        if (cost == 0)
+        if (this.cost == 0)
         {
             ToastService.ShowError("Cost cannot be 0");
 
             return;
         }
 
-        var didUpdate = await MemoryService.AddCostCooldown(username, cost, cooldown);
+        var didUpdate = await MemoryService.AddCostCooldown(this.username, this.cost, this.cooldown);
 
         if (didUpdate)
         {
@@ -642,8 +650,8 @@
             ToastService.ShowError("Probable cause: New cost is already set in the current list");
         }
 
-        cost = 0;
-        cooldown = 0;
+        this.cost = 0;
+        this.cooldown = 0;
     }
 
     #endregion Cost/ Cooldown

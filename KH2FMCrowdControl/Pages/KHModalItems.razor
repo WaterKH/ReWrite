@@ -67,12 +67,15 @@
 
     protected async Task CancelModal(object sender, ChangeEventArgs e)
     {
-        await BlazoredModal.Cancel();
+        if(this.Options.Any(x => x.Name == e.Value.ToString()))
+        { 
+            await BlazoredModal.Cancel();
 
-        await InvokeAsync(() =>
-        {
-            base.StateHasChanged();
-        });
+            await InvokeAsync(() =>
+            {
+                base.StateHasChanged();
+            });
+        }
     }
 
     protected void DisplaySubModal(List<ButtonTemplate> values, string parentName)

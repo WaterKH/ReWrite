@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Waterkh.Common.Mappings;
 using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
@@ -11,7 +12,7 @@ namespace KH2FMCrowdControl.Data
         {
             List<ButtonTemplate> worlds = new List<ButtonTemplate>();
 
-            WorldRoomMappings.Worlds.Values.ToList().ForEach(x => worlds.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost3000, Value = x.Value, ManipulationType = ManipulationType.Set, ImageUrl = "Worlds/" + x.ImageUrl }));
+            WorldRoomMapping.Worlds.Values.ToList().ForEach(x => worlds.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost3000, Value = x.Value, ManipulationType = ManipulationType.Set, ImageUrl = "Worlds/" + x.ImageUrl }));
 
 
             var roomModifier = new List<ButtonTemplate>();
@@ -20,7 +21,7 @@ namespace KH2FMCrowdControl.Data
 
                 var rooms = new List<ButtonTemplate>();
 
-                foreach((string name, int id) in WorldRoomMappings.Rooms[(int)x.Value])
+                foreach((string name, int id) in WorldRoomMapping.Rooms[(int)x.Value])
                 {
                     rooms.Add(new ButtonTemplate { Name = name, Cost = Constants.Cost1000, Value = id, ManipulationType = ManipulationType.Set, ImageUrl = x.ImageUrl });
                 }

@@ -32,17 +32,18 @@ namespace KH2FMCrowdControl.Data
             return this.GetTwitchAuthenticationLink(clientId, Constants.RedirectUriHost, "token");
         }
 
-        // TODO Redo how hosting works
         public async Task<TwitchApi> CreateHost(string username, string clientId, string connectionId, NavigationManager navigationManager)
         {
             var accessToken = this.GetTwitchAuthenticationToken(navigationManager);
 
             var twitchApi = new TwitchApi(clientId, accessToken);
 
-            if (!DbContext.Hosts.ContainsKey(username.ToLower()))
-                DbContext.Hosts.Add(username.ToLower(), null);
+            var lowerUsername = username.ToLower();
 
-            var channel = (await twitchApi.api.Helix.Users.GetUsersAsync()).Users.FirstOrDefault(x => x.DisplayName.ToLower().Equals(username.ToLower()));
+            if (!DbContext.Hosts.ContainsKey(lowerUsername))
+                DbContext.Hosts.Add(lowerUsername, null);
+
+            var channel = (await twitchApi.api.Helix.Users.GetUsersAsync()).Users.FirstOrDefault(x => x.DisplayName.ToLower().Equals(lowerUsername));
             
             if (DbContext.Hosts[username.ToLower()] != null)
             {

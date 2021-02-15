@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Waterkh.Common.Mappings;
 using Waterkh.Common.Memory;
 
 namespace KH2FMCrowdControl.Data
@@ -11,7 +12,7 @@ namespace KH2FMCrowdControl.Data
         {
             List<ButtonTemplate> abilities = new List<ButtonTemplate>();
 
-            AbilityMappings.CaptainJackSparrowAbilities.Values.ToList().ForEach(x => abilities.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost750, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = x.AbilityType.ToString() }));
+            AbilityMapping.CaptainJackSparrowAbilities.Values.ToList().ForEach(x => abilities.Add(new ButtonTemplate { Name = x.Name, Cost = Constants.Cost750, Value = x.Name, ManipulationType = ManipulationType.Set, ImageUrl = x.AbilityType.ToString() }));
 
             var options = new List<ButtonTemplate> {
 

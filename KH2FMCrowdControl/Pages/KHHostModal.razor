@@ -64,11 +64,18 @@
 
     protected async Task OnHostClickedAsync()
     {
-        await localStorage.SetItemAsync("username", username);
-        await localStorage.SetItemAsync("clientId", clientId);
+        try
+        {
+            await localStorage.SetItemAsync("username", this.username.ToLower());
+            await localStorage.SetItemAsync("clientId", this.clientId);
 
-        var url = TwitchService.RedirectToCreateHost(clientId);
-        NavigationManager.NavigateTo(url);
+            var url = TwitchService.RedirectToCreateHost(this.clientId);
+            NavigationManager.NavigateTo(url);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception("Error Logging In", ex);
+        }
     }
 
     protected void ExpandCollapse()
