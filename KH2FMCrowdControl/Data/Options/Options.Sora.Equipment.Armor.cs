@@ -64,7 +64,7 @@ namespace KH2FMCrowdControl.Data
                         new ButtonTemplate { Name = "1 Slot", Cost = Constants.Cost300, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 1", ImageUrl = "Shared/Armor/Armor1.png", MethodName = "SendSoraArmorSlotsMessage" },
                         new ButtonTemplate { Name = "2 Slots", Cost = Constants.Cost250, Value = 2, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 2", ImageUrl = "Shared/Armor/Armor2.png", MethodName = "SendSoraArmorSlotsMessage" },
                         new ButtonTemplate { Name = "3 Slots", Cost = Constants.Cost300, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 3", ImageUrl = "Shared/Armor/Armor3.png", MethodName = "SendSoraArmorSlotsMessage" },
-                        new ButtonTemplate { Name = "4 Slots", Cost = Constants.Cost400, Value = 3, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 3", ImageUrl = "Shared/Armor/Armor4.png", MethodName = "SendSoraArmorSlotsMessage" },
+                        new ButtonTemplate { Name = "4 Slots", Cost = Constants.Cost400, Value = 4, ManipulationType = ManipulationType.Set, Description = "Set Sora's Armor Slots to 4", ImageUrl = "Shared/Armor/Armor4.png", MethodName = "SendSoraArmorSlotsMessage" },
                     }
                 },
                 new ButtonTemplate

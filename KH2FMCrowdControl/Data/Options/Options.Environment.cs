@@ -44,12 +44,12 @@ namespace KH2FMCrowdControl.Data
                     Name = "Change Room",
                     Category = GroupType.Environment,
                     SubCategory = SubGroupType.Rooms,
+                    Tag = FeatureTagType.Unstable,
                     Cost = 0,
                     Description = "Change the next room to a different one",
                     ImageUrl = "Worlds/Hollow_Bastion.png",
                     SubMethodParams = roomModifier
                 },
-                // TODO Change Chests?
             };
 
             return options;

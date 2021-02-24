@@ -11,8 +11,8 @@ namespace KH2FMCrowdControl.Data
         {
             var shields = new List<ButtonTemplate>
             {
-                new ButtonTemplate { Name = Constants.KnightsShield, Cost = Constants.Cost2000, Value = 49, ManipulationType = ManipulationType.Set, Description = "Equip Knight's Shield to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Kinghts_Shield.png", MethodName = "SendEquipKeybladeMessage" },
-                new ButtonTemplate { Name = Constants.AdamantShield, Cost = Constants.Cost200, Value = 139, ManipulationType = ManipulationType.Set, Description = "Equip Adamant Shield to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Adamant_Shield.png", MethodName = "SendEquipKeybladeMessage" },
+                new ButtonTemplate { Name = Constants.KnightsShield, Cost = Constants.Cost200, Value = 49, ManipulationType = ManipulationType.Set, Description = "Equip Knight's Shield to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Kinghts_Shield.png", MethodName = "SendEquipKeybladeMessage" },
+                new ButtonTemplate { Name = Constants.AdamantShield, Cost = Constants.Cost250, Value = 139, ManipulationType = ManipulationType.Set, Description = "Equip Adamant Shield to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Adamant_Shield.png", MethodName = "SendEquipKeybladeMessage" },
                 new ButtonTemplate { Name = Constants.ChainGear, Cost = Constants.Cost250, Value = 140, ManipulationType = ManipulationType.Set, Description = "Equip Chain Gear to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Chain_Gear.png", MethodName = "SendEquipKeybladeMessage" },
                 new ButtonTemplate { Name = Constants.FallingStar, Cost = Constants.Cost250, Value = 142, ManipulationType = ManipulationType.Set, Description = "Equip Falling Star to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Falling_Star.png", MethodName = "SendEquipKeybladeMessage" },
                 new ButtonTemplate { Name = Constants.Dreamcloud, Cost = Constants.Cost300, Value = 143, ManipulationType = ManipulationType.Set, Description = "Equip Dreamcloud to Goofy's Weapon Slot", ImageUrl = "Items/Give/Shields/Dreamcloud.png", MethodName = "SendEquipKeybladeMessage" },
@@ -41,6 +41,7 @@ namespace KH2FMCrowdControl.Data
                     Name = "Equip Shield",
                     Category = GroupType.Party,
                     SubCategory = SubGroupType.Goofy,
+                    Tag = FeatureTagType.Unstable,
                     Cost = 0,
                     Description = "Choose which Shield to have Goofy Wield",
                     ImageUrl = "Shared/SetShieldGoofy.png",

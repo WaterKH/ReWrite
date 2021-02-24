@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Waterkh.Common.Memory;
 
@@ -95,12 +96,14 @@ namespace KH2FMCrowdControl.Data
             options.AddRange(await this.InitializeTronModelSwapOptions(ally.CreateListFromList(), enemy.CreateListFromList()));
             options.AddRange(await this.InitializeRikuModelSwapOptions(ally.CreateListFromList(), enemy.CreateListFromList()));
 
+            // Tag Setting
+            options.ForEach(x => x.Tag = FeatureTagType.Unstable);
+
             return options;
         }
 
         public async Task<List<ButtonTemplate>> InitializeResetModelSwapOptions()
         {
-            // TODO Potentially Expand this to do All, Per World, etc.
             var options = new List<ButtonTemplate>
             {
                 new ButtonTemplate

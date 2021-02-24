@@ -8,6 +8,7 @@ namespace KH2FMCrowdControl.Data
     public class MessageHub : Hub
     {
         public static event MessageHubDelegate OnConnectionStatusChanged;
+        public static event DynamicUIDelegate OnDynamicUIUpdateReceived;
 
         public override Task OnConnectedAsync()
         {
@@ -51,14 +52,24 @@ namespace KH2FMCrowdControl.Data
             return base.OnDisconnectedAsync(exception);
         }
 
+        public void SendDynamicUIResponseMessage(DynamicUIResponse response)
+        {
+            SendDynamicUIResponseMessage(this, new DynamicUIArgs { HostName = response.HostName, Options = response.Options });
+        }
+
         public static void SendConnectionStatusChange(object sender, MessageHubArgs e)
         {
             OnConnectionStatusChanged?.Invoke(sender, e);
         }
 
+        public static void SendDynamicUIResponseMessage(object sender, DynamicUIArgs d)
+        {
+            OnDynamicUIUpdateReceived?.Invoke(sender, d);
+        }
+
         public void SendResponseMessage(Response response)
         {
-            // TODO Either refund or confirm points taken?
+            // Nothing to do here now - ClientCache is updated, so no need to refund or show error
             Console.WriteLine();
         }
 

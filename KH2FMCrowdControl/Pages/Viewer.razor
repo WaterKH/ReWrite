@@ -100,6 +100,7 @@
     protected override async Task OnInitializedAsync()
     {
         TwitchService.OnUserCoinsUpdated += UpdateUserCoins;
+        MessageHub.OnDynamicUIUpdateReceived += UpdateDynamicUI;
 
         await base.OnInitializedAsync();
     }
@@ -136,6 +137,19 @@
 
     protected async Task UpdateUserCoins(object sender, ChangeEventArgs e)
     {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    protected async Task UpdateDynamicUI(object sender, DynamicUIArgs d)
+    {
+        if (d.HostName != this.hostUsername || string.IsNullOrEmpty(d.HostName))
+            return;
+
+        await MemoryService.OptionsClass.SetOptionsVisible(d.HostName, d.Options);
+
         await InvokeAsync(() =>
         {
             base.StateHasChanged();

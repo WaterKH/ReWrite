@@ -14,7 +14,12 @@
         </div>
     </button>
     <br />
-    <div style="text-align: center; padding-left: 15px; padding-right: 15px">@Description</div>
+    <div style="text-align: center; padding-left: 15px; padding-right: 15px">
+        @if (Tag == FeatureTagType.Stable || Tag == FeatureTagType.Unstable)
+        {
+            <span><img title="@Tag" style="width: 2%;" src="images/@(Tag == FeatureTagType.Stable ? "Stable.png" : "Caution.png")" />   </span>
+        }@Description
+    </div>
 </div>
 
 
@@ -31,6 +36,9 @@
 
     [Parameter]
     public string Name { get; set; }
+    
+    [Parameter]
+    public FeatureTagType Tag { get; set; }
 
     [Parameter]
     public string ParentName { get; set; }

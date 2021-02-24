@@ -50,7 +50,7 @@
             <div class="col-3" style="text-align: center;">
                 @if (twitchApi != null && DbContext.Hosts[this.username].IsHosting)
                 {
-                    <button type="button" class="btn btn-outline-info" @onclick="IntermidiateHosting">Pause Hosting</button>
+                    <button type="button" class="btn btn-outline-info" @onclick="IntermediateHosting">Pause Hosting</button>
                     <button type="button" class="btn btn-outline-danger" @onclick="StopHosting">Stop Hosting</button>
                 }
                 else if (twitchApi != null && !DbContext.Hosts[this.username].IsHosting)
@@ -60,7 +60,7 @@
                 }
                 else
                 {
-                    <button type="button" class="btn btn-outline-info" @onclick="IntermidiateHosting">Setup Hosting</button>
+                    <button type="button" class="btn btn-outline-info" @onclick="IntermediateHosting">Setup Hosting</button>
                     <button type="button" class="btn btn-info" @onclick="StartHosting">Start Hosting</button>
                 }
             </div>
@@ -111,14 +111,18 @@
                 <div class="col-2">
                     <b>Points earned per Second:</b>
                 </div>
-                <div class="col-6"></div>
+                <div class="col-2">
+                </div>
+                <div class="col-4">
+                    <b>Stability:</b>
+                </div>
                 <div class="col-2">
                     <b>Upload Options</b>
                 </div>
                 <div class="col-2">
                     <b>Download Options</b>
                 </div>
-                
+
                 <div class="col-3">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Enter Point Amount" @bind-value="pointAmount">
@@ -128,7 +132,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-5"></div>
+                <div class="col-1"></div>
+                <div class="col-4">
+                    <button class="btn btn@(IsStable ? "-primary" : "-outline-primary")" type="button" @onclick="UpdateStability">@(IsStable ? "Stable" : "Unstable")</button>
+                </div>
                 <div class="col-2">
                     <InputFile OnChange="UploadOptionSettings" />
                 </div>
@@ -250,8 +257,8 @@
 </div>
 
 @code {
-        [CascadingParameter]
-        public IModalService Modal { get; set; }
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
 
     #region Private Vars
 
@@ -275,6 +282,8 @@
 
     Dictionary<SubGroupType, string> ExpandCollapseElements;
     private SubGroupType PreviousSubGroupType;
+
+    private bool IsStable = true;
 
     #endregion Private Vars
 
@@ -382,7 +391,7 @@
         });
     }
 
-    private async Task IntermidiateHosting()
+    private async Task IntermediateHosting()
     {
         if (this.connectionStatus.Equals("Connected") && this.connectionId != string.Empty)
         {
@@ -466,12 +475,31 @@
             return;
         }
 
-        // TODO Maybe pass in vars?
         if (twitchApi != null)
             twitchApi.GenerateTimer(username);
 
 
         ToastService.ShowSuccess("Successfully Updated Points per Second!");
+    }
+
+    private async Task UpdateStability()
+    {
+        IsStable = !IsStable;
+
+        if(IsStable)
+        {
+            foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+            {
+                MemoryService.Options[this.username][groupType].Where(x => x.Tag == FeatureTagType.Unstable).ToList().ForEach(x => x.IsActive = false);
+            }
+        }
+        else
+        {
+            foreach (GroupType groupType in Enum.GetValues(typeof(GroupType)))
+            {
+                MemoryService.Options[this.username][groupType].Where(x => x.Tag == FeatureTagType.Unstable).ToList().ForEach(x => x.IsActive = true);
+            }
+        }
     }
 
     protected async Task OnStreamerSelectedAsync()
@@ -643,7 +671,10 @@
 
         if (didUpdate)
         {
-            // TODO Do I need to update the view here?
+            await InvokeAsync(() =>
+            {
+                base.StateHasChanged();
+            });
         }
         else
         {

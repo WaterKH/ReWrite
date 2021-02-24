@@ -68,8 +68,6 @@ namespace KH2FMCrowdControl.Twitch
 
                 var users = JsonSerializer.Deserialize<TwitchChatInfo>(await response.Content.ReadAsStringAsync()).chatters;
 
-                // TODO What if the user navigates to the site without first being added here?
-
                 foreach (var user in users.broadcaster)
                 {
                     if (!UserCoins.ContainsKey(user))

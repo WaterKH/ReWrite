@@ -11,7 +11,7 @@ namespace KH2FMCrowdControl.Data
         {
             var staffs = new List<ButtonTemplate>
             {
-                new ButtonTemplate { Name = Constants.None, Cost = Constants.Cost2000, Value = 75, ManipulationType = ManipulationType.Set, Description = "Equip Mage's Staff to Donald's Weapon Slot", ImageUrl = "" },
+                //new ButtonTemplate { Name = Constants.None, Cost = Constants.Cost2000, Value = 75, ManipulationType = ManipulationType.Set, Description = "Equip Mage's Staff to Donald's Weapon Slot", ImageUrl = "" },
                 new ButtonTemplate { Name = Constants.MagesStaff, Cost = Constants.Cost200, Value = 75, ManipulationType = ManipulationType.Set, Description = "Equip Mage's Staff to Donald's Weapon Slot", ImageUrl = "Items/Give/Staffs/Mages_Staff.png" },
                 new ButtonTemplate { Name = Constants.HammerStaff, Cost = Constants.Cost250, Value = 148, ManipulationType = ManipulationType.Set, Description = "Equip Hammer Staff to Donald's Weapon Slot", ImageUrl = "Items/Give/Staffs/Hammer_Staff.png" },
                 new ButtonTemplate { Name = Constants.VictoryBell, Cost = Constants.Cost250, Value = 149, ManipulationType = ManipulationType.Set, Description = "Equip Victory Bell to Donald's Weapon Slot", ImageUrl = "Items/Give/Staffs/Victory_Bell.png" },
@@ -42,6 +42,7 @@ namespace KH2FMCrowdControl.Data
                     Name = "Equip Staff",
                     Category = GroupType.Party,
                     SubCategory = SubGroupType.Donald,
+                    Tag = FeatureTagType.Unstable,
                     Cost = 0,
                     Description = "Choose which Staff to have Donald Wield",
                     ImageUrl = "Shared/SetStaffDonald.png",

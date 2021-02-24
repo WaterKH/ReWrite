@@ -35,7 +35,6 @@ namespace KH2FMCrowdControl.Data
                     ImageUrl = "Sora/Stats/SetHP.png",
                     SubMethodParams = new List<ButtonTemplate>
                     {
-                        // TODO Calculate our max HP and give max/ half of that
                         new ButtonTemplate { Name = "No HP", Cost = Constants.Cost1000, Value = 0, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current HP to Zero", ImageUrl = "Sora/Stats/SetHP0.png", MethodName = "SendSoraCurrentHPMessage" },
                         new ButtonTemplate { Name = "One HP", Cost = Constants.Cost750, Value = 1, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current HP to One", ImageUrl = "Sora/Stats/SetHP1.png", MethodName = "SendSoraCurrentHPMessage" },
                         new ButtonTemplate { Name = "Half HP", Cost = Constants.Cost500, Value = 128, ManipulationType = ManipulationType.Set, Description = "Set Sora's Current HP to Half", ImageUrl = "Sora/Stats/SetHPHalf.png", MethodName = "SendSoraCurrentHPMessage" },

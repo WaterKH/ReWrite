@@ -27,7 +27,6 @@ namespace KH2FMCrowdControl.Data
                 new ButtonTemplate { Name = Constants.Megalixir, Cost = Constants.Cost500, Value = 244, ManipulationType = ManipulationType.Set, Description = "Set slot to Megalixir Item", ImageUrl = "Items/Give/Items/Megalixir.png" },
             };
 
-            // TODO Match these up with the correct one...
             var options = new List<ButtonTemplate> {
 
                 new ButtonTemplate
